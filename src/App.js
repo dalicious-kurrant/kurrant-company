@@ -14,4 +14,5 @@ export default App;
 
 const AppContainer = styled.div`
   width: 100%;
+  background-color: ${props => props.theme.colors};
 `;

@@ -8,6 +8,7 @@ const Login = () => {
   const initialInput = {id: '', password: ''};
 
   const [input, setInput] = useState(initialInput);
+  const [clickReady, setClickReady] = useState(false);
 
   const handleChange = e => {
     e.preventDefault();
@@ -17,13 +18,17 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log(input);
+    if (input.id && input.password) {
+      setClickReady(true);
+    } else {
+      setClickReady(false);
+    }
   }, [input]);
 
   const handleSubmit = () => {
-    console.log(input);
+    if (!clickReady) return;
 
-    if (false) {
+    if (true) {
       window.confirm(`로그인 성공!`);
       navigate('/main');
       setInput(initialInput);
@@ -34,6 +39,8 @@ const Login = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Title>로그인</Title>
+
       <Input
         type="text"
         required
@@ -50,7 +57,7 @@ const Login = () => {
         placeholder="비밀번호를 입력하세요"
         value={input['password']}
       />
-      <LoginButton>로그인</LoginButton>
+      <LoginButton clickReady={clickReady}>로그인</LoginButton>
     </Form>
   );
 };
@@ -58,19 +65,36 @@ const Login = () => {
 export default Login;
 
 const Form = styled.form`
-  width: 60rem;
-  height: 60rem;
-  border: 1px solid black;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
 
+const Title = styled.span`
+  font-weight: 600;
+  font-size: 2.3rem;
+  margin-bottom: 2rem;
+`;
+
 const Input = styled.input`
   width: 90%;
+  background-color: ${props => props.theme.colors.white};
+  height: 5rem;
+  padding: 0 1.8rem;
+  font-size: 1.6rem;
+  border: 1px solid ${props => props.theme.colors.borderGrey};
+  border-radius: 1.2rem;
+  margin-bottom: 1.2rem;
 `;
 
 const LoginButton = styled.button`
   width: 90%;
+  height: 5rem;
+  border-radius: 1.2rem;
+  color: black;
+  opacity: ${({clickReady}) => {
+    return clickReady ? 1 : 0.35;
+  }};
 `;
