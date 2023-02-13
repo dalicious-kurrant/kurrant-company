@@ -39,6 +39,7 @@ const Navbar = () => {
               name={value.name}
               iconSrc={value.iconSrc}
               selected={value.selected}
+              routeName={value.routeName}
               handleSelected={handleSelected}
             />
           );

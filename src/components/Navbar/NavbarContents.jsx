@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import Image from '../../common/Image';
 
@@ -8,14 +9,18 @@ const NavbarContents = ({
   iconSrc,
   selected,
   handleSelected,
+  routeName,
   ...props
 }) => {
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
 
   const handleClick = e => {
     const {id} = e.currentTarget;
 
     handleSelected(id);
+
+    // navigate(routeName);
   };
 
   return (

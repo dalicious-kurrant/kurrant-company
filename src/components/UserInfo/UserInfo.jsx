@@ -3,8 +3,16 @@ import styled from 'styled-components';
 import KurrantLogo from '../../assets/svg/KurrantLogo.svg';
 
 import DefaultProfileIcon from '../../assets/svg/DefaultProfileIcon.svg';
+import {useNavigate} from 'react-router-dom';
 
 const UserInfo = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // 로그아웃 로직
+    navigate('/');
+  };
+
   return (
     <Container>
       <LogoWrap>
@@ -24,7 +32,7 @@ const UserInfo = () => {
         </NameWrap>
       </ProfileWrap>
 
-      <LogoutButten>로그아웃</LogoutButten>
+      <LogoutButten onClick={handleLogout}>로그아웃</LogoutButten>
     </Container>
   );
 };
