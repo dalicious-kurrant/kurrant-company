@@ -10,11 +10,12 @@ const NavbarContents = ({
   handleSelected,
   ...props
 }) => {
-  const [onHover, setOnHover] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   const handleClick = e => {
-    const {id} = e.target;
-    console.log(id);
+    const {id} = e.currentTarget;
+
+    handleSelected(id);
   };
 
   return (
@@ -22,13 +23,12 @@ const NavbarContents = ({
       {...props}
       selected={selected}
       id={id}
-      onHover={onHover}
       onClick={handleClick}
       onMouseEnter={() => {
-        setOnHover(true);
+        setHovered(true);
       }}
       onMouseLeave={() => {
-        setOnHover(false);
+        setHovered(false);
       }}>
       <Image
         src={iconSrc}
@@ -39,7 +39,7 @@ const NavbarContents = ({
         `}
       />
 
-      <Text>{name}</Text>
+      <Text hovered={hovered}>{name}</Text>
     </Container>
   );
 };
@@ -48,7 +48,7 @@ export default NavbarContents;
 
 const Container = styled.div`
   background-color: ${props =>
-    props.onHover ? props.theme.colors.Grey07 : props.theme.colors.white};
+    props.selected ? props.theme.colors.Grey03 : props.theme.colors.white};
   width: 100%;
   height: 6rem;
   display: flex;
@@ -57,6 +57,7 @@ const Container = styled.div`
 `;
 
 const Text = styled.span`
-  color: ${props => props.theme.colors.Grey07};
+  color: ${props =>
+    props.hovered ? props.theme.colors.Blue02 : props.theme.colors.Grey07};
   font-size: 2rem;
 `;

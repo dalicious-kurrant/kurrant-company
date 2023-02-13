@@ -5,6 +5,7 @@ const colors = {
   Grey03: '#F3F3F3',
   Grey05: '#C8C8D2',
   Grey07: '#90909F',
+  Blue02: '#5f81dd',
 };
 
 const theme = {
