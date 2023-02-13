@@ -1,9 +1,10 @@
 const colors = {
   black: '#000000',
   white: '#ffffff',
-  backgroundGrey: '#F8F8FB',
-  borderGrey: '#C8C8D2',
-  contentGrey: '#F3F3F3',
+  Grey01: '#F8F8FB',
+  Grey03: '#F3F3F3',
+  Grey05: '#C8C8D2',
+  Grey07: '#90909F',
 };
 
 const theme = {

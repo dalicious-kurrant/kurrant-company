@@ -1,10 +1,14 @@
 import styled from 'styled-components';
+import Navbar from '../Navbar/Navbar';
+import UserInfo from '../UserInfo/UserInfo';
 
 const SideBar = () => {
   return (
     <>
       <Container>
-        <div>SideBar</div>;
+        <UserInfo />
+
+        <Navbar />
       </Container>
     </>
   );
@@ -13,7 +17,9 @@ const SideBar = () => {
 export default SideBar;
 
 const Container = styled.div`
-  width: 30rem;
+  width: 27rem;
   height: 100vh;
-  border: 1px solid black;
+
+  display: flex;
+  flex-direction: column;
 `;
