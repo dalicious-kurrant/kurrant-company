@@ -1,5 +1,7 @@
 import Table from 'common/Table/Table';
-import userStatusData from 'data/userStatusData';
+
+import {userStatusData} from 'data/userStatusData';
+
 import styled from 'styled-components';
 
 const UserStatus = () => {
@@ -9,9 +11,8 @@ const UserStatus = () => {
 
       <Table
         tableFieldsInput={[
-          'id',
           'userId',
-          'pwd',
+          'password',
           'name',
           'userType',
           'phone',

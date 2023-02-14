@@ -1,7 +1,9 @@
+import Checkbox from 'common/Checkbox';
+import {userStatusFields} from 'data/userStatusData';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import styled from 'styled-components';
-import {handleFalsyValue} from 'utils/logics';
+import {handleFalsyValue} from 'utils/valueHandlingLogics';
 
 // 이 Table 컴포넌트는 다르다???
 
@@ -25,8 +27,13 @@ const Table = ({tableFieldsInput, tableDataInput}) => {
       <table border={1}>
         <thead>
           <tr>
+            <td>체크박스</td>
             {tableFieldsInput &&
-              tableFieldsInput.map((val, index) => <th key={index}>{val}</th>)}
+              tableFieldsInput.map((val, index) => (
+                <th align="center" key={index}>
+                  {userStatusFields[val]}
+                </th>
+              ))}
           </tr>
         </thead>
         <tbody>
@@ -34,17 +41,20 @@ const Table = ({tableFieldsInput, tableDataInput}) => {
             tableDataInput.map((value1, index1) => {
               // 필드에 없는 값들은 걸러내기
               let yo = [];
-
               tableFieldsInput.forEach((value2, index2) => {
                 if (Object.keys(value1).includes(value2)) {
                   yo.push(value1[value2]);
                 }
               });
-
               return (
                 <tr key={index1}>
+                  <td>
+                    <Checkbox width="2rem" height="2rem" />
+                  </td>
                   {yo.map((value3, index3) => (
-                    <td key={index3}>{handleFalsyValue(value3)}</td>
+                    <td align="center" key={index3}>
+                      {handleFalsyValue(value3)}
+                    </td>
                   ))}
                 </tr>
               );
@@ -57,4 +67,26 @@ const Table = ({tableFieldsInput, tableDataInput}) => {
 
 export default Table;
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+
+  > table {
+    width: 90%;
+  }
+
+  thead {
+    tr {
+      color: red;
+    }
+    th {
+      color: blue;
+    }
+  }
+
+  tbody {
+    tr {
+    }
+    td {
+    }
+  }
+`;

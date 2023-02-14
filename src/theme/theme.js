@@ -4,9 +4,11 @@ const colors = {
   Grey01: '#F8F8FB',
   Grey02: '#F8F8FB',
   Grey03: '#F3F3F3',
+  Grey04: '#D5D5D5',
   Grey05: '#C8C8D2',
   Grey07: '#90909F',
   Blue02: '#5f81dd',
+  Blue04: '#109CF1',
   Purple: '#5A1EFF',
 };
 
