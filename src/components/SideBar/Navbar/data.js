@@ -37,7 +37,7 @@ export const navbarInitialState = [
     routeName: 'current_status',
   },
   {
-    id: 'membership_status',
+    id: 'user_status',
     name: '멤버십/유저 현황',
     iconSrc: Profile2PeopleIcon,
     selected: true,

@@ -20,7 +20,7 @@ const NavbarContents = ({
 
     handleSelected(id);
 
-    // navigate(routeName);
+    navigate(id);
   };
 
   return (

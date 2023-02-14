@@ -1,4 +1,3 @@
-import {Outlet} from 'react-router-dom';
 import styled from 'styled-components';
 import Contents from '../components/Contents/Contents';
 import SideBar from '../components/SideBar/SideBar';
@@ -7,8 +6,8 @@ const MainPage = () => {
   return (
     <Container>
       <SideBar />
-      <Outlet />
-      {/* <Contents /> */}
+
+      <Contents />
     </Container>
   );
 };
