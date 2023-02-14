@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-import KurrantLogo from '../../assets/svg/KurrantLogo.svg';
+import KurrantLogo from 'assets/svg/KurrantLogo.svg';
 
-import DefaultProfileIcon from '../../assets/svg/DefaultProfileIcon.svg';
+import DefaultProfileIcon from 'assets/svg/DefaultProfileIcon.svg';
 import {useNavigate} from 'react-router-dom';
 
-const UserInfo = () => {
+const AdminInfo = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -37,7 +37,7 @@ const UserInfo = () => {
   );
 };
 
-export default UserInfo;
+export default AdminInfo;
 
 const Container = styled.div`
   width: 100%;

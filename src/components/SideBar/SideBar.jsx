@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import Navbar from '../Navbar/Navbar';
-import UserInfo from '../UserInfo/UserInfo';
+import Navbar from './Navbar/Navbar';
+import AdminInfo from './AdminInfo/AdminInfo';
 
 const SideBar = () => {
   return (
     <>
       <Container>
-        <UserInfo />
-
+        <AdminInfo />
         <Navbar />
       </Container>
     </>

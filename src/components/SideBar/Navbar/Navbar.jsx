@@ -5,7 +5,7 @@ import NavbarContents from './NavbarContents';
 // import ApartmentIcon from '../../assets/svg/ApartmentIcon.svg';
 // import Profile2PeopleIcon from '../../assets/svg/Profile2PeopleIcon.svg';
 
-import Image from '../../common/Image';
+import Image from '../../../common/Image';
 import {navbarInitialState} from './data';
 
 const Navbar = () => {
