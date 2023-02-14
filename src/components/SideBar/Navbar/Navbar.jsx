@@ -6,7 +6,7 @@ import NavbarContents from './NavbarContents';
 // import Profile2PeopleIcon from '../../assets/svg/Profile2PeopleIcon.svg';
 
 import Image from '../../../common/Image';
-import {navbarInitialState} from './data';
+import {navbarInitialState} from '../../../data/data';
 
 const Navbar = () => {
   const [selected, setSelected] = useState(navbarInitialState);

@@ -1,10 +1,11 @@
 import {Outlet} from 'react-router-dom';
 import styled from 'styled-components';
+import ContentsHeader from './ContentsHeader/ContentsHeader';
 
 const Contents = () => {
   return (
     <Container>
-      <div>여긴 컨테이너다 </div>
+      <ContentsHeader />
 
       <Outlet />
     </Container>
@@ -15,6 +16,7 @@ export default Contents;
 
 const Container = styled.div`
   flex: 1;
+  padding: 3.6rem 4.8rem;
 
-  background-color: aliceblue;
+  background-color: ${props => props.theme.colors.Grey02};
 `;
