@@ -10,4 +10,6 @@ const NotYetContents = () => {
 
 export default NotYetContents;
 
-const Container = styled.div``;
+const Container = styled.div`
+  font-size: 3rem;
+`;
