@@ -1,4 +1,4 @@
-export const userStatusData = [
+export const userStatusMockData = [
   {
     id: 1,
     userId: '1005jsc',
@@ -27,6 +27,20 @@ export const userStatusData = [
   },
   {
     id: 3,
+    userId: 'fakekoreachief',
+    koko: 'koko',
+    password: '1@',
+    name: '재신조',
+    userType: '평민',
+    phone: '010-3636-1212',
+    email: '123123@naver.com',
+    groupName: '그룹2',
+    point: 0,
+    gourmetType: '아재입맛',
+    isMembership: false,
+  },
+  {
+    id: 3900990,
     userId: 'fakekoreachief',
     koko: 'koko',
     password: '1@',

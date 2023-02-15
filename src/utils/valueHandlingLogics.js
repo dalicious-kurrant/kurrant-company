@@ -15,8 +15,8 @@ export const handleFalsyValue = value => {
 };
 
 export const splitNumberAndUnit = str => {
-  const onlyNumbersArray = str.match(/[0-9]/g);
-  const number = parseInt(str.match(/[0-9]/g)?.join(''));
+  const onlyNumbersArray = str.match(/[0-9/.]/g);
+  const number = parseInt(str.match(/[0-9/.]/g)?.join(''));
 
   let unit = '';
   if (onlyNumbersArray) {

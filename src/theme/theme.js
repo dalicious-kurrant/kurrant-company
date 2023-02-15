@@ -1,5 +1,7 @@
 const colors = {
   black: '#000000',
+  Black02: '#19194E',
+
   white: '#ffffff',
   Grey01: '#F8F8FB',
   Grey02: '#F8F8FB',
@@ -12,7 +14,23 @@ const colors = {
   Purple: '#5A1EFF',
 };
 
+const fonts = {
+  Body08: `font-size: 1.7rem;font-weight: 400; `,
+
+  Body07: `
+
+
+font-size: 1.5rem;
+font-weight: 400;
+line-height: 24px;
+
+`,
+
+  H10: `font-size: 17px;font-weight: 600;line-height: 21px;letter-spacing: 0px;`,
+};
+
 const theme = {
   colors,
+  fonts,
 };
 export default theme;
