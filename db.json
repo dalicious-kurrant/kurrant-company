@@ -1,0 +1,125 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "user-status": [
+    {
+      "id": 1,
+      "userId": "1005jsc",
+      "password": "123@@",
+      "name": "조재신",
+      "userType": "서민",
+      "phone": "010-2952-1190",
+      "email": "1005jsc@naver.com",
+      "groupName": "그룹1",
+      "point": 100,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 2,
+      "userId": "koreachief",
+      "password": "123@@@",
+      "name": "재신조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 3,
+      "userId": "koreach1rief",
+      "password": "123@@@",
+      "name": "재신조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 4,
+      "userId": "koreachief",
+      "password": "123@@@",
+      "name": "재신조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 5,
+      "userId": "koreach1rief",
+      "password": "123@@@",
+      "name": "재신조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 124124,
+      "userId": "korea12rchief",
+      "password": "123@@@",
+      "name": "재신ssss조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 11244,
+      "userId": "korea12rchief",
+      "password": "123@@@",
+      "name": "재신ssss조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 121524,
+      "userId": "korea12rchief",
+      "password": "123@@@",
+      "name": "재신ssss조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    }
+  ]
+}

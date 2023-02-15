@@ -2,35 +2,55 @@ import axios from 'axios';
 import Table from 'common/Table/Table';
 
 import {userStatusFields, userStatusMockData} from 'data/userStatusData';
+import {useState} from 'react';
 import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 
 import styled from 'styled-components';
 
 const UserStatus = () => {
-  // const {
-  //   data: userStatusData,
-  //   status,
-  //   isLoading,
-  // } = useQuery('getTodos', async () => {
-  //   const response = await axios.get(
-  //     `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-  //   );
-  //   return response.data;
-  // });
+  const [page, setPage] = useState([]);
 
-  // useEffect(() => {
-  //   console.log(userStatusData);
-  // }, [userStatusData]);
+  const {
+    data: userStatusData,
+    status,
+    isLoading,
+  } = useQuery(['getUserStatus', page], async ({queryKey}) => {
+    const response = await axios.get(
+      // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
+      `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}?_page=${queryKey[1]}&_limit=2`,
+      // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+    );
+    return response.data;
+  });
 
-  // checkbox 관리하기
+  const handleButtonClick = e => {
+    setPage(e.target.id);
+  };
 
   return (
     <Container>
-      <Table
-        tableFieldsInput={userStatusFields}
-        tableDataInput={userStatusMockData}
-      />
+      <ButtonWrap>
+        <Button id={1} onClick={handleButtonClick}>
+          1
+        </Button>
+        <Button id={2} onClick={handleButtonClick}>
+          2
+        </Button>
+        <Button id={3} onClick={handleButtonClick}>
+          3
+        </Button>
+      </ButtonWrap>
+      {/* {console.log(userStatusDataGet)} */}
+      {/* {!!userStatusDataGet && userStatusDataGet.length !== 0 && ( */}
+      {!!userStatusData && userStatusData.length !== 0 && (
+        <Table
+          tableFieldsInput={userStatusFields}
+          tableDataInput={userStatusData}
+          // tableDataInput={userStatusDataGet}
+          // tableDataInput={userStatusMockData}
+        />
+      )}
     </Container>
   );
 };
@@ -38,3 +58,5 @@ const UserStatus = () => {
 export default UserStatus;
 
 const Container = styled.div``;
+const ButtonWrap = styled.div``;
+const Button = styled.button``;
