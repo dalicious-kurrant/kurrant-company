@@ -2,18 +2,18 @@ import axios from 'axios';
 import DataLimitSelect from 'common/Pagination/Childs/DataLimitSelect';
 import {
   calculatePageButtons,
+  calculatePageMove,
   calculateTotalPages,
 } from 'common/Pagination/Logics/PaginationLogics';
 import Table from 'common/Table/Table';
 
 import {userStatusFields, userStatusMockData} from 'data/userStatusData';
-import {useAtom} from 'jotai';
+
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 
 import styled from 'styled-components';
-import {dataLimitAtom} from './UserStatusStore';
 
 const UserStatus = () => {
   const [page, setPage] = useState(1);
@@ -89,9 +89,20 @@ const UserStatus = () => {
     setPage(e.target.id);
   };
   const handleMove = e => {
-    if (e.target.id === 'move-back') {
-    } else if (e.target.id === 'move-forward') {
-    }
+    setPage(
+      calculatePageMove(
+        e.target.id,
+        page,
+        calculateTotalPages(dataTotalPageCount, dataLimit),
+      ),
+    );
+
+    // if (e.target.id === 'move-back') {
+    //   setPage(calculatePageMove(e.target.id, page, calculateTotalPages(dataTotalPageCount, dataLimit)))
+
+    // } else if (e.target.id === 'move-forward') {
+
+    // }
   };
 
   return (

@@ -42,8 +42,14 @@ export const calculatePageButtons = (pageNow, totalPages) => {
 };
 
 export const calculatePageMove = (direction, page, lastPage) => {
+  if (direction !== 'move-forward' && direction !== 'move-back') {
+    console.log('에러: 함수의 첫번째 파라메타 값이 이상합니다 ');
+    return;
+  }
+
   if (page < 1) {
     console.log('에러: 페이지 수가 1보다 작아서 계산이 안돼요!');
+    return;
   }
 
   if (direction === 'move-forward') {

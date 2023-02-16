@@ -237,6 +237,84 @@
       "point": 0,
       "gourmetType": "아재입맛",
       "isMembership": false
+    },
+    {
+      "id": 11234244,
+      "userId": "korea12rchief",
+      "password": "123@@@",
+      "name": "재신ssveevvess조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 1244,
+      "userId": "여기 마지막",
+      "password": "123@@@",
+      "name": "여기 마지막",
+      "userType": "여기 마지막",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 11234244,
+      "userId": "korea12rchief",
+      "password": "123@@@",
+      "name": "재신ssveevvess조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 1244,
+      "userId": "여기 마지막",
+      "password": "123@@@",
+      "name": "여기 마지막",
+      "userType": "여기 마지막",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 11234244,
+      "userId": "korea12rchief",
+      "password": "123@@@",
+      "name": "재신ssveevvess조",
+      "userType": "평민",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
+      "id": 1244,
+      "userId": "여기 마지막",
+      "password": "123@@@",
+      "name": "여기 마지막",
+      "userType": "여기 마지막",
+      "phone": "010-3636-1212",
+      "email": "123123@naver.com",
+      "groupName": "그룹2",
+      "point": 0,
+      "gourmetType": "아재입맛",
+      "isMembership": false
     }
   ]
 }
