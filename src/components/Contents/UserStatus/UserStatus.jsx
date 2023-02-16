@@ -45,12 +45,25 @@ const UserStatus = () => {
 
   ////////////////////////////////////////////////////////////////////
 
+  const {data: yoyo} = useQuery([`getUserStatussffsfssf`], async () => {
+    const response = await axios.get(
+      // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
+      // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+      `${process.env.REACT_APP_TEST_SERVER_URL}/members?code=AAAAAA`,
+      // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+    );
+
+    console.log(response.data.data);
+    return response.data;
+  });
+
   const {data: dataTotalLength} = useQuery(
     ['getUserStatusLength'],
     async () => {
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
         `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+        // `${process.env.REACT_APP_TEST_SERVER_URL}/members?code=AAAAAA`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
       );
 

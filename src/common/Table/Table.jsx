@@ -137,6 +137,9 @@ const Container = styled.div`
 
   > table {
     width: 100%;
+
+    overflow: auto;
+    white-space: nowrap;
   }
 
   thead {
