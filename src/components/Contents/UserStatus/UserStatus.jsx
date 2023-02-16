@@ -1,6 +1,6 @@
 import axios from 'axios';
 import DataLimitSelect from 'common/Pagination/Childs/DataLimitSelect';
-import {calculatePaginationPages} from 'common/Pagination/Logics/PaginationLogics';
+import {calculateTotalPaginationPages} from 'common/Pagination/Logics/PaginationLogics';
 import Table from 'common/Table/Table';
 
 import {userStatusFields, userStatusMockData} from 'data/userStatusData';
@@ -23,7 +23,7 @@ const UserStatus = () => {
     data: dataButtonPageArray,
     status2,
     isLoading2,
-  } = useQuery(['getUserStatusLength', page, dataLimit], async ({queryKey}) => {
+  } = useQuery(['getUserStatusLength', page, dataLimit], async () => {
     const response = await axios.get(
       // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
       `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
@@ -34,7 +34,7 @@ const UserStatus = () => {
 
       for (
         let i = 1;
-        i <= calculatePaginationPages(response.data.length, dataLimit);
+        i <= calculateTotalPaginationPages(response.data.length, dataLimit);
         i++
       ) {
         yo.push(i);
