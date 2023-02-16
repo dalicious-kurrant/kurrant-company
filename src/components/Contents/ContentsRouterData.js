@@ -73,11 +73,11 @@ export const ContentsRouterData = [
     shortIntroduction: '정산 관리입니다',
   },
   {
-    id: 'company_membership_list',
+    id: 'company_membership',
     name: '기업 가입 리스트',
     iconSrc: AdjustmentManagementIcon,
     selected: false,
-    routeName: 'company_membership_list',
+    routeName: 'company_membership',
     shortIntroduction: '기업 가입 리스트입니다',
   },
 ];
