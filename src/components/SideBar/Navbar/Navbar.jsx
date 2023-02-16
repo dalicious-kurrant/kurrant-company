@@ -2,14 +2,12 @@ import {useState} from 'react';
 import styled from 'styled-components';
 import NavbarContents from './NavbarContents';
 
-// import ApartmentIcon from '../../assets/svg/ApartmentIcon.svg';
-// import Profile2PeopleIcon from '../../assets/svg/Profile2PeopleIcon.svg';
-
-import Image from '../../../common/Image';
-import {navbarInitialState} from '../../../data/navbarData';
+import {ContentsRouterData} from '../../Contents/ContentsRouterData';
+import {useAtom} from 'jotai';
+import {contentSelectedAtom} from 'jotai/state';
 
 const Navbar = () => {
-  const [selected, setSelected] = useState(navbarInitialState);
+  const [selected, setSelected] = useAtom(contentSelectedAtom);
 
   const handleSelected = id => {
     const array1 = [...selected];

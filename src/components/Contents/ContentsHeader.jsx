@@ -1,15 +1,31 @@
+import {useAtom} from 'jotai';
+import {contentSelectedAtom} from 'jotai/state';
+import {useEffect} from 'react';
+import {useState} from 'react';
+
 import styled from 'styled-components';
 
 const ContentsHeader = () => {
+  const [content, setContent] = useState({name: '', shortIntroduction: ''});
+
+  const [selected] = useAtom(contentSelectedAtom);
+
+  useEffect(() => {
+    selected.forEach(value => {
+      if (value.selected) {
+        setContent({
+          name: value.name,
+          shortIntroduction: value.shortIntroduction,
+        });
+        return;
+      }
+    });
+  }, [selected]);
+
   return (
     <Container>
-      <TitleH1>맴버십/유저 현황</TitleH1>
-      <ExplanationSpan>멤버십 부가 설명란입니다.</ExplanationSpan>
-
-      {/* <CalendarWrap>
-        <FakeCalendarBox />
-        <ThisMonthBtn />
-      </CalendarWrap> */}
+      <TitleH1>{content.name}</TitleH1>
+      <ExplanationSpan>{content.shortIntroduction}</ExplanationSpan>
     </Container>
   );
 };
