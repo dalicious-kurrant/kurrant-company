@@ -13,8 +13,8 @@ import styled from 'styled-components';
 import {dataLimitAtom} from './UserStatusStore';
 
 const UserStatus = () => {
-  const [page, setPage] = useState([]);
-  // const [dataLimit, setDataLimit] = useState(1);
+  const [page, setPage] = useState(1);
+
   const [dataLimit, setDataLimit] = useAtom(dataLimitAtom);
 
   // userStatusData 총 개수만 받기
@@ -83,8 +83,18 @@ const UserStatus = () => {
     <Container>
       <ButtonWrap>
         {dataButtonPageArray.map((value, index) => {
+          let selected = false;
+
+          if (value == page) {
+            selected = true;
+          }
+
           return (
-            <Button key={index} id={value} onClick={handleButtonClick}>
+            <Button
+              key={index}
+              selected={selected}
+              id={value}
+              onClick={handleButtonClick}>
               {value}
             </Button>
           );
@@ -113,4 +123,7 @@ export default UserStatus;
 
 const Container = styled.div``;
 const ButtonWrap = styled.div``;
-const Button = styled.button``;
+const Button = styled.button`
+  color: ${props =>
+    props.selected ? props.theme.colors.Blue04 : props.theme.colors.black};
+`;

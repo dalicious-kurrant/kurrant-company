@@ -6,7 +6,7 @@ const DataLimitSelect = ({currentValue, setDataLimit, options}) => {
     // console.log(value);
     setDataLimit(value);
   };
-  console.log(currentValue);
+
   return (
     <Form>
       {/* <Label>데이터 수</Label> */}
