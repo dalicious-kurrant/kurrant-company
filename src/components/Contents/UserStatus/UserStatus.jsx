@@ -1,6 +1,6 @@
 import axios from 'axios';
 import DataLimitSelect from 'common/Pagination/Childs/DataLimitSelect';
-import {calculateTotalPaginationPages} from 'common/Pagination/Logics/PaginationLogics';
+import {calculateTotalPages} from 'common/Pagination/Logics/PaginationLogics';
 import Table from 'common/Table/Table';
 
 import {userStatusFields, userStatusMockData} from 'data/userStatusData';
@@ -16,6 +16,8 @@ const UserStatus = () => {
   const [page, setPage] = useState(1);
 
   const [dataLimit, setDataLimit] = useAtom(dataLimitAtom);
+
+  // const
 
   // userStatusData 총 개수만 받기
 
@@ -34,7 +36,7 @@ const UserStatus = () => {
 
       for (
         let i = 1;
-        i <= calculateTotalPaginationPages(response.data.length, dataLimit);
+        i <= calculateTotalPages(response.data.length, dataLimit);
         i++
       ) {
         yo.push(i);
@@ -45,6 +47,8 @@ const UserStatus = () => {
       return [];
     }
   });
+
+  // 폐이지네이션 계산하기
 
   const {
     data: userStatusData,
