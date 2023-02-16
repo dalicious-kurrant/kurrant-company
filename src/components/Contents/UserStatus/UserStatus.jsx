@@ -1,48 +1,63 @@
 import axios from 'axios';
 import DataLimitSelect from 'common/Pagination/Childs/DataLimitSelect';
 import {
-  calculatePageButtons,
   calculatePageMove,
   calculateTotalPages,
 } from 'common/Pagination/Logics/PaginationLogics';
+import Pagination from 'common/Pagination/Pagination';
+import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
 
-import {userStatusFields, userStatusMockData} from 'data/userStatusData';
+import {userStatusFields} from 'data/userStatusData';
 
-import {useState} from 'react';
-import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 
 import styled from 'styled-components';
 
 const UserStatus = () => {
-  const [page, setPage] = useState(1);
+  ////////////////////////////////////////////////////////////////////
+  // pagination 쓰는 법
 
-  // const [dataLimit, setDataLimit] = useAtom(dataLimitAtom);
-  const [dataLimit, setDataLimit] = useState(1);
+  // pagination위치: src/common/Pagination의 Pagination.jsx와 usePagination.jsx를 가져다 쓰면 됩니다
 
-  // const
+  // 필요한 데이터 딱 두가지
 
-  // userStatusData 총 개수만 받기
+  // 1. paginate된 데이터(dataList)
+  //      -  현재 페이지는 'page', 페이지 당 보여주는 데이터 수 는 'dataLimit'로 paginate시켰습니다.
+  // 2. 받아오는 데이터 총 개수(dataTotalLength)
+
+  // 이상입니다
+
+  // 질문은 슬랙으로~~
+
+  ////////////////////////////////////////////////////////////////////
+
+  const {data: dataTotalLength} = useQuery(
+    ['getUserStatusLength'],
+    async () => {
+      const response = await axios.get(
+        // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
+        `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+      );
+
+      return response.data.length;
+    },
+  );
 
   const {
-    data: dataTotalPageCount,
-    status2,
-    isLoading2,
-  } = useQuery(['getUserStatusLength'], async () => {
-    const response = await axios.get(
-      // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-      `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-      // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-    );
-
-    return response.data.length;
-  });
-
-  // 폐이지네이션 계산하기
+    page,
+    setPage,
+    dataLimit,
+    setDataLimit,
+    pageList,
+    handleButtonClick,
+    handleGoToEdge,
+    handleMove,
+  } = usePagination(dataTotalLength);
 
   const {
-    data: userStatusData,
+    data: dataList,
     status,
     isLoading,
   } = useQuery(['getUserStatus', page, dataLimit], async ({queryKey}) => {
@@ -53,21 +68,6 @@ const UserStatus = () => {
     );
     return response.data;
   });
-
-  const [pageList, setPageList] = useState([]);
-
-  useEffect(() => {
-    setPageList(
-      calculatePageButtons(
-        page,
-        calculateTotalPages(dataTotalPageCount, dataLimit),
-      ),
-    );
-  }, [page, dataTotalPageCount, dataLimit]);
-
-  const handleButtonClick = e => {
-    setPage(e.target.id);
-  };
 
   if (isLoading)
     return (
@@ -85,81 +85,22 @@ const UserStatus = () => {
       </div>
     );
 
-  const handleGoToEdge = e => {
-    setPage(e.target.id);
-  };
-  const handleMove = e => {
-    setPage(
-      calculatePageMove(
-        e.target.id,
-        page,
-        calculateTotalPages(dataTotalPageCount, dataLimit),
-      ),
-    );
-
-    // if (e.target.id === 'move-back') {
-    //   setPage(calculatePageMove(e.target.id, page, calculateTotalPages(dataTotalPageCount, dataLimit)))
-
-    // } else if (e.target.id === 'move-forward') {
-
-    // }
-  };
-
   return (
     <Container>
-      <ButtonWrap>
-        <button id={1} onClick={handleGoToEdge}>
-          {'<<'}
-        </button>
-        <button id="move-back" onClick={handleMove}>
-          {'<'}
-        </button>
-
-        {Array.isArray(pageList) &&
-          !!pageList.length &&
-          pageList.map((value, index) => {
-            let selected = false;
-
-            if (value == page) {
-              selected = true;
-            }
-
-            return (
-              <Button
-                key={index}
-                selected={selected}
-                id={value}
-                onClick={handleButtonClick}>
-                {value}
-              </Button>
-            );
-          })}
-
-        <button id="move-forward" onClick={handleMove}>
-          {'>'}
-        </button>
-
-        <button
-          id={calculateTotalPages(dataTotalPageCount, dataLimit)}
-          onClick={handleGoToEdge}>
-          {'>>'}
-        </button>
-      </ButtonWrap>
-
-      <DataLimitSelect
-        currentValue={dataLimit}
-        setDataLimit={setDataLimit}
+      <Pagination
+        dataTotalLength={dataTotalLength}
+        page={page}
         setPage={setPage}
-        options={[1, 2, 4, 10]}
+        dataLimit={dataLimit}
+        setDataLimit={setDataLimit}
+        pageList={pageList}
+        handleButtonClick={handleButtonClick}
+        handleGoToEdge={handleGoToEdge}
+        handleMove={handleMove}
       />
 
-      {!!userStatusData && userStatusData.length !== 0 && (
-        <Table
-          tableFieldsInput={userStatusFields}
-          tableDataInput={userStatusData}
-          // tableDataInput={userStatusDataGet}
-          // tableDataInput={userStatusMockData}
-        />
+      {!!dataList && dataList.length !== 0 && (
+        <Table tableFieldsInput={userStatusFields} tableDataInput={dataList} />
       )}
     </Container>
   );
@@ -168,8 +109,3 @@ const UserStatus = () => {
 export default UserStatus;
 
 const Container = styled.div``;
-const ButtonWrap = styled.div``;
-const Button = styled.button`
-  color: ${props =>
-    props.selected ? props.theme.colors.Blue04 : props.theme.colors.black};
-`;
