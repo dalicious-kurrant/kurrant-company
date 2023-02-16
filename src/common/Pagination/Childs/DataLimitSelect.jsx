@@ -30,9 +30,16 @@ const DataLimitSelect = ({currentValue, setDataLimit, options, setPage}) => {
 export default DataLimitSelect;
 
 const Form = styled.form``;
-const Label = styled.label``;
-const Select = styled.select``;
-const Option = styled.option``;
+const Select = styled.select`
+  font-size: 1.6rem;
+  margin-right: 0.6rem;
+`;
+const Option = styled.option`
+  font-size: 1.6rem;
+`;
+const Label = styled.label`
+  font-size: 1.6rem;
+`;
 const PlaceholderOption = styled(Option)`
   color: ${props => props.theme.colors.Gray05};
 `;

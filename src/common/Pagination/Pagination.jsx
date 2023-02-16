@@ -17,15 +17,13 @@ const Pagination = ({
 }) => {
   return (
     <Container>
-      <div>재사용 가능한 Pagination</div>
-
       <ButtonWrap>
-        <button id={1} onClick={handleGoToEdge}>
+        <Button id={1} onClick={handleGoToEdge}>
           {'<<'}
-        </button>
-        <button id="move-back" onClick={handleMove}>
+        </Button>
+        <Button id="move-back" onClick={handleMove}>
           {'<'}
-        </button>
+        </Button>
 
         {Array.isArray(pageList) &&
           !!pageList.length &&
@@ -47,33 +45,53 @@ const Pagination = ({
             );
           })}
 
-        <button id="move-forward" onClick={handleMove}>
+        <Button id="move-forward" onClick={handleMove}>
           {'>'}
-        </button>
+        </Button>
 
-        <button
+        <Button
           id={calculateTotalPages(dataTotalLength, dataLimit)}
           onClick={handleGoToEdge}>
           {'>>'}
-        </button>
+        </Button>
       </ButtonWrap>
-
-      <DataLimitSelect
-        currentValue={dataLimit}
-        setDataLimit={setDataLimit}
-        setPage={setPage}
-        options={[1, 2, 4, 10]}
-      />
+      <Wrap>
+        <DataLimitSelect
+          currentValue={dataLimit}
+          setDataLimit={setDataLimit}
+          setPage={setPage}
+          options={[1, 2, 4, 10]}
+        />
+      </Wrap>
     </Container>
   );
 };
 
 export default Pagination;
 
-const Container = styled.div``;
+const Container = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  height: 4rem;
+  align-items: center;
+  position: relative;
 
-const ButtonWrap = styled.div``;
+  margin-bottom: 2rem;
+`;
+
+const ButtonWrap = styled.div`
+  > button {
+    background-color: transparent;
+  }
+`;
 const Button = styled.button`
   color: ${props =>
     props.selected ? props.theme.colors.Blue04 : props.theme.colors.black};
+  font-size: 1.8rem;
+`;
+
+const Wrap = styled.div`
+  position: absolute;
+  right: 2rem;
 `;
