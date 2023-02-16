@@ -14,6 +14,7 @@ const Pagination = ({
   handleButtonClick,
   handleGoToEdge,
   handleMove,
+  selectOptionArray,
 }) => {
   return (
     <Container>
@@ -60,7 +61,7 @@ const Pagination = ({
           currentValue={dataLimit}
           setDataLimit={setDataLimit}
           setPage={setPage}
-          options={[1, 2, 4, 10]}
+          options={selectOptionArray}
         />
       </Wrap>
     </Container>
