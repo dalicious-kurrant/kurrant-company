@@ -17,6 +17,54 @@
     "name": "typicode"
   },
 
+  "company-membership": [
+    {
+      "id": 1,
+      "userId": "아이디여~",
+      "groupId": "g그룹 아이디여~",
+      "groupName": "그룹이름이여~~",
+      "employeeEmail": "이메일이여~~",
+      "employeeName": "직원이름이여~~",
+      "employeePhone": "전화번호여~~~"
+    },
+    {
+      "id": 2,
+      "userId": "아이디여~",
+      "groupId": "g그룹 아이디여~",
+      "groupName": "그룹이름이여~~",
+      "employeeEmail": "이메일이여~~",
+      "employeeName": "직원이름이여~~",
+      "employeePhone": "전화번호여~~~"
+    },
+    {
+      "id": 3,
+      "userId": "아이디여~",
+      "groupId": "g그룹 아이디여~",
+      "groupName": "그룹이름이여~~",
+      "employeeEmail": "이메일이여~~",
+      "employeeName": "직원이름이여~~",
+      "employeePhone": "전화번호여~~~"
+    },
+    {
+      "id": 4,
+      "userId": "아이디여~",
+      "groupId": "g그룹 아이디여~",
+      "groupName": "그룹이름이여~~",
+      "employeeEmail": "이메일이여~~",
+      "employeeName": "직원이름이여~~",
+      "employeePhone": "전화번호여~~~"
+    },
+    {
+      "id": 5,
+      "userId": "아이디여~",
+      "groupId": "g그룹 아이디여~",
+      "groupName": "그룹이름이여~~",
+      "employeeEmail": "이메일이여~~",
+      "employeeName": "직원이름이여~~",
+      "employeePhone": "전화번호여~~~"
+    }
+  ],
+
   "user-status": [
     {
       "id": 1,
