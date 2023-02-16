@@ -8,7 +8,7 @@ import Pagination from 'common/Pagination/Pagination';
 import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
 
-import {userStatusFields} from 'data/userStatusData';
+import {userStatusFields} from 'components/Contents/UserStatus/userStatusData';
 
 import {useQuery} from 'react-query';
 

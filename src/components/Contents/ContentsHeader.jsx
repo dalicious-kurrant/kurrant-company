@@ -26,11 +26,6 @@ const ContentsHeader = () => {
     <Container>
       <TitleH1>{content.name}</TitleH1>
       <ExplanationSpan>{content.shortIntroduction}</ExplanationSpan>
-
-      {/* <CalendarWrap>
-        <FakeCalendarBox />
-        <ThisMonthBtn />
-      </CalendarWrap> */}
     </Container>
   );
 };
