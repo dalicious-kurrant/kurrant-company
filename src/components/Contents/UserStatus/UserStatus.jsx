@@ -1,17 +1,51 @@
 import axios from 'axios';
-import DataLimitSelect from 'common/Pagination/DataLimitSelect';
+import DataLimitSelect from 'common/Pagination/Childs/DataLimitSelect';
+import {calculatePaginationPages} from 'common/Pagination/Logics/PaginationLogics';
 import Table from 'common/Table/Table';
 
 import {userStatusFields, userStatusMockData} from 'data/userStatusData';
+import {useAtom} from 'jotai';
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 
 import styled from 'styled-components';
+import {dataLimitAtom} from './UserStatusStore';
 
 const UserStatus = () => {
   const [page, setPage] = useState([]);
-  const [dataLimit, setDataLimit] = useState(1);
+  // const [dataLimit, setDataLimit] = useState(1);
+  const [dataLimit, setDataLimit] = useAtom(dataLimitAtom);
+
+  // userStatusData 총 개수만 받기
+
+  const {
+    data: dataButtonPageArray,
+    status2,
+    isLoading2,
+  } = useQuery(['getUserStatusLength', page, dataLimit], async ({queryKey}) => {
+    const response = await axios.get(
+      // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
+      `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+      // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+    );
+    if (response.data) {
+      let yo = [];
+
+      for (
+        let i = 1;
+        i <= calculatePaginationPages(response.data.length, dataLimit);
+        i++
+      ) {
+        yo.push(i);
+      }
+
+      return yo;
+    } else {
+      return [];
+    }
+  });
+
   const {
     data: userStatusData,
     status,
@@ -37,26 +71,32 @@ const UserStatus = () => {
       </>
     );
 
-  if (status === 'error') return <div>에러가 났습니다 ㅠㅠ</div>;
+  if (status === 'error')
+    return (
+      <div>
+        에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
+        있어요
+      </div>
+    );
 
   return (
     <Container>
       <ButtonWrap>
-        <Button id={1} onClick={handleButtonClick}>
-          1
-        </Button>
-        <Button id={2} onClick={handleButtonClick}>
-          2
-        </Button>
-        <Button id={3} onClick={handleButtonClick}>
-          3
-        </Button>
+        {dataButtonPageArray.map((value, index) => {
+          return (
+            <Button key={index} id={value} onClick={handleButtonClick}>
+              {value}
+            </Button>
+          );
+        })}
       </ButtonWrap>
 
-      <DataLimitSelect setDataLimit={setDataLimit} options={[1, 2, 4]} />
+      <DataLimitSelect
+        currentValue={dataLimit}
+        setDataLimit={setDataLimit}
+        options={[1, 2, 4, 10]}
+      />
 
-      {/* {console.log(userStatusDataGet)} */}
-      {/* {!!userStatusDataGet && userStatusDataGet.length !== 0 && ( */}
       {!!userStatusData && userStatusData.length !== 0 && (
         <Table
           tableFieldsInput={userStatusFields}

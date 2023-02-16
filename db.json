@@ -31,6 +31,19 @@
       "isMembership": false
     },
     {
+      "id": 1.2,
+      "userId": "1005jssdfc",
+      "password": "123@@sdf",
+      "name": "조재신sdf",
+      "userType": "서민sdf",
+      "phone": "010-2952-1190",
+      "email": "1005jsc@naver.com",
+      "groupName": "그룹1",
+      "point": 100,
+      "gourmetType": "아재입맛",
+      "isMembership": false
+    },
+    {
       "id": 2,
       "userId": "koreachief",
       "password": "123@@@",
