@@ -1,6 +1,9 @@
 import axios from 'axios';
 import DataLimitSelect from 'common/Pagination/Childs/DataLimitSelect';
-import {calculateTotalPages} from 'common/Pagination/Logics/PaginationLogics';
+import {
+  calculatePageButtons,
+  calculateTotalPages,
+} from 'common/Pagination/Logics/PaginationLogics';
 import Table from 'common/Table/Table';
 
 import {userStatusFields, userStatusMockData} from 'data/userStatusData';
@@ -15,37 +18,25 @@ import {dataLimitAtom} from './UserStatusStore';
 const UserStatus = () => {
   const [page, setPage] = useState(1);
 
-  const [dataLimit, setDataLimit] = useAtom(dataLimitAtom);
+  // const [dataLimit, setDataLimit] = useAtom(dataLimitAtom);
+  const [dataLimit, setDataLimit] = useState(1);
 
   // const
 
   // userStatusData 총 개수만 받기
 
   const {
-    data: dataButtonPageArray,
+    data: dataTotalPageCount,
     status2,
     isLoading2,
-  } = useQuery(['getUserStatusLength', page, dataLimit], async () => {
+  } = useQuery(['getUserStatusLength'], async () => {
     const response = await axios.get(
       // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
       `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
       // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
     );
-    if (response.data) {
-      let yo = [];
 
-      for (
-        let i = 1;
-        i <= calculateTotalPages(response.data.length, dataLimit);
-        i++
-      ) {
-        yo.push(i);
-      }
-
-      return yo;
-    } else {
-      return [];
-    }
+    return response.data.length;
   });
 
   // 폐이지네이션 계산하기
@@ -62,6 +53,17 @@ const UserStatus = () => {
     );
     return response.data;
   });
+
+  const [pageList, setPageList] = useState([]);
+
+  useEffect(() => {
+    setPageList(
+      calculatePageButtons(
+        page,
+        calculateTotalPages(dataTotalPageCount, dataLimit),
+      ),
+    );
+  }, [page, dataTotalPageCount, dataLimit]);
 
   const handleButtonClick = e => {
     setPage(e.target.id);
@@ -83,31 +85,60 @@ const UserStatus = () => {
       </div>
     );
 
+  const handleGoToEdge = e => {
+    setPage(e.target.id);
+  };
+  const handleMove = e => {
+    if (e.target.id === 'move-back') {
+    } else if (e.target.id === 'move-forward') {
+    }
+  };
+
   return (
     <Container>
       <ButtonWrap>
-        {dataButtonPageArray.map((value, index) => {
-          let selected = false;
+        <button id={1} onClick={handleGoToEdge}>
+          {'<<'}
+        </button>
+        <button id="move-back" onClick={handleMove}>
+          {'<'}
+        </button>
 
-          if (value == page) {
-            selected = true;
-          }
+        {Array.isArray(pageList) &&
+          !!pageList.length &&
+          pageList.map((value, index) => {
+            let selected = false;
 
-          return (
-            <Button
-              key={index}
-              selected={selected}
-              id={value}
-              onClick={handleButtonClick}>
-              {value}
-            </Button>
-          );
-        })}
+            if (value == page) {
+              selected = true;
+            }
+
+            return (
+              <Button
+                key={index}
+                selected={selected}
+                id={value}
+                onClick={handleButtonClick}>
+                {value}
+              </Button>
+            );
+          })}
+
+        <button id="move-forward" onClick={handleMove}>
+          {'>'}
+        </button>
+
+        <button
+          id={calculateTotalPages(dataTotalPageCount, dataLimit)}
+          onClick={handleGoToEdge}>
+          {'>>'}
+        </button>
       </ButtonWrap>
 
       <DataLimitSelect
         currentValue={dataLimit}
         setDataLimit={setDataLimit}
+        setPage={setPage}
         options={[1, 2, 4, 10]}
       />
 

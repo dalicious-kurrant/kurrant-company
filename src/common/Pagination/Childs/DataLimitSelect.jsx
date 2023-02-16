@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-const DataLimitSelect = ({currentValue, setDataLimit, options}) => {
+const DataLimitSelect = ({currentValue, setDataLimit, options, setPage}) => {
   const handleChange = e => {
     const value = e.target.value;
     // console.log(value);
     setDataLimit(value);
+
+    setPage(1);
   };
 
   return (

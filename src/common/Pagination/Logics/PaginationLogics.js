@@ -1,5 +1,11 @@
 export const calculateTotalPages = (dataLength, limit) => {
-  const buttonCount = Math.floor(dataLength / limit) + 1;
+  let buttonCount;
+
+  if (dataLength / limit - Math.floor(dataLength / limit) === 0) {
+    buttonCount = Math.floor(dataLength / limit);
+  } else {
+    buttonCount = Math.floor(dataLength / limit) + 1;
+  }
 
   return buttonCount;
 };
@@ -29,5 +35,33 @@ export const calculatePageButtons = (pageNow, totalPages) => {
     yo.push(k);
   }
 
+  // console.log(`pageNow: ` + pageNow);
+  // console.log(`totalPages: ` + totalPages);
+
   return yo;
+};
+
+export const calculatePageMove = (direction, page, lastPage) => {
+  if (page < 1) {
+    console.log('에러: 페이지 수가 1보다 작아서 계산이 안돼요!');
+  }
+
+  if (direction === 'move-forward') {
+    const tens = Math.floor((page - 1) / 10);
+    const result = (tens + 1) * 10 + 1;
+    if (result > lastPage) {
+      return lastPage;
+    } else {
+      return result;
+    }
+  } else if (direction === 'move-back') {
+    const tens = Math.floor((page - 1) / 10);
+    const result = tens * 10;
+
+    if (result < 1) {
+      return 1;
+    } else {
+      return result;
+    }
+  }
 };
