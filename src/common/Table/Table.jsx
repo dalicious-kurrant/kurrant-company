@@ -1,10 +1,12 @@
 import TableCheckbox from 'common/TableCheckbox';
 import {userStatusFields} from 'components/Contents/UserStatus/userStatusData';
+import {useAtom} from 'jotai';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import styled from 'styled-components';
 import theme from 'theme/theme';
 import {handleFalsyValue} from 'utils/valueHandlingLogics';
+import {TableCheckboxStatusAtom} from './store';
 
 // 이 Table 컴포넌트는 다르다???
 
@@ -16,7 +18,8 @@ const Table = ({tableFieldsInput, tableDataInput}) => {
 
   const [keyOfTableFieldsInput, setKeyOfTableFieldsInput] = useState([]);
 
-  const [checkboxStatus, setCheckboxStatus] = useState({});
+  // const [checkboxStatus, setCheckboxStatus] = useState({});
+  const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
 
   useEffect(() => {
     setKeyOfTableFieldsInput(Object.keys(tableFieldsInput));

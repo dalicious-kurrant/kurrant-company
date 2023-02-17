@@ -18,7 +18,7 @@
   },
   "company-membership": [
     {
-      "id": 1,
+      "id": 1124,
       "userId": "아이디여~",
       "groupId": "g그룹 아이디여~",
       "groupName": "그룹이름이여~~",
@@ -27,7 +27,7 @@
       "employeePhone": "전화번호여~~~"
     },
     {
-      "id": 2,
+      "id": 21243,
       "userId": "아이디여~",
       "groupId": "g그룹 아이디여~",
       "groupName": "그룹이름이여~~",
@@ -36,8 +36,8 @@
       "employeePhone": "전화번호여~~~"
     },
     {
-      "id": 3,
-      "userId": "아이디여~",
+      "id": 3125152125,
+      "userId": "바꾸기",
       "groupId": "g그룹 아이디여~",
       "groupName": "그룹이름이여~~",
       "employeeEmail": "이메일이여~~",
@@ -46,7 +46,7 @@
     },
     {
       "id": 4,
-      "userId": "아이디여~",
+      "userId": "오에~",
       "groupId": "g그룹 아이디여~",
       "groupName": "그룹이름이여~~",
       "employeeEmail": "이메일이여~~",
@@ -79,6 +79,24 @@
       "employeeName": "sdf",
       "employeePhone": "sdf",
       "id": 7
+    },
+    {
+      "userId": "sdf",
+      "groupId": "sdf",
+      "groupName": "sdf",
+      "employeeEmail": "sd",
+      "employeeName": "sd",
+      "employeePhone": "dsf",
+      "id": 8
+    },
+    {
+      "userId": "sdg",
+      "groupId": "dsg",
+      "groupName": "sdg",
+      "employeeEmail": "dgs",
+      "employeeName": "sdg",
+      "employeePhone": "sdg",
+      "id": 9
     }
   ],
   "user-status": [

@@ -1,8 +1,25 @@
+import {useEffect} from 'react';
 import {useState} from 'react';
 import styled from 'styled-components';
 import TextInput from './TextInput';
 
-const Register = ({submitMutate}) => {
+const Register = ({
+  status,
+  submitMutate,
+  handleClose,
+  dataToEdit,
+  editMutate,
+}) => {
+  //   const [registerStatus, setRegisterStatus] = useState('register');
+
+  useEffect(() => {
+    // if (status) setRegisterStatus(status);
+
+    if (status === 'edit') {
+      setInput(dataToEdit);
+    }
+  }, [status]);
+
   const [input, setInput] = useState({
     userId: '',
     groupId: '',
@@ -15,10 +32,17 @@ const Register = ({submitMutate}) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    console.log(input);
-
     // 서버에 보내기
-    submitMutate(input);
+
+    // 가입
+
+    if (status === 'register') {
+      submitMutate(input);
+    } else if (status === 'edit') {
+      editMutate(input);
+
+      handleClose();
+    }
 
     setInput({
       userId: '',
@@ -30,9 +54,18 @@ const Register = ({submitMutate}) => {
     });
   };
 
+  const handleCloseBtn = () => {
+    handleClose();
+  };
+
   return (
     <Container>
-      <H2>가입 리스트에 추가하기</H2>
+      <TitleButtonWrap>
+        <H2>
+          가입 리스트{status === 'register' ? '에 추가하기' : ' 수정하기'}
+        </H2>
+        <button onClick={handleCloseBtn}> 닫기 </button>
+      </TitleButtonWrap>
 
       <Form onSubmit={handleSubmit}>
         <InputWrap>
@@ -80,7 +113,9 @@ const Register = ({submitMutate}) => {
           />
         </InputWrap>
 
-        <SubmitButton>추가하기</SubmitButton>
+        <SubmitButton>
+          {status === 'register' ? '추가' : ' 수정'}하기
+        </SubmitButton>
       </Form>
     </Container>
   );
@@ -100,6 +135,12 @@ const H2 = styled.h2`
   font-size: 2rem;
 
   margin-bottom: 1rem;
+`;
+const TitleButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  padding: 1rem 1rem;
 `;
 
 const Wrap = styled.div``;

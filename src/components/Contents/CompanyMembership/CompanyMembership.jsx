@@ -2,7 +2,10 @@ import axios from 'axios';
 import Pagination from 'common/Pagination/Pagination';
 import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
+import {useAtom} from 'jotai';
+import {getCompanyMembershipDataListAtom} from 'jotai/state';
 import React from 'react';
+import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import {
@@ -52,6 +55,15 @@ const CompanyMembership = ({}) => {
       return response.data;
     },
   );
+
+  //sdfsdf
+  const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
+    getCompanyMembershipDataListAtom,
+  );
+
+  useEffect(() => {
+    setCompanyMembershipDataList(dataList);
+  }, [dataList]);
 
   if (isLoading)
     return (

@@ -1,3 +1,4 @@
+import instance from 'apis/axiosConfig';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -5,7 +6,7 @@ import styled from 'styled-components';
 
 const Login = () => {
   const navigate = useNavigate();
-  const initialInput = {id: '', password: ''};
+  const initialInput = {code: '', password: ''};
 
   const [input, setInput] = useState(initialInput);
   const [clickReady, setClickReady] = useState(false);
@@ -18,22 +19,41 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (input.id && input.password) {
+    if (input.code && input.password) {
       setClickReady(true);
     } else {
       setClickReady(false);
     }
   }, [input]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async e => {
+    e.preventDefault();
     if (!clickReady) return;
 
-    if (true) {
-      window.confirm(`로그인 성공!`);
-      navigate('/main');
-      setInput(initialInput);
-    } else {
+    // if (true) {
+
+    //   navigate('/main');
+
+    // } else {
+
+    // }
+
+    try {
+      const res = await instance.post('auth/login', input);
+      console.log(res);
+      if (res.statusCode === 200) {
+        const accessToken = res.data.accessToken;
+        localStorage.setItem('token', accessToken);
+        window.confirm(`로그인 성공!`);
+        navigate('/main');
+        setInput(initialInput);
+        // window.location.reload();
+      }
+    } catch (err) {
       window.confirm(`로그인 실패, 그룹 인증코드와 비번을 확인하세요`);
+      if (err.response.status === 401) {
+        // setLoginCheck(true);
+      }
     }
   };
 
@@ -44,10 +64,10 @@ const Login = () => {
       <Input
         type="text"
         required
-        id="id"
+        id="code"
         onChange={handleChange}
         placeholder="그룹 인증코드를 입력하세요"
-        value={input['id']}
+        value={input['code']}
       />
       <Input
         type="password"
