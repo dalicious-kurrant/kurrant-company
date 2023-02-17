@@ -45,24 +45,24 @@ const UserStatus = () => {
 
   ////////////////////////////////////////////////////////////////////
 
-  const {data: yoyo} = useQuery([`getUserStatussffsfssf`], async () => {
-    const response = await axios.get(
-      // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-      // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-      `${process.env.REACT_APP_TEST_SERVER_URL}/members?code=AAAAAA`,
-      // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-    );
+  // const {data: yoyo} = useQuery([`getUserStatussffsfssf`], async () => {
+  //   const response = await axios.get(
+  //     // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
+  //     // `${process.env.REACT_APP_JSON_SERVER}/user-status`,
+  //     `${process.env.REACT_APP_TEST_SERVER_URL}/user-status/members?code=AAAAAA`,
+  //     // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+  //   );
 
-    console.log(response.data.data);
-    return response.data;
-  });
+  //   console.log(response.data.data);
+  //   return response.data;
+  // });
 
   const {data: dataTotalLength} = useQuery(
     ['getUserStatusLength'],
     async () => {
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-        `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+        `${process.env.REACT_APP_JSON_SERVER}/user-status`,
         // `${process.env.REACT_APP_TEST_SERVER_URL}/members?code=AAAAAA`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
       );
@@ -89,7 +89,7 @@ const UserStatus = () => {
   } = useQuery(['getUserStatus', page, dataLimit], async ({queryKey}) => {
     const response = await axios.get(
       // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-      `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
+      `${process.env.REACT_APP_JSON_SERVER}/user-status/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
       // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
     );
     return response.data;

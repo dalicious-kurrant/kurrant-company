@@ -17,7 +17,7 @@ const CompanyMembership = ({}) => {
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-        `${process.env.REACT_APP_JSON_SERVER_COMPANY_MEMBERSHIP}`,
+        `${process.env.REACT_APP_JSON_SERVER}/company-membership`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
       );
 
@@ -46,7 +46,7 @@ const CompanyMembership = ({}) => {
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
-        `${process.env.REACT_APP_JSON_SERVER_COMPANY_MEMBERSHIP}?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
+        `${process.env.REACT_APP_JSON_SERVER}/company-membership/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
       );
       return response.data;

@@ -2,6 +2,7 @@ import {useAtom} from 'jotai';
 import {contentSelectedAtom} from 'jotai/state';
 import {useEffect} from 'react';
 import {useState} from 'react';
+import {useLocation} from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -10,9 +11,11 @@ const ContentsHeader = () => {
 
   const [selected] = useAtom(contentSelectedAtom);
 
+  const {pathname} = useLocation();
+
   useEffect(() => {
     selected.forEach(value => {
-      if (value.selected) {
+      if (pathname === `/main/${value.id}`) {
         setContent({
           name: value.name,
           shortIntroduction: value.shortIntroduction,
@@ -20,7 +23,7 @@ const ContentsHeader = () => {
         return;
       }
     });
-  }, [selected]);
+  }, [pathname]);
 
   return (
     <Container>
