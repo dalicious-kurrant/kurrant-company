@@ -16,7 +16,6 @@
   "profile": {
     "name": "typicode"
   },
-
   "company-membership": [
     {
       "id": 1,
@@ -62,9 +61,26 @@
       "employeeEmail": "이메일이여~~",
       "employeeName": "직원이름이여~~",
       "employeePhone": "전화번호여~~~"
+    },
+    {
+      "userId": "sdf",
+      "groupId": "sdf",
+      "groupName": "sdf",
+      "employeeEmail": "sdf",
+      "employeeName": "sdf",
+      "employeePhone": "sdf",
+      "id": 6
+    },
+    {
+      "userId": "sdf",
+      "groupId": "sdf",
+      "groupName": "sdf",
+      "employeeEmail": "sdf",
+      "employeeName": "sdf",
+      "employeePhone": "sdf",
+      "id": 7
     }
   ],
-
   "user-status": [
     {
       "id": 1,
