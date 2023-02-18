@@ -21,6 +21,15 @@ const ContentsHeader = () => {
 
   useEffect(() => {
     ContentsRouterData.forEach(value => {
+      console.log(pathname);
+
+      if (pathname === `/main`) {
+        setContent({
+          name: '대시보드',
+          shortIntroduction: '대시보드입니다',
+        });
+      }
+
       if (pathname === `/main/${value.id}`) {
         setContent({
           name: value.name,
