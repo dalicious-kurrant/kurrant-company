@@ -139,13 +139,6 @@ const ContentsHeader = () => {
     setShowRegister(false);
   };
 
-  console.log(pathname);
-  console.log(
-    CRUDAvaliableList.map(value => {
-      return `/main/${value}`;
-    }),
-  );
-
   return (
     <Container>
       <TitleH1>{content.name}</TitleH1>
@@ -154,7 +147,10 @@ const ContentsHeader = () => {
       {CRUDAvaliableList.map(value => {
         return `/main/${value}`;
       }).includes(pathname) && (
-        <CRUDBundle handleBundleClick={handleBundleClick} />
+        <CRUDBundle
+          handleBundleClick={handleBundleClick}
+          showRegister={showRegister}
+        />
       )}
 
       {showRegister && (

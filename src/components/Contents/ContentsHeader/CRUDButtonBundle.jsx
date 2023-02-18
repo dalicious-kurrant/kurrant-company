@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
-const CRUDBundle = ({handleBundleClick}) => {
+const CRUDBundle = ({handleBundleClick, showRegister}) => {
   const handleClick = e => {
+    if (e.target.id === 'register' || e.target.id === 'edit') {
+      if (showRegister) {
+        window.confirm("'닫기'버튼을 누른후에 시도해주세요");
+      }
+    }
+
     handleBundleClick(e.target.id);
   };
 

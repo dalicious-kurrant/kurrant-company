@@ -8,6 +8,7 @@ const Register = ({
   submitMutate,
   handleClose,
   dataToEdit,
+
   editMutate,
 }) => {
   //   const [registerStatus, setRegisterStatus] = useState('register');
