@@ -83,7 +83,6 @@ const CompanyMembership = ({}) => {
 
   return (
     <Container>
-      <div>기업 가입 리스트 만들기~~~</div>
       <Pagination
         dataTotalLength={dataTotalLength}
         page={page}

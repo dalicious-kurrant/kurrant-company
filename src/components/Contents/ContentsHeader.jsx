@@ -12,6 +12,7 @@ import {useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import CRUDBundle from './ContentsHeader/CRUDButtonBundle';
 import {ContentsRouterData} from '../../data/ContentsRouterData';
+import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 
 const ContentsHeader = () => {
   const {pathname} = useLocation();
@@ -79,27 +80,9 @@ const ContentsHeader = () => {
     },
   );
 
-  // getCompanyMembership
-
-  // const dataFromTheSky = queryClient.getQueryData([
-  //   'getCompanyMembership',
-  //   1,
-  //   4,
-  // ]);
-
-  // console.log(useQueryClient().getQueryData('getCompanyMembership'));
-  // console.log(useQueryClient().getQueryData(['getCompanyMembership']));
   const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
     getCompanyMembershipDataListAtom,
   );
-
-  // useEffect(() => {
-  //   console.log(companyMembershipDataList);
-  // }, [companyMembershipDataList]);
-
-  // console.log(queryClient);
-
-  // console.log(dataFromTheSky);
 
   const [registerStatus, setRegisterStatus] = useState('register');
 
@@ -107,9 +90,6 @@ const ContentsHeader = () => {
 
   const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
   const [dataToEdit, setDataToEdit] = useState(undefined);
-  // useEffect(() => {
-  //   console.log(checkboxStatus);
-  // }, [checkboxStatus]);
 
   const handleBundleClick = id => {
     if (id === 'register') {
@@ -127,9 +107,6 @@ const ContentsHeader = () => {
           numberOfTrues = numberOfTrues + 1;
         }
       });
-
-      // console.log(yo);
-      // console.log(numberOfTrues);
 
       if (numberOfTrues === 0) {
         window.confirm(
@@ -162,12 +139,23 @@ const ContentsHeader = () => {
     setShowRegister(false);
   };
 
+  console.log(pathname);
+  console.log(
+    CRUDAvaliableList.map(value => {
+      return `/main/${value}`;
+    }),
+  );
+
   return (
     <Container>
       <TitleH1>{content.name}</TitleH1>
       <ExplanationSpan>{content.shortIntroduction}</ExplanationSpan>
 
-      <CRUDBundle handleBundleClick={handleBundleClick} />
+      {CRUDAvaliableList.map(value => {
+        return `/main/${value}`;
+      }).includes(pathname) && (
+        <CRUDBundle handleBundleClick={handleBundleClick} />
+      )}
 
       {showRegister && (
         <Register

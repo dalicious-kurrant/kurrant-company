@@ -97,6 +97,42 @@
       "employeeName": "sdg",
       "employeePhone": "sdg",
       "id": 9
+    },
+    {
+      "userId": "d33cho",
+      "groupId": "ㄴㅇ",
+      "groupName": "늉",
+      "employeeEmail": "뉴",
+      "employeeName": "ㄴ",
+      "employeePhone": "늉",
+      "id": 3125152126
+    },
+    {
+      "userId": "",
+      "groupId": "",
+      "groupName": "",
+      "employeeEmail": "",
+      "employeeName": "",
+      "employeePhone": "",
+      "id": 3125152127
+    },
+    {
+      "userId": "ㄴ유",
+      "groupId": "ㄴ유",
+      "groupName": "ㄴ유",
+      "employeeEmail": "ㄴ유",
+      "employeeName": "ㄴ유",
+      "employeePhone": "ㄴ유",
+      "id": 3125152128
+    },
+    {
+      "userId": "",
+      "groupId": "",
+      "groupName": "",
+      "employeeEmail": "",
+      "employeeName": "",
+      "employeePhone": "",
+      "id": 3125152129
     }
   ],
   "user-status": [
