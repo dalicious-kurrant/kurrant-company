@@ -1,4 +1,4 @@
-import {ContentsRouterData} from 'components/Contents/ContentsRouterData';
+import {ContentsRouterData} from 'data/ContentsRouterData';
 import {atomWithReset} from 'jotai/utils';
 
 export const contentSelectedAtom = atomWithReset(ContentsRouterData);

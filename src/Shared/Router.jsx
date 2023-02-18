@@ -14,9 +14,9 @@ const Router = () => {
       <Route path="/" element={<LoginPage />} />
       <Route path="/main" element={<PrivateRoute />}>
         <Route path="" element={<MainPage />}>
-          <Route path="user_status" element={<UserStatus />} />
+          <Route path="user-status" element={<UserStatus />} />
           <Route path="notice" element={<Notice />} />
-          <Route path="company_membership" element={<CompanyMembership />} />
+          <Route path="company-membership" element={<CompanyMembership />} />
           <Route path="*" element={<NotYetContents />} />
         </Route>
       </Route>

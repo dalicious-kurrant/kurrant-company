@@ -11,7 +11,7 @@ import {useLocation} from 'react-router-dom';
 
 import styled from 'styled-components';
 import CRUDBundle from './ContentsHeader/CRUDButtonBundle';
-import {ContentsRouterData} from './ContentsRouterData';
+import {ContentsRouterData} from '../../data/ContentsRouterData';
 
 const ContentsHeader = () => {
   const {pathname} = useLocation();
@@ -166,6 +166,7 @@ const ContentsHeader = () => {
     <Container>
       <TitleH1>{content.name}</TitleH1>
       <ExplanationSpan>{content.shortIntroduction}</ExplanationSpan>
+
       <CRUDBundle handleBundleClick={handleBundleClick} />
 
       {showRegister && (

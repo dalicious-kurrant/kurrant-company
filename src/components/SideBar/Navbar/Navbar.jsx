@@ -2,7 +2,7 @@ import {useState} from 'react';
 import styled from 'styled-components';
 import NavbarContents from './NavbarContents';
 
-import {ContentsRouterData} from '../../Contents/ContentsRouterData';
+import {ContentsRouterData} from '../../../data/ContentsRouterData';
 import {useAtom} from 'jotai';
 import {contentSelectedAtom} from 'jotai/state';
 
