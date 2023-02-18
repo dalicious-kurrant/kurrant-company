@@ -1,9 +1,9 @@
 export const CompanyMembershipFields = {
-  userId: '아이디',
-  groupId: '그룹아이디',
-  groupName: '그룹이름',
-  employeeEmail: '사원 이메일',
+  // userId: '아이디',
+  // groupId: '그룹아이디',
+  // groupName: '그룹이름',
   employeeName: '사원 이름',
+  employeeEmail: '사원 이메일',
   employeePhone: '사원 전화번호',
 };
 

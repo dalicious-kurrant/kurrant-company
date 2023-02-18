@@ -75,7 +75,7 @@ const ContentsHeader = () => {
         queryClient.invalidateQueries('getCompanyMembership');
       },
       onError: () => {
-        console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
+        console.log('에러가 떳군요, 개발자분들한테 문의해주세요 ');
       },
     },
   );
@@ -97,7 +97,6 @@ const ContentsHeader = () => {
       setShowRegister(true);
     } else if (id === 'edit') {
       let numberOfTrues = 0;
-      let dataEditTargetId;
 
       const yo = {...checkboxStatus};
       delete yo.parent;

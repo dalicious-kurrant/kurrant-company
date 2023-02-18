@@ -96,10 +96,14 @@ const CompanyMembership = ({}) => {
         selectOptionArray={[1, 2, 4, 10]}
       />
 
-      <Table
-        tableFieldsInput={CompanyMembershipFields}
-        tableDataInput={dataList}
-      />
+      {Array.isArray(dataList) && dataList.length !== 0 ? (
+        <Table
+          tableFieldsInput={CompanyMembershipFields}
+          tableDataInput={dataList}
+        />
+      ) : (
+        <div>아직 등록된 데이터가 없습니다. 데이터를 추가해주세요</div>
+      )}
     </Container>
   );
 };
