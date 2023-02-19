@@ -8,7 +8,7 @@ const Register = ({
   submitMutate,
   handleClose,
   dataToEdit,
-
+  fieldsInput,
   editMutate,
 }) => {
   useEffect(() => {
@@ -69,43 +69,27 @@ const Register = ({
           <TextInput
             input={input}
             setInput={setInput}
-            name="userId"
-            placeholder={''}
+            name="employeeName"
+            placeholder={'예: 배수지'}
+            maxCharLength={20}
             flex={1}
           />
-          <TextInput
-            input={input}
-            setInput={setInput}
-            name="groupId"
-            placeholder={''}
-            flex={1}
-          />
-          <TextInput
-            input={input}
-            setInput={setInput}
-            name="groupName"
-            placeholder={''}
-            flex={1}
-          />
+
           <TextInput
             input={input}
             setInput={setInput}
             name="employeeEmail"
-            placeholder={''}
+            placeholder={'예: baesuzy123@naver.com'}
+            maxCharLength={30}
             flex={1}
           />
-          <TextInput
-            input={input}
-            setInput={setInput}
-            name="employeeName"
-            placeholder={''}
-            flex={1}
-          />
+
           <TextInput
             input={input}
             setInput={setInput}
             name="employeePhone"
-            placeholder={''}
+            placeholder={'예: 010-1234-4321'}
+            maxCharLength={13}
             flex={1}
           />
         </InputWrap>
@@ -122,6 +106,7 @@ export default Register;
 
 const Container = styled.div`
   flex: 1;
+  margin-bottom: 2rem;
 `;
 
 const Form = styled.form`
@@ -139,8 +124,6 @@ const TitleButtonWrap = styled.div`
 
   padding: 1rem 1rem;
 `;
-
-const Wrap = styled.div``;
 
 const InputWrap = styled.div`
   display: flex;

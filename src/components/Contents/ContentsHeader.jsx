@@ -14,6 +14,7 @@ import CRUDBundle from './ContentsHeader/CRUDButtonBundle';
 import {ContentsRouterData} from '../../data/ContentsRouterData';
 import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipQuery';
+import ThinLine from 'common/ThinLine';
 
 const ContentsHeader = () => {
   const {pathname} = useLocation();
@@ -127,20 +128,21 @@ const ContentsHeader = () => {
           dataToEdit={dataToEdit}
         />
       )}
+
+      <ThinLine />
     </Container>
   );
 };
 
 export default ContentsHeader;
 
-const Container = styled.div`
+const Container = styled.section`
   width: 100%;
   height: 24rem;
-  border-bottom: 1px solid ${props => props.theme.colors.Grey05};
 
   display: flex;
   flex-direction: column;
-  margin-bottom: 2.4rem;
+  margin-bottom: 5rem;
   position: relative;
 `;
 

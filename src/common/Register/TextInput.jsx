@@ -7,7 +7,7 @@ const TextInput = ({
   setInput,
   placeholder,
   width = '100%',
-  flex = undefined,
+  flex = 1,
   maxCharLength = 36,
 }) => {
   const handleChange = e => {
@@ -19,7 +19,7 @@ const TextInput = ({
 
   return (
     <>
-      <Container>
+      <Container flex={flex} width={width}>
         <TitleWrap>
           <Title>{CompanyMembershipFields[name]}</Title>
         </TitleWrap>
@@ -45,6 +45,12 @@ const Container = styled.div`
   ${({flex}) => {
     if (flex) {
       return `flex:${flex};`;
+    }
+  }}
+
+  ${({width}) => {
+    if (width) {
+      return `width:${width};`;
     }
   }}
 `;

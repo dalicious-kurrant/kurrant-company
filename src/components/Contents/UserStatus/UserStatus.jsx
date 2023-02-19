@@ -127,7 +127,7 @@ const UserStatus = () => {
       />
 
       {!!dataList && dataList.length !== 0 && (
-        <Table tableFieldsInput={userStatusFields} tableDataInput={dataList} />
+        <Table fieldsInput={userStatusFields} dataInput={dataList} />
       )}
     </Container>
   );

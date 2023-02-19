@@ -14,7 +14,7 @@ import {TableCheckboxStatusAtom} from './store';
 // - 데이터 안에 정해진 필드가 아닌 필드가 들어있으면 자동으로 걸러준다
 // - 데이터 값이 number나 string이 아닌 경우는 '-'로 표기한다
 
-const Table = ({tableFieldsInput, tableDataInput, isMemo}) => {
+const Table = ({fieldsInput, dataInput, isMemo}) => {
   const useTheme = theme;
 
   const [keyOfTableFieldsInput, setKeyOfTableFieldsInput] = useState([]);
@@ -22,8 +22,8 @@ const Table = ({tableFieldsInput, tableDataInput, isMemo}) => {
   const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
 
   useEffect(() => {
-    setKeyOfTableFieldsInput(Object.keys(tableFieldsInput));
-  }, [tableFieldsInput]);
+    setKeyOfTableFieldsInput(Object.keys(fieldsInput));
+  }, [fieldsInput]);
 
   useEffect(() => {
     if (!Array.isArray(keyOfTableFieldsInput)) return;
@@ -32,7 +32,7 @@ const Table = ({tableFieldsInput, tableDataInput, isMemo}) => {
 
   useEffect(() => {
     const object1 = {parent: false};
-    const yo1 = [...tableDataInput].map(value => {
+    const yo1 = [...dataInput].map(value => {
       return value.id;
     });
 
@@ -43,7 +43,7 @@ const Table = ({tableFieldsInput, tableDataInput, isMemo}) => {
     setCheckboxStatus({
       ...object1,
     });
-  }, [tableDataInput]);
+  }, [dataInput]);
 
   const onCheckCheckbox = value => {
     if (value === 'parent') {
@@ -82,13 +82,12 @@ const Table = ({tableFieldsInput, tableDataInput, isMemo}) => {
                 value={'parent'}
                 checkboxStatus={checkboxStatus}
                 onChecked={onCheckCheckbox}
-                // setCheckboxStatus={setCheckboxStatus}
               />
             </CheckBoxTh>
             {keyOfTableFieldsInput &&
               keyOfTableFieldsInput.map((val, index) => (
                 <th align="left" key={index}>
-                  {tableFieldsInput[val]}
+                  {fieldsInput[val]}
                 </th>
               ))}
 
@@ -96,8 +95,8 @@ const Table = ({tableFieldsInput, tableDataInput, isMemo}) => {
           </tr>
         </thead>
         <tbody>
-          {tableDataInput &&
-            tableDataInput.map((value1, index1) => {
+          {dataInput &&
+            dataInput.map((value1, index1) => {
               // 필드에 없는 값들은 걸러내기
               let yo = [];
               keyOfTableFieldsInput.forEach((value2, index2) => {

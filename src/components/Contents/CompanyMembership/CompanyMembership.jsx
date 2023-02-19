@@ -84,8 +84,8 @@ const CompanyMembership = ({}) => {
 
       {Array.isArray(dataList) && dataList.length !== 0 ? (
         <Table
-          tableFieldsInput={CompanyMembershipFields}
-          tableDataInput={dataList}
+          fieldsInput={CompanyMembershipFields}
+          dataInput={dataList}
           isMemo={true}
         />
       ) : (
@@ -96,4 +96,4 @@ const CompanyMembership = ({}) => {
 };
 export default CompanyMembership;
 
-const Container = styled.div``;
+const Container = styled.section``;
