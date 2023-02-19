@@ -100,6 +100,7 @@ const CompanyMembership = ({}) => {
         <Table
           tableFieldsInput={CompanyMembershipFields}
           tableDataInput={dataList}
+          isMemo={true}
         />
       ) : (
         <div>아직 등록된 데이터가 없습니다. 데이터를 추가해주세요</div>

@@ -24,7 +24,8 @@
       "groupName": "그룹이름이여~~",
       "employeeEmail": "이메일이여~~",
       "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~"
+      "employeePhone": "전화번호여~~~",
+      "memo": ""
     },
     {
       "id": 21243,
@@ -33,7 +34,8 @@
       "groupName": "그룹이름이여~~",
       "employeeEmail": "이메일이여~~",
       "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~"
+      "employeePhone": "전화번호여~~~",
+      "memo": ""
     },
     {
       "id": 3125152125,
@@ -42,7 +44,8 @@
       "groupName": "그룹이름이여~~",
       "employeeEmail": "이메일이여~~",
       "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~"
+      "employeePhone": "전화번호여~~~",
+      "memo": ""
     },
     {
       "id": 4,
@@ -51,7 +54,8 @@
       "groupName": "그룹이름이여~~",
       "employeeEmail": "이메일이여~~",
       "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~"
+      "employeePhone": "전화번호여~~~",
+      "memo": ""
     },
     {
       "id": 5,
@@ -60,7 +64,8 @@
       "groupName": "그룹이름이여~~",
       "employeeEmail": "이메일이여~~",
       "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~"
+      "employeePhone": "전화번호여~~~",
+      "memo": ""
     },
     {
       "userId": "sdf",
@@ -69,7 +74,8 @@
       "employeeEmail": "sdf",
       "employeeName": "sdf",
       "employeePhone": "sdf",
-      "id": 6
+      "id": 6,
+      "memo": ""
     },
     {
       "userId": "sdf",
@@ -78,7 +84,8 @@
       "employeeEmail": "sdf",
       "employeeName": "sdf",
       "employeePhone": "sdf",
-      "id": 7
+      "id": 7,
+      "memo": ""
     },
     {
       "userId": "sdf",
@@ -87,7 +94,8 @@
       "employeeEmail": "sd",
       "employeeName": "sd",
       "employeePhone": "dsf",
-      "id": 8
+      "id": 8,
+      "memo": ""
     },
     {
       "userId": "sdg",
@@ -96,7 +104,8 @@
       "employeeEmail": "dgs",
       "employeeName": "sdg",
       "employeePhone": "sdg",
-      "id": 9
+      "id": 9,
+      "memo": ""
     },
     {
       "userId": "d33cho",
@@ -105,7 +114,8 @@
       "employeeEmail": "뉴",
       "employeeName": "ㄴ",
       "employeePhone": "늉",
-      "id": 3125152126
+      "id": 3125152126,
+      "memo": ""
     },
     {
       "userId": "",
@@ -114,7 +124,8 @@
       "employeeEmail": "",
       "employeeName": "",
       "employeePhone": "",
-      "id": 3125152127
+      "id": 3125152127,
+      "memo": ""
     },
     {
       "userId": "ㄴ유",
@@ -123,7 +134,8 @@
       "employeeEmail": "ㄴ유",
       "employeeName": "ㄴ유",
       "employeePhone": "ㄴ유",
-      "id": 3125152128
+      "id": 3125152128,
+      "memo": ""
     },
     {
       "userId": "",
@@ -132,7 +144,8 @@
       "employeeEmail": "",
       "employeeName": "",
       "employeePhone": "",
-      "id": 3125152129
+      "id": 3125152129,
+      "memo": ""
     }
   ],
   "user-status": [
