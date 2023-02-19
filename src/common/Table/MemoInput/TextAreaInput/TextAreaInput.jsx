@@ -4,24 +4,40 @@ import styled from 'styled-components';
 const TextAreaInput = ({
   input = {},
   name = '',
-  setInput = yes => {},
+  onChange,
   placeholder = '안녕',
   width = '100%',
   maxLength = 2000,
   height = '100%',
+  checkBlur,
 }) => {
+  const [isBlur, setIsBlur] = useState(false);
+
   const handleChange = e => {
     e.preventDefault();
     const {name, value} = e.target;
 
-    setInput({...input, [name]: value});
+    const yo = {...input};
+    yo[name] = value;
+
+    onChange(yo);
   };
 
+  useEffect(() => {
+    checkBlur(isBlur);
+  }, [isBlur]);
+
   return (
-    <TextAreaText
+    <TextArea
       name={name}
       required
       onChange={handleChange}
+      onFocus={() => {
+        setIsBlur(false);
+      }}
+      onBlur={() => {
+        setIsBlur(true);
+      }}
       placeholder={placeholder}
       width={width}
       value={input[name]}
@@ -32,7 +48,7 @@ const TextAreaInput = ({
 };
 export default TextAreaInput;
 
-const TextAreaText = styled.textarea`
+const TextArea = styled.textarea`
   display: inline-block;
   width: ${({width}) => width};
   height: ${({height}) => height};

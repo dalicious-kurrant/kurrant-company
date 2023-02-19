@@ -51,6 +51,23 @@ const CompanyMembership = ({}) => {
     setCompanyMembershipDataList(dataList);
   }, [dataList]);
 
+  const [isMemoBlur, setIsMemoBlur] = useState(false);
+  const [memoData, setMemoData] = useState(undefined);
+  const checkBlur = isBlur => {
+    setIsMemoBlur(isBlur);
+  };
+
+  const handleMemoChange = data => {
+    setMemoData(data);
+  };
+
+  useEffect(() => {
+    if (isMemoBlur && memoData) {
+      console.log(memoData);
+      editMutate(memoData);
+    }
+  }, [isMemoBlur]);
+
   if (isLoading)
     return (
       <>
@@ -86,8 +103,9 @@ const CompanyMembership = ({}) => {
         <Table
           fieldsInput={CompanyMembershipFields}
           dataInput={dataList}
-          // isMemo={true}
-          editMemo={editMutate}
+          isMemo={true}
+          checkBlur={checkBlur}
+          handleChange={handleMemoChange}
         />
       ) : (
         <div>아직 등록된 데이터가 없습니다. 데이터를 추가해주세요</div>

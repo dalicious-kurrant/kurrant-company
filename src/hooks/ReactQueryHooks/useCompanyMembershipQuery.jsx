@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import {QueryClient, useMutation, useQuery, useQueryClient} from 'react-query';
+import {useMutation, useQuery, useQueryClient} from 'react-query';
 
 const useCompanyMembershipQuery = (
   page = 1,

@@ -14,7 +14,13 @@ import {TableCheckboxStatusAtom} from './store';
 // - 데이터 안에 정해진 필드가 아닌 필드가 들어있으면 자동으로 걸러준다
 // - 데이터 값이 number나 string이 아닌 경우는 '-'로 표기한다
 
-const Table = ({fieldsInput, dataInput, editMemo = undefined}) => {
+const Table = ({
+  fieldsInput,
+  dataInput,
+  isMemo = undefined,
+  checkBlur,
+  handleChange,
+}) => {
   const useTheme = theme;
 
   const [keyOfTableFieldsInput, setKeyOfTableFieldsInput] = useState([]);
@@ -67,8 +73,6 @@ const Table = ({fieldsInput, dataInput, editMemo = undefined}) => {
 
   // 추가 메모 기능
 
-  const handleSubmit = () => {};
-
   return (
     <Container>
       <table bgcolor={useTheme.colors.white}>
@@ -91,7 +95,7 @@ const Table = ({fieldsInput, dataInput, editMemo = undefined}) => {
                 </th>
               ))}
 
-            {!!editMemo && <th className="memo">Memo (즉석 메모 가능)</th>}
+            {!!isMemo && <th className="memo">Memo (즉석 메모 가능)</th>}
           </tr>
         </thead>
         <tbody>
@@ -123,9 +127,15 @@ const Table = ({fieldsInput, dataInput, editMemo = undefined}) => {
                       {handleFalsyValue(value3)}
                     </td>
                   ))}
-                  {!!editMemo && (
+
+                  {!!isMemo && (
                     <td className="memo">
-                      <MemoInput id={value1.id} handleSubmit={handleSubmit} />
+                      <MemoInput
+                        id={value1.id}
+                        input={value1}
+                        handleChange={handleChange}
+                        checkBlur={checkBlur}
+                      />
                     </td>
                   )}
                 </tr>

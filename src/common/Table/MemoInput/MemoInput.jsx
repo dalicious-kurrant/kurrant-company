@@ -2,12 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import TextAreaInput from './TextAreaInput/TextAreaInput';
 
-const MemoInput = ({id, handleSubmit}) => {
-  //   console.log(id);
-
+const MemoInput = ({id, handleChange, checkBlur, input}) => {
   return (
     <Form>
-      <TextAreaInput />
+      <TextAreaInput
+        name="memo"
+        onChange={handleChange}
+        input={input}
+        checkBlur={checkBlur}
+      />
     </Form>
   );
 };

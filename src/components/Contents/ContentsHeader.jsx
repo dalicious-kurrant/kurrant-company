@@ -128,8 +128,6 @@ const ContentsHeader = () => {
           dataToEdit={dataToEdit}
         />
       )}
-
-      <ThinLine />
     </Container>
   );
 };
