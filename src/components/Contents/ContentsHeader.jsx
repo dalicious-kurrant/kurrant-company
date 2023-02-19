@@ -13,12 +13,19 @@ import styled from 'styled-components';
 import CRUDBundle from './ContentsHeader/CRUDButtonBundle';
 import {ContentsRouterData} from '../../data/ContentsRouterData';
 import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
+import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipQuery';
 
 const ContentsHeader = () => {
   const {pathname} = useLocation();
-  const queryClient = useQueryClient();
   const [content, setContent] = useState({name: '', shortIntroduction: ''});
   const [showRegister, setShowRegister] = useState(false);
+
+  // useQuery를 굳이 안쓰는 경우에는 useCompanyMembershipQuery자리의 page, dataLimit값을 0으로 해주세요
+
+  const {submitMutate, editMutate} = useCompanyMembershipQuery(0, 0, [
+    'getCompanyMembershipLength',
+    'getCompanyMembership',
+  ]);
 
   useEffect(() => {
     ContentsRouterData.forEach(value => {
@@ -38,45 +45,6 @@ const ContentsHeader = () => {
       }
     });
   }, [pathname]);
-
-  const {mutate: submitMutate} = useMutation(
-    async newTodo => {
-      const response = await axios.post(
-        `${process.env.REACT_APP_JSON_SERVER}/company-membership`,
-        newTodo,
-      );
-      return response;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['getCompanyMembership']);
-        queryClient.invalidateQueries(['getCompanyMembershipLength']);
-      },
-      onError: error => {
-        console.log(error);
-      },
-    },
-  );
-
-  const {mutate: editMutate} = useMutation(
-    async todo => {
-      const response = await axios.put(
-        // `${process.env.REACT_APP_SERVER_URL}/todos/${todo.id}`,
-        `${process.env.REACT_APP_JSON_SERVER}/company-membership/${todo.id}`,
-        todo,
-      );
-      return response;
-    },
-    {
-      onSuccess: () => {
-        console.log('success');
-        queryClient.invalidateQueries('getCompanyMembership');
-      },
-      onError: () => {
-        console.log('에러가 떳군요, 개발자분들한테 문의해주세요 ');
-      },
-    },
-  );
 
   const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
     getCompanyMembershipDataListAtom,
@@ -185,16 +153,3 @@ const ExplanationSpan = styled.span`
   font-size: 1.4rem;
   color: ${props => props.theme.colors.Grey07};
 `;
-
-const CalendarWrap = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const FakeCalendarBox = styled.div`
-  width: 20rem;
-  height: 6rem;
-  border-radius: 0.6rem;
-  border: 2px solid ${props => props.theme.colors.Purple};
-`;
-const ThisMonthBtn = styled.button``;

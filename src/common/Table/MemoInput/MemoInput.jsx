@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TextAreaInput from './TextAreaInput/TextAreaInput';
 
 const MemoInput = ({id, handleSubmit}) => {
-  console.log(id);
+  //   console.log(id);
 
   return (
     <Form>

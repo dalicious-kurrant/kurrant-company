@@ -1,4 +1,4 @@
-import instance from 'apis/axiosConfig';
+import instance from 'configs/axiosConfig';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';

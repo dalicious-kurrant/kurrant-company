@@ -11,11 +11,7 @@ const Register = ({
 
   editMutate,
 }) => {
-  //   const [registerStatus, setRegisterStatus] = useState('register');
-
   useEffect(() => {
-    // if (status) setRegisterStatus(status);
-
     if (status === 'edit') {
       setInput(dataToEdit);
     }

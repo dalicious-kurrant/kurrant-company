@@ -2,16 +2,15 @@ import axios from 'axios';
 import Pagination from 'common/Pagination/Pagination';
 import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
+import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipQuery';
 import {useAtom} from 'jotai';
 import {getCompanyMembershipDataListAtom} from 'jotai/state';
 import React from 'react';
+import {useState} from 'react';
 import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
-import {
-  CompanyMembershipFields,
-  CompanyMembershipMockData,
-} from './CompanyMembershipData';
+import {CompanyMembershipFields} from './CompanyMembershipData';
 
 const CompanyMembership = ({}) => {
   const {data: dataTotalLength} = useQuery(
@@ -39,24 +38,11 @@ const CompanyMembership = ({}) => {
     handleMove,
   } = usePagination(dataTotalLength);
 
-  const {
-    data: dataList,
-    status,
-    isLoading,
-  } = useQuery(
-    ['getCompanyMembership', page, dataLimit],
-    async ({queryKey}) => {
-      const response = await axios.get(
-        // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
-        `${process.env.REACT_APP_JSON_SERVER}/company-membership/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-      );
-      return response.data;
-    },
+  const {dataList, status, isLoading} = useCompanyMembershipQuery(
+    page,
+    dataLimit,
   );
 
-  //sdfsdf
   const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
     getCompanyMembershipDataListAtom,
   );
