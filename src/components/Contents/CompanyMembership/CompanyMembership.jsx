@@ -38,7 +38,7 @@ const CompanyMembership = ({}) => {
     handleMove,
   } = usePagination(dataTotalLength);
 
-  const {dataList, status, isLoading} = useCompanyMembershipQuery(
+  const {dataList, status, isLoading, editMutate} = useCompanyMembershipQuery(
     page,
     dataLimit,
   );
@@ -86,7 +86,8 @@ const CompanyMembership = ({}) => {
         <Table
           fieldsInput={CompanyMembershipFields}
           dataInput={dataList}
-          isMemo={true}
+          // isMemo={true}
+          editMemo={editMutate}
         />
       ) : (
         <div>아직 등록된 데이터가 없습니다. 데이터를 추가해주세요</div>
