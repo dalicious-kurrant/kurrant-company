@@ -1,3 +1,4 @@
+import {CompanyMembershipRegisterFields} from 'components/Contents/CompanyMembership/CompanyMembershipData';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import styled from 'styled-components';
@@ -31,18 +32,23 @@ const Register = ({
   const handleSubmit = e => {
     e.preventDefault();
 
-    // 서버에 보내기
-
-    // 가입
+    const fieldsArray = CompanyMembershipRegisterFields.map(
+      value => input[value.fieldName],
+    );
 
     if (status === 'register') {
-      if (Object.values(input).includes('')) {
+      if (fieldsArray.includes('')) {
         setSubmitStatus('notFulfilled');
-      } else {
-        setSubmitStatus('doneRegister');
-        submitMutate(input);
+        return;
       }
+      setSubmitStatus('doneRegister');
+      submitMutate(input);
     } else if (status === 'edit') {
+      if (fieldsArray.includes('')) {
+        setSubmitStatus('notFulfilled');
+        return;
+      }
+
       setSubmitStatus('doneEdit');
       editMutate(input);
 
@@ -71,11 +77,12 @@ const Register = ({
         return <h1>추가되었습니다 </h1>;
       case 'doneEdit':
         return <h1>수정되었습니다 </h1>;
-
       default:
         return;
     }
   };
+
+  const registerFields = [...CompanyMembershipRegisterFields];
 
   return (
     <Container>
@@ -88,7 +95,19 @@ const Register = ({
 
       <Form onSubmit={handleSubmit}>
         <InputWrap>
-          <TextInput
+          {registerFields.map((value, index) => (
+            <TextInput
+              key={index}
+              input={input}
+              setInput={setInput}
+              required
+              name={value.fieldName}
+              placeholder={value.placeholder}
+              maxCharLength={value.maxCharLength}
+              flex={value.flex}
+            />
+          ))}
+          {/* <TextInput
             input={input}
             setInput={setInput}
             required
@@ -116,7 +135,7 @@ const Register = ({
             placeholder={'예: 010-1234-4321'}
             maxCharLength={13}
             flex={1}
-          />
+          /> */}
         </InputWrap>
 
         {tellAlert(submitStatus)}
