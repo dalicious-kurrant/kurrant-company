@@ -1,4 +1,4 @@
-import ExcelTest from 'common/excel/ExcelTest';
+import ExcelTest from 'common/Excel/ExcelTest';
 import styled from 'styled-components';
 
 const Notice = () => {
