@@ -18,76 +18,6 @@
   },
   "company-membership": [
     {
-      "id": 1124,
-      "userId": "아이디여~",
-      "groupId": "g그룹 아이디여~",
-      "groupName": "그룹이름이여~~",
-      "employeeEmail": "이메일이여~~",
-      "employeeName": "조재신조재신",
-      "employeePhone": "전화번호여~~~",
-      "memo": "- 메모 해 놓기 "
-    },
-    {
-      "id": 21243,
-      "userId": "아이디여~",
-      "groupId": "조재신그룹",
-      "groupName": "그룹이름이여~~",
-      "employeeEmail": "이메일이여~~",
-      "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~",
-      "memo": ""
-    },
-    {
-      "id": 3125152125,
-      "userId": "바꾸기",
-      "groupId": "g그룹 아이디여~",
-      "groupName": "그룹이름이여~~",
-      "employeeEmail": "이메일이여~~",
-      "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~",
-      "memo": ""
-    },
-    {
-      "id": 4,
-      "userId": "오에~",
-      "groupId": "g그룹 아이디여~",
-      "groupName": "그룹이름이여~~",
-      "employeeEmail": "이메일이여~~",
-      "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~",
-      "memo": ""
-    },
-    {
-      "id": 5,
-      "userId": "아이디여~",
-      "groupId": "g그룹 아이디여~",
-      "groupName": "그룹이름이여~~",
-      "employeeEmail": "이메일이여~~",
-      "employeeName": "직원이름이여~~",
-      "employeePhone": "전화번호여~~~",
-      "memo": "이나러ㅣㄴㅇ"
-    },
-    {
-      "userId": "sdf",
-      "groupId": "sdf",
-      "groupName": "sdf",
-      "employeeEmail": "sdf",
-      "employeeName": "sdf",
-      "employeePhone": "sdf",
-      "id": 6,
-      "memo": ""
-    },
-    {
-      "userId": "sdf",
-      "groupId": "sdf",
-      "groupName": "sdf",
-      "employeeEmail": "sdf",
-      "employeeName": "sdf",
-      "employeePhone": "sdf",
-      "id": 7,
-      "memo": ""
-    },
-    {
       "userId": "sdf",
       "groupId": "sdf",
       "groupName": "sdf",
@@ -98,90 +28,22 @@
       "memo": ""
     },
     {
-      "userId": "sdg",
-      "groupId": "dsg",
-      "groupName": "sdg",
-      "employeeEmail": "dgs",
-      "employeeName": "sdg",
-      "employeePhone": "sdg",
-      "id": 9,
-      "memo": ""
-    },
-    {
-      "userId": "d33cho",
-      "groupId": "ㄴㅇ",
-      "groupName": "늉",
-      "employeeEmail": "뉴",
-      "employeeName": "ㄴ",
-      "employeePhone": "늉",
-      "id": 3125152126,
-      "memo": ""
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "",
-      "employeeName": "",
-      "employeePhone": "",
-      "id": 3125152127,
-      "memo": ""
-    },
-    {
-      "userId": "ㄴ유",
-      "groupId": "ㄴ유",
-      "groupName": "ㄴ유",
-      "employeeEmail": "ㄴ유",
-      "employeeName": "ㄴ유",
-      "employeePhone": "ㄴ유",
-      "id": 3125152128,
-      "memo": ""
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "",
-      "employeeName": "",
-      "employeePhone": "",
-      "id": 3125152129,
-      "memo": ""
-    },
-    {
       "userId": "",
       "groupId": "",
       "groupName": "",
       "employeeEmail": "sdf",
       "employeeName": "sdf",
       "employeePhone": "sdf",
-      "id": 3125152130
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "sfsfsfsf",
-      "employeeName": "sffs",
-      "employeePhone": "sfsf",
-      "id": 3125152131
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "sdf",
-      "employeeName": "sdf",
-      "employeePhone": "sdf",
-      "id": 3125152132
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "ㄴㅇㅎㄴㅇ",
-      "employeeName": "ㄴㅇㄹ",
-      "employeePhone": "ㄴㅇㅎ",
       "id": 3125152133
+    },
+    {
+      "userId": "",
+      "groupId": "",
+      "groupName": "",
+      "employeeEmail": "sdf",
+      "employeeName": "sdf",
+      "employeePhone": "sdf",
+      "id": 3125152134
     },
     {
       "userId": "",
@@ -190,108 +52,34 @@
       "employeeEmail": "ㄴㅇㄹ",
       "employeeName": "ㄴㅇㄹ",
       "employeePhone": "ㄴㅇㄹ",
-      "id": 3125152134,
-      "memo": "안녕 나는 조재신이야"
+      "id": 3125152135
     },
     {
       "userId": "",
       "groupId": "",
       "groupName": "",
-      "employeeEmail": "",
-      "employeeName": "",
-      "employeePhone": "",
-      "id": 3125152135,
-      "memo": "ㄴㅇㄹㄴㅇㄹ"
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "",
-      "employeeName": "ss",
-      "employeePhone": "",
+      "employeeEmail": "sdf",
+      "employeeName": "sdf",
+      "employeePhone": "sdf",
       "id": 3125152136
     },
     {
       "userId": "",
       "groupId": "",
       "groupName": "",
-      "employeeEmail": "",
-      "employeeName": "",
-      "employeePhone": "",
+      "employeeEmail": "fwfw",
+      "employeeName": "fwfwfw",
+      "employeePhone": "fwwf",
       "id": 3125152137
     },
     {
       "userId": "",
       "groupId": "",
       "groupName": "",
-      "employeeEmail": "123",
-      "employeeName": "",
-      "employeePhone": "123",
-      "id": 3125152138
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
       "employeeEmail": "sdf",
       "employeeName": "sdf",
       "employeePhone": "sdf",
-      "id": 3125152139
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "sdf",
-      "employeeName": "sdf",
-      "employeePhone": "sdf",
-      "id": 3125152140
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "tr",
-      "employeeName": "ru",
-      "employeePhone": "t",
-      "id": 3125152141
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "sdf",
-      "employeeName": "sdf",
-      "employeePhone": "",
-      "id": 3125152142
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "",
-      "employeeName": "",
-      "employeePhone": "",
-      "id": 3125152143
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "sdf",
-      "employeeName": "sdf",
-      "employeePhone": "sdf",
-      "id": 3125152144
-    },
-    {
-      "userId": "",
-      "groupId": "",
-      "groupName": "",
-      "employeeEmail": "sdf",
-      "employeeName": "sf",
-      "employeePhone": "sf",
-      "id": 3125152145
+      "id": 1676863205085
     }
   ],
   "user-status": [

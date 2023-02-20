@@ -10,11 +10,11 @@ import {useMutation, useQueryClient} from 'react-query';
 import {useLocation} from 'react-router-dom';
 
 import styled from 'styled-components';
-import CRUDBundle from './ContentsHeader/CRUDButtonBundle';
+import CRUDBundle from './ContentsHeader/CRUDBundle';
 import {ContentsRouterData} from '../../data/ContentsRouterData';
 import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipQuery';
-import ThinLine from 'common/ThinLine';
+import {CompanyMembershipRegisterFields} from './CompanyMembership/CompanyMembershipData';
 
 const ContentsHeader = () => {
   const {pathname} = useLocation();
@@ -23,10 +23,11 @@ const ContentsHeader = () => {
 
   // useQuery를 굳이 안쓰는 경우에는 useCompanyMembershipQuery자리의 page, dataLimit값을 0으로 해주세요
 
-  const {submitMutate, editMutate} = useCompanyMembershipQuery(0, 0, [
-    'getCompanyMembershipLength',
-    'getCompanyMembership',
-  ]);
+  const {submitMutate, editMutate, deleteMutate} = useCompanyMembershipQuery(
+    0,
+    0,
+    ['getCompanyMembershipLength', 'getCompanyMembership'],
+  );
 
   useEffect(() => {
     ContentsRouterData.forEach(value => {
@@ -47,33 +48,31 @@ const ContentsHeader = () => {
     });
   }, [pathname]);
 
-  const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
-    getCompanyMembershipDataListAtom,
-  );
+  const [companyMembershipDataList] = useAtom(getCompanyMembershipDataListAtom);
 
   const [registerStatus, setRegisterStatus] = useState('register');
 
   // 수정
 
-  const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
+  const [checkboxStatus] = useAtom(TableCheckboxStatusAtom);
   const [dataToEdit, setDataToEdit] = useState(undefined);
 
-  const handleBundleClick = id => {
-    if (id === 'register') {
-      setRegisterStatus(id);
+  const handleBundleClick = status => {
+    let numberOfTrues = 0;
+
+    const yo = {...checkboxStatus};
+    delete yo.parent;
+
+    Object.values(yo).forEach(value => {
+      if (value === true) {
+        numberOfTrues = numberOfTrues + 1;
+      }
+    });
+
+    if (status === 'register') {
+      setRegisterStatus(status);
       setShowRegister(true);
-    } else if (id === 'edit') {
-      let numberOfTrues = 0;
-
-      const yo = {...checkboxStatus};
-      delete yo.parent;
-
-      Object.values(yo).forEach(value => {
-        if (value === true) {
-          numberOfTrues = numberOfTrues + 1;
-        }
-      });
-
+    } else if (status === 'edit') {
       if (numberOfTrues === 0) {
         window.confirm(
           "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
@@ -94,10 +93,33 @@ const ContentsHeader = () => {
           }
         });
 
-        setRegisterStatus(id);
+        setRegisterStatus(status);
         setShowRegister(true);
       }
-    } else if (id === 'delete') {
+    } else if (status === 'delete') {
+      if (numberOfTrues === 0) {
+        window.confirm(
+          "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
+        );
+      }
+
+      const idsToDelete = [];
+
+      Object.keys(yo).forEach(value => {
+        if (yo[value]) {
+          idsToDelete.push(value);
+        }
+      });
+
+      idsToDelete.forEach(async value => {
+        await new Promise((resolve, reject) => {
+          try {
+            resolve(deleteMutate(value));
+          } catch (err) {
+            reject('안된 듯');
+          }
+        });
+      });
     }
   };
 
@@ -126,6 +148,7 @@ const ContentsHeader = () => {
           editMutate={editMutate}
           handleClose={handleClose}
           dataToEdit={dataToEdit}
+          fieldsInput={CompanyMembershipRegisterFields}
         />
       )}
     </Container>

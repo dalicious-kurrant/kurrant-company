@@ -97,6 +97,27 @@ const useCompanyMembershipQuery = (
     },
   );
 
+  const {mutate: deleteMutate} = useMutation(
+    async id => {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_JSON_SERVER}/company-membership/${id}`,
+      );
+      return response;
+    },
+    {
+      onSuccess: () => {
+        console.log('success');
+
+        queryClient.invalidateQueries('getCompanyMembership');
+      },
+      onError: () => {
+        console.log(
+          '이런 deleteMutate에 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요',
+        );
+      },
+    },
+  );
+
   return {
     dataTotalLength,
     dataList,
@@ -104,6 +125,7 @@ const useCompanyMembershipQuery = (
     isLoading,
     submitMutate,
     editMutate,
+    deleteMutate,
   };
 };
 export default useCompanyMembershipQuery;

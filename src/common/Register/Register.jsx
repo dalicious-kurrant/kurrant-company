@@ -1,4 +1,3 @@
-import {CompanyMembershipRegisterFields} from 'components/Contents/CompanyMembership/CompanyMembershipData';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import styled from 'styled-components';
@@ -32,9 +31,7 @@ const Register = ({
   const handleSubmit = e => {
     e.preventDefault();
 
-    const fieldsArray = CompanyMembershipRegisterFields.map(
-      value => input[value.fieldName],
-    );
+    const fieldsArray = fieldsInput.map(value => input[value.fieldName]);
 
     if (status === 'register') {
       if (fieldsArray.includes('')) {
@@ -82,8 +79,6 @@ const Register = ({
     }
   };
 
-  const registerFields = [...CompanyMembershipRegisterFields];
-
   return (
     <Container>
       <TitleButtonWrap>
@@ -95,7 +90,7 @@ const Register = ({
 
       <Form onSubmit={handleSubmit}>
         <InputWrap>
-          {registerFields.map((value, index) => (
+          {fieldsInput.map((value, index) => (
             <TextInput
               key={index}
               input={input}
@@ -107,35 +102,6 @@ const Register = ({
               flex={value.flex}
             />
           ))}
-          {/* <TextInput
-            input={input}
-            setInput={setInput}
-            required
-            name="employeeName"
-            placeholder={'예: 배수지'}
-            maxCharLength={20}
-            flex={1}
-          />
-
-          <TextInput
-            input={input}
-            setInput={setInput}
-            required
-            name="employeeEmail"
-            placeholder={'예: baesuzy123@naver.com'}
-            maxCharLength={30}
-            flex={1}
-          />
-
-          <TextInput
-            input={input}
-            setInput={setInput}
-            required
-            name="employeePhone"
-            placeholder={'예: 010-1234-4321'}
-            maxCharLength={13}
-            flex={1}
-          /> */}
         </InputWrap>
 
         {tellAlert(submitStatus)}
