@@ -14,6 +14,7 @@ const Router = () => {
       <Route path="/" element={<LoginPage />} />
       <Route path="/main" element={<PrivateRoute />}>
         <Route path="" element={<MainPage />}>
+          <Route path="" element={<NotYetContents />} />
           <Route path="user-status" element={<UserStatus />} />
           <Route path="notice" element={<Notice />} />
           <Route path="company-membership" element={<CompanyMembership />} />

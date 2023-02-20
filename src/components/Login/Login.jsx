@@ -1,3 +1,4 @@
+import axios from 'axios';
 import instance from 'configs/axiosConfig';
 import {useEffect} from 'react';
 import {useState} from 'react';
@@ -31,6 +32,16 @@ const Login = () => {
     if (!clickReady) return;
 
     if (true) {
+      // const response = await axios.post(
+      //   `http://3.35.197.186:8886/v1/auth/login`,
+
+      //   {
+      //     code: 'AAAAAA',
+      //     password: '12345678',
+      //   },
+      // );
+      // console.log(response);
+
       navigate('/main');
     } else {
     }
