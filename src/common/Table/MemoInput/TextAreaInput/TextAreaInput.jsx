@@ -5,13 +5,13 @@ const TextAreaInput = ({
   input = {},
   name = '',
   onChange,
-  placeholder = '안녕',
+  placeholder = '',
   width = '100%',
   maxLength = 2000,
   height = '100%',
-  checkBlur,
 }) => {
   const [isBlur, setIsBlur] = useState(false);
+  const [data, setData] = useState({});
 
   const handleChange = e => {
     e.preventDefault();
@@ -20,18 +20,25 @@ const TextAreaInput = ({
     const yo = {...input};
     yo[name] = value;
 
-    onChange(yo);
+    setData(yo);
   };
 
   useEffect(() => {
-    checkBlur(isBlur);
+    if (isBlur) {
+      onChange(data);
+    }
   }, [isBlur]);
+
+  useEffect(() => {
+    setData(input);
+  }, [input]);
 
   return (
     <TextArea
       name={name}
       required
       onChange={handleChange}
+      value={data[name]}
       onFocus={() => {
         setIsBlur(false);
       }}
@@ -40,7 +47,6 @@ const TextAreaInput = ({
       }}
       placeholder={placeholder}
       width={width}
-      value={input[name]}
       maxLength={maxLength}
       height={height}
     />
@@ -57,7 +63,7 @@ const TextArea = styled.textarea`
   outline: none;
   border: 0;
   font-size: 1.2rem;
-  padding: 1rem 0.6rem;
+  padding: 1rem 0.8rem;
 
   &::placeholder {
     color: ${props => props.theme.colors.Grey07};

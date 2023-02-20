@@ -26,6 +26,8 @@ const Register = ({
     employeePhone: '',
   });
 
+  const [submitStatus, setSubmitStatus] = useState('');
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -34,8 +36,14 @@ const Register = ({
     // 가입
 
     if (status === 'register') {
-      submitMutate(input);
+      if (Object.values(input).includes('')) {
+        setSubmitStatus('notFulfilled');
+      } else {
+        setSubmitStatus('doneRegister');
+        submitMutate(input);
+      }
     } else if (status === 'edit') {
+      setSubmitStatus('doneEdit');
       editMutate(input);
 
       handleClose();
@@ -55,6 +63,20 @@ const Register = ({
     handleClose();
   };
 
+  const tellAlert = statusName => {
+    switch (statusName) {
+      case 'notFulfilled':
+        return <h1>작성하신 곳에 혹시 빈칸이 있나 확인해보세요...</h1>;
+      case 'doneRegister':
+        return <h1>추가되었습니다 </h1>;
+      case 'doneEdit':
+        return <h1>수정되었습니다 </h1>;
+
+      default:
+        return;
+    }
+  };
+
   return (
     <Container>
       <TitleButtonWrap>
@@ -69,6 +91,7 @@ const Register = ({
           <TextInput
             input={input}
             setInput={setInput}
+            required
             name="employeeName"
             placeholder={'예: 배수지'}
             maxCharLength={20}
@@ -78,6 +101,7 @@ const Register = ({
           <TextInput
             input={input}
             setInput={setInput}
+            required
             name="employeeEmail"
             placeholder={'예: baesuzy123@naver.com'}
             maxCharLength={30}
@@ -87,12 +111,15 @@ const Register = ({
           <TextInput
             input={input}
             setInput={setInput}
+            required
             name="employeePhone"
             placeholder={'예: 010-1234-4321'}
             maxCharLength={13}
             flex={1}
           />
         </InputWrap>
+
+        {tellAlert(submitStatus)}
 
         <SubmitButton>
           {status === 'register' ? '추가' : ' 수정'}하기

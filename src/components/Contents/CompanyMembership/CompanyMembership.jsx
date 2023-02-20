@@ -51,22 +51,17 @@ const CompanyMembership = ({}) => {
     setCompanyMembershipDataList(dataList);
   }, [dataList]);
 
-  const [isMemoBlur, setIsMemoBlur] = useState(false);
   const [memoData, setMemoData] = useState(undefined);
-  const checkBlur = isBlur => {
-    setIsMemoBlur(isBlur);
-  };
 
   const handleMemoChange = data => {
     setMemoData(data);
   };
 
   useEffect(() => {
-    if (isMemoBlur && memoData) {
-      console.log(memoData);
+    if (memoData) {
       editMutate(memoData);
     }
-  }, [isMemoBlur]);
+  }, [memoData]);
 
   if (isLoading)
     return (
@@ -104,7 +99,6 @@ const CompanyMembership = ({}) => {
           fieldsInput={CompanyMembershipFields}
           dataInput={dataList}
           isMemo={true}
-          checkBlur={checkBlur}
           handleChange={handleMemoChange}
         />
       ) : (

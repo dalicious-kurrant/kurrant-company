@@ -18,7 +18,7 @@ const Table = ({
   fieldsInput,
   dataInput,
   isMemo = undefined,
-  checkBlur,
+
   handleChange,
 }) => {
   const useTheme = theme;
@@ -95,7 +95,7 @@ const Table = ({
                 </th>
               ))}
 
-            {!!isMemo && <th className="memo">Memo (즉석 메모 가능)</th>}
+            {!!isMemo && <th className="memo">Memo</th>}
           </tr>
         </thead>
         <tbody>
@@ -134,7 +134,6 @@ const Table = ({
                         id={value1.id}
                         input={value1}
                         handleChange={handleChange}
-                        checkBlur={checkBlur}
                       />
                     </td>
                   )}
@@ -169,7 +168,6 @@ const Container = styled.div`
       height: 5rem;
     }
     th {
-      border: 1px solid black;
       vertical-align: middle;
       padding: 0.6rem;
       font-size: 1.3rem;
@@ -191,19 +189,14 @@ const Container = styled.div`
     tr {
     }
     td {
-      border: 1px solid black;
       vertical-align: middle;
       padding: 0.6rem;
       height: 6.4rem;
-      ${props => props.theme.fonts.Body07}/* :last-child {
-      
-      } */
+      ${props => props.theme.fonts.Body07}
     }
 
     .memo {
-      background-color: aquamarine;
       padding: 0;
-      /* width: 30rem; */
     }
   }
 `;

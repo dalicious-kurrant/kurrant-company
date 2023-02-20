@@ -79,6 +79,7 @@ const useCompanyMembershipQuery = (
 
   const {mutate: editMutate} = useMutation(
     async todo => {
+      // console.log(todo);
       const response = await axios.put(
         `${process.env.REACT_APP_JSON_SERVER}/company-membership/${todo.id}`,
         todo,
@@ -87,7 +88,7 @@ const useCompanyMembershipQuery = (
     },
     {
       onSuccess: () => {
-        console.log('success');
+        console.log('수정완료!');
         queryClient.invalidateQueries('getCompanyMembership');
       },
       onError: () => {
