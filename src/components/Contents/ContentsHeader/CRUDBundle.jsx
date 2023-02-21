@@ -14,16 +14,15 @@ const CRUDBundle = ({handleBundleClick, showRegister}) => {
   return (
     <Container>
       <Wrap>
-        <div>CRUDBundle</div>
-        <button id="register" onClick={handleClick}>
+        <Button id="register" onClick={handleClick}>
           가입
-        </button>
-        <button id="edit" onClick={handleClick}>
+        </Button>
+        <Button id="edit" onClick={handleClick}>
           수정
-        </button>
-        <button id="delete" onClick={handleClick}>
+        </Button>
+        <Button id="delete" onClick={handleClick}>
           삭제
-        </button>
+        </Button>
       </Wrap>
     </Container>
   );
@@ -38,3 +37,8 @@ const Container = styled.div`
 `;
 
 const Wrap = styled.div``;
+
+const Button = styled.button`
+  font-size: 2.2rem;
+  margin: 0.6rem;
+`;
