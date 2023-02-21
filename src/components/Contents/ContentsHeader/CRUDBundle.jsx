@@ -11,6 +11,10 @@ const CRUDBundle = ({handleBundleClick, showRegister}) => {
     handleBundleClick(e.target.id);
   };
 
+  const handleSend = () => {
+    console.log('최종적용하기');
+  };
+
   return (
     <Container>
       <Wrap>
@@ -23,6 +27,10 @@ const CRUDBundle = ({handleBundleClick, showRegister}) => {
         <Button id="delete" onClick={handleClick}>
           삭제
         </Button>
+
+        <Wrap2>
+          <Button onClick={handleSend}>최종적용하기</Button>
+        </Wrap2>
       </Wrap>
     </Container>
   );
@@ -34,9 +42,12 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
+  /* border: 1px solid black; */
 `;
 
 const Wrap = styled.div``;
+
+const Wrap2 = styled.div``;
 
 const Button = styled.button`
   font-size: 2.2rem;

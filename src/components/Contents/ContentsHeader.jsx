@@ -20,6 +20,10 @@ const ContentsHeader = () => {
   const {pathname} = useLocation();
   const [content, setContent] = useState({name: '', shortIntroduction: ''});
   const [showRegister, setShowRegister] = useState(false);
+  const [checkboxStatus] = useAtom(TableCheckboxStatusAtom);
+  const [dataToEdit, setDataToEdit] = useState(undefined);
+  const [companyMembershipDataList] = useAtom(getCompanyMembershipDataListAtom);
+  const [registerStatus, setRegisterStatus] = useState('register');
 
   // useQuery를 굳이 안쓰는 경우에는 useCompanyMembershipQuery자리의 page, dataLimit값을 0으로 해주세요
 
@@ -48,14 +52,7 @@ const ContentsHeader = () => {
     });
   }, [pathname]);
 
-  const [companyMembershipDataList] = useAtom(getCompanyMembershipDataListAtom);
-
-  const [registerStatus, setRegisterStatus] = useState('register');
-
   // 수정
-
-  const [checkboxStatus] = useAtom(TableCheckboxStatusAtom);
-  const [dataToEdit, setDataToEdit] = useState(undefined);
 
   const handleBundleClick = status => {
     let numberOfTrues = 0;
