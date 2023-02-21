@@ -20,11 +20,27 @@ const useMutate = () => {
     let newDataList;
     for (let i = 0; i < oldDataList.length; i++) {
       if (oldDataList[i].id === input.id) {
+        newDataList.push(input);
+      } else {
+        newDataList.push(oldDataList[i]);
       }
     }
+
+    console.log(newDataList);
   };
 
-  const deleteMutate = () => {};
+  const deleteMutate = id => {
+    const oldDataList = [...companyMembershipDataList];
+    let newDataList;
+    for (let i = 0; i < oldDataList.length; i++) {
+      if (oldDataList[i].id === id) {
+        return;
+      } else {
+        newDataList.push(oldDataList[i]);
+      }
+    }
+    console.log(newDataList);
+  };
 
   return {submitMutate, editMutate, deleteMutate};
 };
