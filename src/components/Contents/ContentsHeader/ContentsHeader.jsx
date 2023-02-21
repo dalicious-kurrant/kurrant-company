@@ -17,42 +17,26 @@ import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 import {CompanyMembershipRegisterFields} from '../CompanyMembership/CompanyMembershipData';
 import useMutate from '../CompanyMembership/useMutate';
 import {makeInitialInput} from 'common/Register/logics/RegisterLogics';
+import {isCRUDAvaliable} from './ContentsHeaderLogics';
+import useSetTitleByPathname from './hooks/useSetTitle';
 
 const ContentsHeader = () => {
   const {pathname} = useLocation();
   const [content, setContent] = useState({name: '', shortIntroduction: ''});
   const [showRegister, setShowRegister] = useState(false);
   const [checkboxStatus] = useAtom(TableCheckboxStatusAtom);
-  const [dataToEdit, setDataToEdit] = useState(undefined);
+  const [dataToEdit, setDataToEdit] = useState({});
   const [companyMembershipDataList] = useAtom(getCompanyMembershipDataListAtom);
   const [registerStatus, setRegisterStatus] = useState('register');
 
   const {submitMutate, editMutate, deleteMutate} = useMutate();
 
-  useEffect(() => {
-    ContentsRouterData.forEach(value => {
-      if (pathname === `/main`) {
-        setContent({
-          name: '대시보드',
-          shortIntroduction: '대시보드입니다',
-        });
-      }
-
-      if (pathname === `/main/${value.id}`) {
-        setContent({
-          name: value.name,
-          shortIntroduction: value.shortIntroduction,
-        });
-        return;
-      }
-    });
-  }, [pathname]);
+  useSetTitleByPathname(setContent);
 
   // 수정
 
   const handleBundleClick = buttonStatus => {
     let numberOfTrues = 0;
-
     const yo = {...checkboxStatus};
     delete yo.parent;
 
@@ -64,7 +48,6 @@ const ContentsHeader = () => {
 
     if (buttonStatus === 'register') {
       setDataToEdit(makeInitialInput([...companyMembershipDataList][0]));
-
       setRegisterStatus(buttonStatus);
       setShowRegister(true);
     } else if (buttonStatus === 'edit') {
@@ -77,8 +60,6 @@ const ContentsHeader = () => {
       } else if (numberOfTrues === 1) {
         let checkedId = undefined;
         Object.entries(yo).forEach(value => {
-          console.log(value);
-
           if (value[1] === true) {
             checkedId = value[0];
           }
@@ -108,16 +89,18 @@ const ContentsHeader = () => {
         }
       });
 
-      idsToDelete.forEach(async value => {
-        await new Promise((resolve, reject) => {
-          try {
-            resolve(deleteMutate(value));
+      // idsToDelete.forEach(async value => {
+      //   await new Promise((resolve, reject) => {
+      //     try {
+      //       resolve(deleteMutate(value));
+      //     } catch (err) {
+      //       reject('안된 듯');
+      //     }
+      //   });
+      // });
 
-            // resolve(deleteMutate(value));
-          } catch (err) {
-            reject('안된 듯');
-          }
-        });
+      idsToDelete.forEach(value => {
+        deleteMutate(value);
       });
     }
   };
@@ -131,9 +114,7 @@ const ContentsHeader = () => {
       <TitleH1>{content.name}</TitleH1>
       <ExplanationSpan>{content.shortIntroduction}</ExplanationSpan>
 
-      {CRUDAvaliableList.map(value => {
-        return `/main/${value}`;
-      }).includes(pathname) && (
+      {isCRUDAvaliable(pathname) && (
         <CRUDBundle
           handleBundleClick={handleBundleClick}
           showRegister={showRegister}

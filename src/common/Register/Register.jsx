@@ -19,9 +19,8 @@ const Register = ({
   fieldsInput,
   editMutate,
 }) => {
-  const {pathname} = useLocationHooks(handleClose);
-
-  // input 초기값 만들기
+  // 현재 location측정
+  useLocationHooks(handleClose);
 
   const [input, setInput] = useState(makeInitialInput(data));
 
@@ -46,28 +45,7 @@ const Register = ({
       handleClose,
     );
 
-    // const fieldsArray = fieldsInput.map(value => input[value.fieldName]);
-
-    // if (registerStatus === 'register') {
-    //   if (fieldsArray.includes('')) {
-    //     setSubmitStatus('notFulfilled');
-    //     return;
-    //   }
-    //   setSubmitStatus('doneRegister');
-    //   submitMutate(input);
-    // } else if (registerStatus === 'edit') {
-    //   if (fieldsArray.includes('')) {
-    //     setSubmitStatus('notFulfilled');
-    //     return;
-    //   }
-
-    //   setSubmitStatus('doneEdit');
-    //   editMutate(input);
-
-    //   handleClose();
-    // }
-
-    const initialInput = makeInitialInput();
+    const initialInput = makeInitialInput(data);
     setInput(initialInput);
   };
 
@@ -93,6 +71,7 @@ const Register = ({
         <InputWrap>
           {fieldsInput.map((value, index) => (
             <TextInput
+              registerStatus={registerStatus}
               key={index}
               input={input}
               setInput={setInput}

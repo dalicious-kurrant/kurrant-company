@@ -10,8 +10,6 @@ const useMutate = () => {
   const submitMutate = input => {
     const newDataList = [...companyMembershipDataList, input];
 
-    console.log(newDataList);
-
     setCompanyMembershipDataList(newDataList);
   };
 
@@ -19,34 +17,32 @@ const useMutate = () => {
     // input : 객체
 
     const oldDataList = [...companyMembershipDataList];
-    let newDataList;
+    let newDataList = [];
     for (let i = 0; i < oldDataList.length; i++) {
-      if (oldDataList[i].id === input.id) {
+      if (oldDataList[i].id == input.id) {
         newDataList.push(input);
       } else {
         newDataList.push(oldDataList[i]);
       }
     }
 
-    console.log(newDataList);
+    setCompanyMembershipDataList(newDataList);
   };
 
   const deleteMutate = id => {
     const oldDataList = [...companyMembershipDataList];
-    let newDataList;
+    let newDataList = [];
     for (let i = 0; i < oldDataList.length; i++) {
-      if (oldDataList[i].id === id) {
-        return;
+      // newDataList.push(oldDataList[i]);
+      if (oldDataList[i].id == id) {
       } else {
         newDataList.push(oldDataList[i]);
       }
     }
-    console.log(newDataList);
+    setCompanyMembershipDataList(newDataList);
   };
 
   return {submitMutate, editMutate, deleteMutate};
 };
 
 export default useMutate;
-
-const Container = styled.div``;
