@@ -14,7 +14,7 @@ const TextInput = ({
     e.preventDefault();
     const {name, value} = e.target;
 
-    setInput({...input, [name]: value, id: Date.now()});
+    setInput({...input, [name]: value, id: Date.now().toString()});
   };
 
   return (

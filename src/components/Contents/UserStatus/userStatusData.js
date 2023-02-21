@@ -67,3 +67,34 @@ export const userStatusFields = {
   gourmetType: '미식가 타입',
   isMembership: '멤버십 여부',
 };
+
+export const UserStatusRegisterFields = [
+  // userId: '아이디',
+  // groupId: '그룹아이디',
+  // groupName: '그룹이름',
+
+  {
+    fieldName: 'userId',
+    fieldNameKor: '사원 이름',
+    placeholder: '예: 배수지',
+    maxCharLength: 20,
+    flex: 1,
+    width: undefined,
+  },
+  {
+    fieldName: 'employeeEmail',
+    fieldNameKor: '사원 이메일',
+    placeholder: '예: baesuzy123@naver.com',
+    maxCharLength: 30,
+    flex: 1,
+    width: undefined,
+  },
+  {
+    fieldName: 'employeePhone',
+    fieldNameKor: '사원 전화번호',
+    placeholder: '예: 010-1234-4321',
+    maxCharLength: 13,
+    flex: 1,
+    width: undefined,
+  },
+];

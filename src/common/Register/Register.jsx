@@ -1,5 +1,7 @@
+import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 import {useEffect} from 'react';
 import {useState} from 'react';
+import {useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import TextInput from './TextInput';
 
@@ -11,6 +13,18 @@ const Register = ({
   fieldsInput,
   editMutate,
 }) => {
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    if (
+      !CRUDAvaliableList.map(value => {
+        return `/main/${value}`;
+      }).includes(pathname)
+    ) {
+      handleClose();
+    }
+  }, [pathname]);
+
   useEffect(() => {
     if (status === 'edit') {
       setInput(dataToEdit);

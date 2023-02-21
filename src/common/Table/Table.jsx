@@ -130,11 +130,7 @@ const Table = ({
 
                   {!!isMemo && (
                     <td className="memo">
-                      <MemoInput
-                        id={value1.id}
-                        input={value1}
-                        handleChange={handleChange}
-                      />
+                      <MemoInput input={value1} handleChange={handleChange} />
                     </td>
                   )}
                 </tr>
