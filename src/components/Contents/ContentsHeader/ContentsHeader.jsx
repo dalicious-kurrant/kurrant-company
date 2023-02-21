@@ -10,11 +10,13 @@ import {useMutation, useQueryClient} from 'react-query';
 import {useLocation} from 'react-router-dom';
 
 import styled from 'styled-components';
-import CRUDBundle from './ContentsHeader/CRUDBundle';
-import {ContentsRouterData} from '../../data/ContentsRouterData';
+import CRUDBundle from '../../../common/Register/CRUDBundle';
+import {ContentsRouterData} from '../../../data/ContentsRouterData';
 import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 
-import {CompanyMembershipRegisterFields} from './CompanyMembership/CompanyMembershipData';
+import {CompanyMembershipRegisterFields} from '../CompanyMembership/CompanyMembershipData';
+import useMutate from '../CompanyMembership/useMutate';
+import {makeInitialInput} from 'common/Register/logics/RegisterLogics';
 
 const ContentsHeader = () => {
   const {pathname} = useLocation();
@@ -25,7 +27,7 @@ const ContentsHeader = () => {
   const [companyMembershipDataList] = useAtom(getCompanyMembershipDataListAtom);
   const [registerStatus, setRegisterStatus] = useState('register');
 
-  // useQuery를 굳이 안쓰는 경우에는 useCompanyMembershipQuery자리의 page, dataLimit값을 0으로 해주세요
+  const {submitMutate, editMutate, deleteMutate} = useMutate();
 
   useEffect(() => {
     ContentsRouterData.forEach(value => {
@@ -48,7 +50,7 @@ const ContentsHeader = () => {
 
   // 수정
 
-  const handleBundleClick = status => {
+  const handleBundleClick = buttonStatus => {
     let numberOfTrues = 0;
 
     const yo = {...checkboxStatus};
@@ -60,10 +62,12 @@ const ContentsHeader = () => {
       }
     });
 
-    if (status === 'register') {
-      setRegisterStatus(status);
+    if (buttonStatus === 'register') {
+      setDataToEdit(makeInitialInput([...companyMembershipDataList][0]));
+
+      setRegisterStatus(buttonStatus);
       setShowRegister(true);
-    } else if (status === 'edit') {
+    } else if (buttonStatus === 'edit') {
       if (numberOfTrues === 0) {
         window.confirm(
           "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
@@ -73,21 +77,23 @@ const ContentsHeader = () => {
       } else if (numberOfTrues === 1) {
         let checkedId = undefined;
         Object.entries(yo).forEach(value => {
+          console.log(value);
+
           if (value[1] === true) {
             checkedId = value[0];
           }
         });
 
-        companyMembershipDataList.forEach(value => {
+        [...companyMembershipDataList].forEach(value => {
           if (value.id === parseInt(checkedId)) {
             setDataToEdit(value);
           }
         });
 
-        setRegisterStatus(status);
+        setRegisterStatus(buttonStatus);
         setShowRegister(true);
       }
-    } else if (status === 'delete') {
+    } else if (buttonStatus === 'delete') {
       if (numberOfTrues === 0) {
         window.confirm(
           "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
@@ -105,6 +111,8 @@ const ContentsHeader = () => {
       idsToDelete.forEach(async value => {
         await new Promise((resolve, reject) => {
           try {
+            resolve(deleteMutate(value));
+
             // resolve(deleteMutate(value));
           } catch (err) {
             reject('안된 듯');
@@ -132,16 +140,16 @@ const ContentsHeader = () => {
         />
       )}
 
-      {/* {showRegister && (
+      {showRegister && (
         <Register
-          status={registerStatus}
+          registerStatus={registerStatus}
           submitMutate={submitMutate}
           editMutate={editMutate}
           handleClose={handleClose}
-          dataToEdit={dataToEdit}
+          data={dataToEdit}
           fieldsInput={CompanyMembershipRegisterFields}
         />
-      )} */}
+      )}
     </Container>
   );
 };

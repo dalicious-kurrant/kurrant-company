@@ -10,6 +10,8 @@ const useMutate = () => {
   const submitMutate = input => {
     const newDataList = [...companyMembershipDataList, input];
 
+    console.log(newDataList);
+
     setCompanyMembershipDataList(newDataList);
   };
 

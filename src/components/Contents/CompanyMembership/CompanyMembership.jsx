@@ -4,13 +4,14 @@ import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
 
 import {useAtom} from 'jotai';
-import {getCompanyMembershipDataListAtom as getCompanyMembershipListAtom} from 'jotai/state';
+
 import React from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import {CompanyMembershipFields} from './CompanyMembershipData';
+import useDataRender from './useHooks/useDataRender';
 
 const CompanyMembership = ({}) => {
   // const {
@@ -25,25 +26,12 @@ const CompanyMembership = ({}) => {
   // } = usePagination(dataTotalLength);
 
   const {
-    data: getData,
+    getData,
     status,
     isLoading,
-  } = useQuery(['getCompanyMembership'], async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_JSON_SERVER}/company-membership`,
-    );
-
-    return response.data;
-  });
-
-  const [companyMembershipList, setCompanyMembershipList] = useAtom(
-    getCompanyMembershipListAtom,
-  );
-
-  useEffect(() => {
-    console.log(getData);
-    setCompanyMembershipList(getData);
-  }, [getData]);
+    companyMembershipList,
+    setCompanyMembershipList,
+  } = useDataRender();
 
   if (isLoading)
     return (
@@ -75,7 +63,7 @@ const CompanyMembership = ({}) => {
         handleMove={handleMove}
         selectOptionArray={[1, 2, 4, 10]}
       /> */}
-      {/* {console.log(dataList)} */}
+
       {Array.isArray(companyMembershipList) &&
       companyMembershipList.length !== 0 ? (
         <Table

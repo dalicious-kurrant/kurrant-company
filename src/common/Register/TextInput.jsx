@@ -17,6 +17,8 @@ const TextInput = ({
     setInput({...input, [name]: value, id: Date.now().toString()});
   };
 
+  console.log(input);
+
   return (
     <>
       <Container flex={flex} width={width}>
