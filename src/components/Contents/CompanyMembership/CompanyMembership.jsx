@@ -76,16 +76,17 @@ const CompanyMembership = ({}) => {
         selectOptionArray={[1, 2, 4, 10]}
       /> */}
       {/* {console.log(dataList)} */}
-      {/* {Array.isArray(dataList) && dataList.length !== 0 ? (
+      {Array.isArray(companyMembershipList) &&
+      companyMembershipList.length !== 0 ? (
         <Table
           fieldsInput={CompanyMembershipFields}
-          dataInput={dataList}
-          isMemo={true}
-          handleChange={handleMemoChange}
+          dataInput={companyMembershipList}
+          // isMemo={true}
+          // handleChange={handleMemoChange}
         />
       ) : (
         <div>아직 등록된 데이터가 없습니다. 데이터를 추가해주세요</div>
-      )} */}
+      )}
     </Container>
   );
 };
