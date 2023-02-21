@@ -4,7 +4,7 @@ import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
 
 import {useAtom} from 'jotai';
-import {getCompanyMembershipDataListAtom} from 'jotai/state';
+import {getCompanyMembershipDataListAtom as getCompanyMembershipListAtom} from 'jotai/state';
 import React from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
@@ -24,25 +24,42 @@ const CompanyMembership = ({}) => {
   //   handleMove,
   // } = usePagination(dataTotalLength);
 
-  const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
-    getCompanyMembershipDataListAtom,
+  const {
+    data: getData,
+    status,
+    isLoading,
+  } = useQuery(['getCompanyMembership'], async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_JSON_SERVER}/company-membership`,
+    );
+
+    return response.data;
+  });
+
+  const [companyMembershipList, setCompanyMembershipList] = useAtom(
+    getCompanyMembershipListAtom,
   );
 
-  // if (isLoading)
-  //   return (
-  //     <>
-  //       {' '}
-  //       <div>로딩중입니다..</div>{' '}
-  //     </>
-  //   );
+  useEffect(() => {
+    console.log(getData);
+    setCompanyMembershipList(getData);
+  }, [getData]);
 
-  // if (status === 'error')
-  //   return (
-  //     <div>
-  //       에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
-  //       있어요
-  //     </div>
-  //   );
+  if (isLoading)
+    return (
+      <>
+        {' '}
+        <div>로딩중입니다..</div>{' '}
+      </>
+    );
+
+  if (status === 'error')
+    return (
+      <div>
+        에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
+        있어요
+      </div>
+    );
 
   return (
     <Container>
