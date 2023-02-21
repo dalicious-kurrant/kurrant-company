@@ -13,7 +13,7 @@ import styled from 'styled-components';
 import CRUDBundle from './ContentsHeader/CRUDBundle';
 import {ContentsRouterData} from '../../data/ContentsRouterData';
 import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
-import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipQuery';
+
 import {CompanyMembershipRegisterFields} from './CompanyMembership/CompanyMembershipData';
 
 const ContentsHeader = () => {
@@ -26,12 +26,6 @@ const ContentsHeader = () => {
   const [registerStatus, setRegisterStatus] = useState('register');
 
   // useQuery를 굳이 안쓰는 경우에는 useCompanyMembershipQuery자리의 page, dataLimit값을 0으로 해주세요
-
-  const {submitMutate, editMutate, deleteMutate} = useCompanyMembershipQuery(
-    0,
-    0,
-    ['getCompanyMembershipLength', 'getCompanyMembership'],
-  );
 
   useEffect(() => {
     ContentsRouterData.forEach(value => {
@@ -111,7 +105,7 @@ const ContentsHeader = () => {
       idsToDelete.forEach(async value => {
         await new Promise((resolve, reject) => {
           try {
-            resolve(deleteMutate(value));
+            // resolve(deleteMutate(value));
           } catch (err) {
             reject('안된 듯');
           }
@@ -138,7 +132,7 @@ const ContentsHeader = () => {
         />
       )}
 
-      {showRegister && (
+      {/* {showRegister && (
         <Register
           status={registerStatus}
           submitMutate={submitMutate}
@@ -147,7 +141,7 @@ const ContentsHeader = () => {
           dataToEdit={dataToEdit}
           fieldsInput={CompanyMembershipRegisterFields}
         />
-      )}
+      )} */}
     </Container>
   );
 };
