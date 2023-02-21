@@ -1,10 +1,10 @@
 import {useAtom} from 'jotai';
-import {getCompanyMembershipDataListAtom} from 'jotai/state';
+import {getCompanyMembershipDataAtom} from 'jotai/state';
 import styled from 'styled-components';
 
 const useMutate = () => {
   const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
-    getCompanyMembershipDataListAtom,
+    getCompanyMembershipDataAtom,
   );
 
   const submitMutate = input => {
@@ -33,7 +33,6 @@ const useMutate = () => {
     const oldDataList = [...companyMembershipDataList];
     let newDataList = [];
     for (let i = 0; i < oldDataList.length; i++) {
-      // newDataList.push(oldDataList[i]);
       if (oldDataList[i].id == id) {
       } else {
         newDataList.push(oldDataList[i]);

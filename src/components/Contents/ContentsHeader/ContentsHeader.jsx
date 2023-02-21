@@ -2,7 +2,7 @@ import axios from 'axios';
 import Register from 'common/Register/Register';
 import {TableCheckboxStatusAtom} from 'common/Table/store';
 import {useAtom} from 'jotai';
-import {getCompanyMembershipDataListAtom} from 'jotai/state';
+import {getCompanyMembershipDataAtom} from 'jotai/state';
 
 import {useEffect} from 'react';
 import {useState} from 'react';
@@ -26,7 +26,7 @@ const ContentsHeader = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [checkboxStatus] = useAtom(TableCheckboxStatusAtom);
   const [dataToEdit, setDataToEdit] = useState({});
-  const [companyMembershipDataList] = useAtom(getCompanyMembershipDataListAtom);
+  const [companyMembershipDataList] = useAtom(getCompanyMembershipDataAtom);
   const [registerStatus, setRegisterStatus] = useState('register');
 
   const {submitMutate, editMutate, deleteMutate} = useMutate();

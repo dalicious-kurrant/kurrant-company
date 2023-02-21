@@ -4,6 +4,7 @@ import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
 
 import {useAtom} from 'jotai';
+import {getCompanyMembershipDataAtom} from 'jotai/state';
 
 import React from 'react';
 import {useState} from 'react';
@@ -14,6 +15,8 @@ import {CompanyMembershipFields} from './CompanyMembershipData';
 import useDataRender from './useHooks/useDataRender';
 
 const CompanyMembership = ({}) => {
+  const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
+
   // const {
   //   page,
   //   setPage,
@@ -23,15 +26,9 @@ const CompanyMembership = ({}) => {
   //   handleButtonClick,
   //   handleGoToEdge,
   //   handleMove,
-  // } = usePagination(dataTotalLength);
+  // } = usePagination(companyMembershipList.length);
 
-  const {
-    getData,
-    status,
-    isLoading,
-    companyMembershipList,
-    setCompanyMembershipList,
-  } = useDataRender();
+  const {status, isLoading} = useDataRender();
 
   if (isLoading)
     return (
@@ -52,7 +49,7 @@ const CompanyMembership = ({}) => {
   return (
     <Container>
       {/* <Pagination
-        dataTotalLength={dataTotalLength}
+        dataTotalLength={companyMembershipList.length}
         page={page}
         setPage={setPage}
         dataLimit={dataLimit}

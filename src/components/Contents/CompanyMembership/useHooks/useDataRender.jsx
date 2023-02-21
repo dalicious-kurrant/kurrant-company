@@ -5,7 +5,7 @@ import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 import {useAtom} from 'jotai';
 
-import {getCompanyMembershipDataListAtom as getCompanyMembershipListAtom} from 'jotai/state';
+import {getCompanyMembershipDataAtom as getCompanyMembershipListAtom} from 'jotai/state';
 import axios from 'axios';
 
 const useDataRender = () => {
@@ -21,19 +21,17 @@ const useDataRender = () => {
     return response.data;
   });
 
-  const [companyMembershipList, setCompanyMembershipList] = useAtom(
-    getCompanyMembershipListAtom,
-  );
+  const [, setCompanyMembershipList] = useAtom(getCompanyMembershipListAtom);
 
   useEffect(() => {
-    setCompanyMembershipList(getData);
+    if (getData) {
+      setCompanyMembershipList(getData);
+    }
   }, [getData]);
   return {
     getData,
     status,
     isLoading,
-    companyMembershipList,
-    setCompanyMembershipList,
   };
 };
 export default useDataRender;
