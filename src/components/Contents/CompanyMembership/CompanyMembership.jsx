@@ -93,7 +93,7 @@ const CompanyMembership = ({}) => {
         handleMove={handleMove}
         selectOptionArray={[1, 2, 4, 10]}
       />
-
+      {/* {console.log(dataList)} */}
       {Array.isArray(dataList) && dataList.length !== 0 ? (
         <Table
           fieldsInput={CompanyMembershipFields}

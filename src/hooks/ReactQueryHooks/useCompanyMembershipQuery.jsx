@@ -22,6 +22,7 @@ const useCompanyMembershipQuery = (
         `${process.env.REACT_APP_JSON_SERVER}/company-membership`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
       );
+      console.log(response);
 
       return response.data.length;
     },
@@ -109,6 +110,7 @@ const useCompanyMembershipQuery = (
         console.log('success');
 
         queryClient.invalidateQueries('getCompanyMembership');
+        queryClient.invalidateQueries(['getCompanyMembershipLength']);
       },
       onError: () => {
         console.log(

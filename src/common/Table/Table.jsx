@@ -31,10 +31,10 @@ const Table = ({
     setKeyOfTableFieldsInput(Object.keys(fieldsInput));
   }, [fieldsInput]);
 
-  useEffect(() => {
-    if (!Array.isArray(keyOfTableFieldsInput)) return;
-    if (keyOfTableFieldsInput.length === 0) return;
-  }, [keyOfTableFieldsInput]);
+  // useEffect(() => {
+  //   if (!Array.isArray(keyOfTableFieldsInput)) return;
+  //   if (keyOfTableFieldsInput.length === 0) return;
+  // }, [keyOfTableFieldsInput]);
 
   useEffect(() => {
     const object1 = {parent: false};
