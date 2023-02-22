@@ -70,7 +70,10 @@ const ExcelTest = ({submitExelMutate}) => {
   const onSaveExel = async () => {
     const req = [...plan];
     req.shift();
-    await submitExelMutate(req);
+    const result = await submitExelMutate({saveList: req});
+    alert('저장에 성공 하셨습니다.');
+    setPlan([]);
+    console.log(result);
   };
   return (
     <Container>
