@@ -1,21 +1,20 @@
-import axios from 'axios';
 import Register from 'common/Register/Register';
 import {TableCheckboxStatusAtom} from 'common/Table/store';
 import {useAtom} from 'jotai';
 import {getCompanyMembershipDataAtom} from 'jotai/state';
 
-import {useEffect} from 'react';
 import {useState} from 'react';
-import {useMutation, useQueryClient} from 'react-query';
+
 import {useLocation} from 'react-router-dom';
 
 import styled from 'styled-components';
 import CRUDBundle from '../../../common/Register/CRUDBundle';
-import {ContentsRouterData} from '../../../data/ContentsRouterData';
-import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 
-import {CompanyMembershipRegisterFields} from '../CompanyMembership/CompanyMembershipData';
-import useMutate from '../CompanyMembership/useMutate';
+import {
+  CompanyMembershipFields,
+  CompanyMembershipFieldsData,
+} from '../CompanyMembership/CompanyMembershipData';
+import useMutate from '../../../common/Register/hooks/useMutate';
 import {makeInitialInput} from 'common/Register/logics/RegisterLogics';
 import {
   checkedValue,
@@ -102,7 +101,8 @@ const ContentsHeader = () => {
           editMutate={editMutate}
           handleClose={handleClose}
           data={dataToEdit}
-          fieldsInput={CompanyMembershipRegisterFields}
+          fieldsToOpen={CompanyMembershipFields}
+          fieldsData={CompanyMembershipFieldsData}
         />
       )}
     </Container>

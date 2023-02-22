@@ -3,7 +3,7 @@ import React from 'react';
 import {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 
-const useLocationHooks = ({handleClose}) => {
+const useLocationHooks = handleClose => {
   const {pathname} = useLocation();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const useLocationHooks = ({handleClose}) => {
     ) {
       handleClose();
     }
-  }, [pathname]);
+  }, [pathname, handleClose]);
 
   return {pathname};
 };

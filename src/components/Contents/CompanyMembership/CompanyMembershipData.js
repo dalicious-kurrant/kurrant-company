@@ -7,7 +7,7 @@ export const CompanyMembershipFields = {
   employeePhone: '사원 전화번호',
 };
 
-export const CompanyMembershipRegisterFields = [
+export const CompanyMembershipFieldsData = [
   // userId: '아이디',
   // groupId: '그룹아이디',
   // groupName: '그룹이름',

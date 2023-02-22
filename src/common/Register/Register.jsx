@@ -12,14 +12,20 @@ import {
 import TextInput from './TextInput';
 
 const Register = ({
+  fieldsToOpen,
   registerStatus,
   submitMutate,
   handleClose,
   data,
-  fieldsInput,
+  fieldsData,
   editMutate,
 }) => {
   // 현재 location측정
+
+  useEffect(() => {
+    console.log(handleClose);
+  }, [handleClose]);
+
   useLocationHooks(handleClose);
 
   const [input, setInput] = useState(makeInitialInput(data));
@@ -37,7 +43,7 @@ const Register = ({
 
     handleSubmitLogic(
       input,
-      fieldsInput,
+      fieldsData,
       registerStatus,
       setSubmitStatus,
       submitMutate,
@@ -54,7 +60,7 @@ const Register = ({
   };
 
   const tellAlert = statusName => {
-    tellAlertLogic(statusName);
+    return tellAlertLogic(statusName);
   };
 
   return (
@@ -69,8 +75,9 @@ const Register = ({
 
       <Form onSubmit={handleSubmit}>
         <InputWrap>
-          {fieldsInput.map((value, index) => (
+          {fieldsData.map((value, index) => (
             <TextInput
+              fieldsToOpen={fieldsToOpen}
               registerStatus={registerStatus}
               key={index}
               input={input}

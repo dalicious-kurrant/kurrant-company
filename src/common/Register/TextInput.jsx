@@ -2,6 +2,7 @@ import {CompanyMembershipFields} from 'components/Contents/CompanyMembership/Com
 import styled from 'styled-components';
 
 const TextInput = ({
+  fieldsToOpen,
   registerStatus,
   input,
   name,
@@ -28,7 +29,7 @@ const TextInput = ({
     <>
       <Container flex={flex} width={width}>
         <TitleWrap>
-          <Title>{CompanyMembershipFields[name]}</Title>
+          <Title>{fieldsToOpen[name]}</Title>
         </TitleWrap>
 
         <TextInputInput
