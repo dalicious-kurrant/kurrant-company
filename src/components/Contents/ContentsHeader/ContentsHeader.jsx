@@ -30,7 +30,7 @@ const ContentsHeader = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [checkboxStatus] = useAtom(TableCheckboxStatusAtom);
   const [dataToEdit, setDataToEdit] = useState({});
-  const [companyMembershipDataList] = useAtom(getCompanyMembershipDataAtom);
+  const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
   const [registerStatus, setRegisterStatus] = useState('register');
 
   const {submitMutate, editMutate, deleteMutate} = useMutate();
@@ -41,9 +41,9 @@ const ContentsHeader = () => {
 
   const handleBundleClick = buttonStatus => {
     numberOfTrues({...checkboxStatus});
-
+    console.log(buttonStatus);
     if (buttonStatus === 'register') {
-      setDataToEdit(makeInitialInput([...companyMembershipDataList][0]));
+      setDataToEdit(makeInitialInput(CompanyMembershipFields));
       setRegisterStatus(buttonStatus);
       setShowRegister(true);
     } else if (buttonStatus === 'edit') {
@@ -56,7 +56,7 @@ const ContentsHeader = () => {
 
         window.confirm("체크박스가 '하나만' 선택되어 있는지 확인해주세요 ");
       } else if (numberOfTrues({...checkboxStatus}) === 1) {
-        setDataToEdit(checkedValue(checkboxStatus, companyMembershipDataList));
+        setDataToEdit(checkedValue(checkboxStatus, companyMembershipList));
         setRegisterStatus(buttonStatus);
         setShowRegister(true);
       }
@@ -113,7 +113,6 @@ export default ContentsHeader;
 
 const Container = styled.section`
   width: 100%;
-  height: 24rem;
 
   display: flex;
   flex-direction: column;

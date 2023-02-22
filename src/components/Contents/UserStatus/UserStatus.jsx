@@ -9,6 +9,7 @@ import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
 
 import {userStatusFields} from 'components/Contents/UserStatus/userStatusData';
+import {useEffect} from 'react';
 
 import {useQuery} from 'react-query';
 
@@ -45,55 +46,27 @@ const UserStatus = () => {
 
   ////////////////////////////////////////////////////////////////////
 
-  // const {data: yoyo} = useQuery([`getUserStatussffsfssf`], async () => {
-  //   const response = await axios.get(
-  //     // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-  //     // `${process.env.REACT_APP_JSON_SERVER}/user-status`,
-  //     `${process.env.REACT_APP_TEST_SERVER_URL}/user-status/members?code=AAAAAA`,
-  //     // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-  //   );
-
-  //   console.log(response.data.data);
-  //   return response.data;
-  // });
-
-  const {data: dataTotalLength} = useQuery(
-    ['getUserStatusLength'],
-    async () => {
-      const response = await axios.get(
-        // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-        `${process.env.REACT_APP_JSON_SERVER}/user-status`,
-        // `${process.env.REACT_APP_TEST_SERVER_URL}/members?code=AAAAAA`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-      );
-
-      return response.data.length;
-    },
-  );
-
-  const {
-    page,
-    setPage,
-    dataLimit,
-    setDataLimit,
-    pageList,
-    handleButtonClick,
-    handleGoToEdge,
-    handleMove,
-  } = usePagination(dataTotalLength);
-
   const {
     data: dataList,
     status,
     isLoading,
-  } = useQuery(['getUserStatus', page, dataLimit], async ({queryKey}) => {
+    // } = useQuery(['getUserStatus', page, dataLimit], async ({queryKey}) => {
+  } = useQuery(['getUserStatus'], async ({queryKey}) => {
     const response = await axios.get(
       // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-      `${process.env.REACT_APP_JSON_SERVER}/user-status/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
+      `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=AAAAAA`,
+      // `${process.env.REACT_APP_JSON_SERVER}/user-status/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
       // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
     );
-    return response.data;
+
+    console.log(response.data.data.items);
+
+    return response.data.data.items;
   });
+
+  // useEffect(() => {
+  //   console.log(dataList);
+  // }, [dataList]);
 
   if (isLoading)
     return (
@@ -111,26 +84,18 @@ const UserStatus = () => {
       </div>
     );
 
-  return (
-    <Container>
-      <Pagination
-        dataTotalLength={dataTotalLength}
-        page={page}
-        setPage={setPage}
-        dataLimit={dataLimit}
-        setDataLimit={setDataLimit}
-        pageList={pageList}
-        handleButtonClick={handleButtonClick}
-        handleGoToEdge={handleGoToEdge}
-        handleMove={handleMove}
-        selectOptionArray={[1, 2, 4, 10]}
-      />
-
-      {!!dataList && dataList.length !== 0 && (
-        <Table fieldsInput={userStatusFields} dataInput={dataList} />
-      )}
-    </Container>
-  );
+  if (status === 'success')
+    return (
+      <Container>
+        {!!dataList && dataList.length !== 0 && (
+          <Table
+            useCheckbox={true}
+            fieldsInput={userStatusFields}
+            dataInput={dataList}
+          />
+        )}
+      </Container>
+    );
 };
 
 export default UserStatus;

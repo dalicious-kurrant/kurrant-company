@@ -1,5 +1,12 @@
 export const makeInitialInput = data => {
+  // 여기부분이 udnefined에러가 많이 나오는데
+  if (!data) {
+    console.log('register.jsx 의 31줄 보셈');
+  }
+  console.log(data);
+
   let initialInput = {};
+
   Object.keys(data).map(value => {
     initialInput[value] = '';
   });

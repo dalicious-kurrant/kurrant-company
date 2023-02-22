@@ -11,6 +11,8 @@ import {
 } from './logics/RegisterLogics';
 import TextInput from './TextInput';
 
+// contetns header ->  register
+
 const Register = ({
   fieldsToOpen,
   registerStatus,
@@ -22,11 +24,11 @@ const Register = ({
 }) => {
   // 현재 location측정
 
-  useEffect(() => {
-    console.log(handleClose);
-  }, [handleClose]);
-
   useLocationHooks(handleClose);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const [input, setInput] = useState(makeInitialInput(data));
 

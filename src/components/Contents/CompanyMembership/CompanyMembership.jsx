@@ -7,9 +7,12 @@ import React from 'react';
 
 import styled from 'styled-components';
 import {CompanyMembershipFields} from './CompanyMembershipData';
+import useCompanyMembership from './useHooks/useCompanyMembership';
 import useDataRender from './useHooks/useDataRender';
 
 const CompanyMembership = ({}) => {
+  useCompanyMembership();
+
   const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
 
   // const {

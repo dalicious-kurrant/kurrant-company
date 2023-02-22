@@ -14,7 +14,13 @@ import {TableCheckboxStatusAtom} from './store';
 // - 데이터 안에 정해진 필드가 아닌 필드가 들어있으면 자동으로 걸러준다
 // - 데이터 값이 number나 string이 아닌 경우는 '-'로 표기한다
 
-const Table = ({fieldsInput, dataInput, isMemo = false, handleChange}) => {
+const Table = ({
+  fieldsInput,
+  dataInput,
+  isMemo = false,
+  handleChange,
+  useCheckbox = true,
+}) => {
   const useTheme = theme;
 
   const [keyOfTableFieldsInput, setKeyOfTableFieldsInput] = useState([]);
@@ -67,16 +73,19 @@ const Table = ({fieldsInput, dataInput, isMemo = false, handleChange}) => {
       <table bgcolor={useTheme.colors.white}>
         <thead>
           <tr>
-            <CheckBoxTh>
-              <TableCheckbox
-                width="2rem"
-                height="2rem"
-                css="margin:auto;"
-                value={'parent'}
-                checkboxStatus={checkboxStatus}
-                onChecked={onCheckCheckbox}
-              />
-            </CheckBoxTh>
+            {useCheckbox && (
+              <CheckBoxTh>
+                <TableCheckbox
+                  width="2rem"
+                  height="2rem"
+                  css="margin:auto;"
+                  value={'parent'}
+                  checkboxStatus={checkboxStatus}
+                  onChecked={onCheckCheckbox}
+                />
+              </CheckBoxTh>
+            )}
+
             {keyOfTableFieldsInput &&
               keyOfTableFieldsInput.map((val, index) => (
                 <th align="left" key={index}>
@@ -100,16 +109,18 @@ const Table = ({fieldsInput, dataInput, isMemo = false, handleChange}) => {
 
               return (
                 <tr key={index1}>
-                  <CheckBoxTd align="center">
-                    <TableCheckbox
-                      width="2rem"
-                      height="2rem"
-                      css="margin:auto;"
-                      checkboxStatus={checkboxStatus}
-                      value={value1.id}
-                      onChecked={onCheckCheckbox}
-                    />
-                  </CheckBoxTd>
+                  {useCheckbox && (
+                    <CheckBoxTd align="center">
+                      <TableCheckbox
+                        width="2rem"
+                        height="2rem"
+                        css="margin:auto;"
+                        checkboxStatus={checkboxStatus}
+                        value={value1.id}
+                        onChecked={onCheckCheckbox}
+                      />
+                    </CheckBoxTd>
+                  )}
 
                   {yo.map((value3, index3) => (
                     <td align="left" key={index3}>
@@ -157,9 +168,9 @@ const Container = styled.div`
       padding: 0.6rem;
       font-size: 1.3rem;
       ${props => props.theme.colors.Black02}
-      ${props => props.theme.fonts.H10}
+      /* ${props => props.theme.fonts.H10} */
       /* flex: 1; */
-     
+
       :last-child {
       }
     }
@@ -177,6 +188,9 @@ const Container = styled.div`
       vertical-align: middle;
       padding: 0.6rem;
       height: 6.4rem;
+
+      /* flex: 1; */
+
       ${props => props.theme.fonts.Body07}
     }
 
