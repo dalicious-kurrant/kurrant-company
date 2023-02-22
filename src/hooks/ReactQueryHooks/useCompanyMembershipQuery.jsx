@@ -85,7 +85,6 @@ const useCompanyMembershipQuery = (
         `${apiUrl}/v1/client/members/excel`,
         newTodo,
       );
-      console.log(response);
       return response;
     },
     {
