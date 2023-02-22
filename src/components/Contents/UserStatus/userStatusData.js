@@ -57,13 +57,44 @@ export const userStatusMockData = [
 
 export const userStatusFields = {
   userId: '아이디',
-  password: '비밀번호',
-  name: '사용자 명',
-  userType: '유저타입 (0: 일반, 1:관리자)',
+  // password: '비밀번호',
+  name: '사용자 이름',
+  // userType: '유저타입 (0: 일반, 1:관리자)',
   phone: '폰 번호',
   email: '이메일',
   groupName: '그룹이름',
   point: '보유 포인트',
-  gourmetType: '미식가 타입',
-  isMembership: '멤버십 여부',
+  // gourmetType: '미식가 타입',
+  // isMembership: '멤버십 여부',
 };
+
+export const UserStatusRegisterFields = [
+  // userId: '아이디',
+  // groupId: '그룹아이디',
+  // groupName: '그룹이름',
+
+  {
+    fieldName: 'userId',
+    fieldNameKor: '사원 이름',
+    placeholder: '예: 배수지',
+    maxCharLength: 20,
+    flex: 1,
+    width: undefined,
+  },
+  {
+    fieldName: 'employeeEmail',
+    fieldNameKor: '사원 이메일',
+    placeholder: '예: baesuzy123@naver.com',
+    maxCharLength: 30,
+    flex: 1,
+    width: undefined,
+  },
+  {
+    fieldName: 'employeePhone',
+    fieldNameKor: '사원 전화번호',
+    placeholder: '예: 010-1234-4321',
+    maxCharLength: 13,
+    flex: 1,
+    width: undefined,
+  },
+];

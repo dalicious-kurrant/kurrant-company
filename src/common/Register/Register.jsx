@@ -1,65 +1,56 @@
+import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 import {useEffect} from 'react';
 import {useState} from 'react';
+import {useLocation} from 'react-router-dom';
 import styled from 'styled-components';
+import useLocationHooks from './hooks/useLocationHooks';
+import {
+  handleSubmitLogic,
+  makeInitialInput,
+  tellAlertLogic,
+} from './logics/RegisterLogics';
 import TextInput from './TextInput';
 
+// contetns header ->  register
+
 const Register = ({
-  status,
+  fieldsToOpen,
+  registerStatus,
   submitMutate,
   handleClose,
-  dataToEdit,
-  fieldsInput,
+  data,
+  fieldsData,
   editMutate,
 }) => {
-  useEffect(() => {
-    if (status === 'edit') {
-      setInput(dataToEdit);
-    }
-  }, [status]);
+  // 현재 location측정
 
-  const [input, setInput] = useState({
-    userId: '',
-    groupId: '',
-    groupName: '',
-    employeeEmail: '',
-    employeeName: '',
-    employeePhone: '',
-  });
+  useLocationHooks(handleClose);
+
+  const [input, setInput] = useState(makeInitialInput(data));
+
+  useEffect(() => {
+    if (registerStatus === 'edit') {
+      setInput(data);
+    }
+  }, [registerStatus]);
 
   const [submitStatus, setSubmitStatus] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    const fieldsArray = fieldsInput.map(value => input[value.fieldName]);
+    handleSubmitLogic(
+      input,
+      fieldsData,
+      registerStatus,
+      setSubmitStatus,
+      submitMutate,
+      editMutate,
+      handleClose,
+    );
 
-    if (status === 'register') {
-      if (fieldsArray.includes('')) {
-        setSubmitStatus('notFulfilled');
-        return;
-      }
-      setSubmitStatus('doneRegister');
-      submitMutate(input);
-    } else if (status === 'edit') {
-      if (fieldsArray.includes('')) {
-        setSubmitStatus('notFulfilled');
-        return;
-      }
-
-      setSubmitStatus('doneEdit');
-      editMutate(input);
-
-      handleClose();
-    }
-
-    setInput({
-      userId: '',
-      groupId: '',
-      groupName: '',
-      employeeEmail: '',
-      employeeName: '',
-      employeePhone: '',
-    });
+    const initialInput = makeInitialInput(data);
+    setInput(initialInput);
   };
 
   const handleCloseBtn = () => {
@@ -67,31 +58,25 @@ const Register = ({
   };
 
   const tellAlert = statusName => {
-    switch (statusName) {
-      case 'notFulfilled':
-        return <h1>작성하신 곳에 혹시 빈칸이 있나 확인해보세요...</h1>;
-      case 'doneRegister':
-        return <h1>추가되었습니다 </h1>;
-      case 'doneEdit':
-        return <h1>수정되었습니다 </h1>;
-      default:
-        return;
-    }
+    return tellAlertLogic(statusName);
   };
 
   return (
     <Container>
       <TitleButtonWrap>
         <H2>
-          가입 리스트{status === 'register' ? '에 추가하기' : ' 수정하기'}
+          가입 리스트
+          {registerStatus === 'register' ? '에 추가하기' : ' 수정하기'}
         </H2>
         <button onClick={handleCloseBtn}> 닫기 </button>
       </TitleButtonWrap>
 
       <Form onSubmit={handleSubmit}>
         <InputWrap>
-          {fieldsInput.map((value, index) => (
+          {fieldsData.map((value, index) => (
             <TextInput
+              fieldsToOpen={fieldsToOpen}
+              registerStatus={registerStatus}
               key={index}
               input={input}
               setInput={setInput}
@@ -107,7 +92,7 @@ const Register = ({
         {tellAlert(submitStatus)}
 
         <SubmitButton>
-          {status === 'register' ? '추가' : ' 수정'}하기
+          {registerStatus === 'register' ? '추가' : ' 수정'}하기
         </SubmitButton>
       </Form>
     </Container>
