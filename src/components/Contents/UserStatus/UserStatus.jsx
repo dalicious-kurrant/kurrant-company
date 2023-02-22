@@ -62,7 +62,7 @@ const UserStatus = () => {
     async () => {
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-        `${process.env.REACT_APP_JSON_SERVER}/user-status`,
+        `http://localhost:4000/user-status`,
         // `${process.env.REACT_APP_TEST_SERVER_URL}/members?code=AAAAAA`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
       );
@@ -89,7 +89,7 @@ const UserStatus = () => {
   } = useQuery(['getUserStatus', page, dataLimit], async ({queryKey}) => {
     const response = await axios.get(
       // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-      `${process.env.REACT_APP_JSON_SERVER}/user-status/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
+      `http://localhost:4000/user-status/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
       // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
     );
     return response.data;

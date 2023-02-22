@@ -1,6 +1,12 @@
 import axios from 'axios';
 import React from 'react';
 import {useMutation, useQuery, useQueryClient} from 'react-query';
+const apiUrl =
+  process.env.REACT_APP_NODE_ENV === 'local'
+    ? process.env.REACT_APP_LOCAL_URL
+    : process.env.REACT_APP_NODE_ENV === 'json'
+    ? process.env.REACT_APP_JSON_SERVER
+    : process.env.REACT_APP_BASE_URL;
 
 const useCompanyMembershipQuery = (
   page = 1,
@@ -18,11 +24,10 @@ const useCompanyMembershipQuery = (
     async () => {
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-        `${process.env.REACT_APP_JSON_SERVER}/company-membership`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+        // `${apiUrl_USER_STATUS}`,
+        `${apiUrl}/company-membership`,
+        // `${apiUrl_USER_STATUS}`,
       );
-
       return response.data.length;
     },
     {
@@ -42,9 +47,9 @@ const useCompanyMembershipQuery = (
     async ({queryKey}) => {
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
-        `${process.env.REACT_APP_JSON_SERVER}/company-membership/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
+        // `${apiUrl_USER_STATUS}?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
+        `${apiUrl}/company-membership/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
+        // `${apiUrl_USER_STATUS}`,
       );
 
       return response.data;
@@ -59,7 +64,25 @@ const useCompanyMembershipQuery = (
   const {mutate: submitMutate} = useMutation(
     async newTodo => {
       const response = await axios.post(
-        `${process.env.REACT_APP_JSON_SERVER}/company-membership`,
+        `${apiUrl}/company-membership`,
+        newTodo,
+      );
+      return response;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['getCompanyMembership']);
+        queryClient.invalidateQueries(['getCompanyMembershipLength']);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
+  const {mutate: submitExelMutate} = useMutation(
+    async newTodo => {
+      const response = await axios.post(
+        `${apiUrl}/v1/client/members/excel`,
         newTodo,
       );
       return response;
@@ -81,7 +104,7 @@ const useCompanyMembershipQuery = (
     async todo => {
       // console.log(todo);
       const response = await axios.put(
-        `${process.env.REACT_APP_JSON_SERVER}/company-membership/${todo.id}`,
+        `${apiUrl}/company-membership/${todo.id}`,
         todo,
       );
       return response;
@@ -99,9 +122,7 @@ const useCompanyMembershipQuery = (
 
   const {mutate: deleteMutate} = useMutation(
     async id => {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_JSON_SERVER}/company-membership/${id}`,
-      );
+      const response = await axios.delete(`${apiUrl}/company-membership/${id}`);
       return response;
     },
     {
@@ -126,6 +147,7 @@ const useCompanyMembershipQuery = (
     submitMutate,
     editMutate,
     deleteMutate,
+    submitExelMutate,
   };
 };
 export default useCompanyMembershipQuery;

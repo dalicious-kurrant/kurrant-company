@@ -159,11 +159,11 @@ export default ContentsHeader;
 
 const Container = styled.section`
   width: 100%;
-  height: 24rem;
+  height: 12rem;
 
   display: flex;
   flex-direction: column;
-  margin-bottom: 5rem;
+  /* margin-bottom: 5rem; */
   position: relative;
 `;
 
