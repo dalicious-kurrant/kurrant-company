@@ -52,8 +52,6 @@ const ContentsHeader = () => {
           "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
         );
       } else if (numberOfTrues({...checkboxStatus}) !== 1) {
-        // console.log(numberOfTrues({...checkboxStatus}));
-
         window.confirm("체크박스가 '하나만' 선택되어 있는지 확인해주세요 ");
       } else if (numberOfTrues({...checkboxStatus}) === 1) {
         setDataToEdit(checkedValue(checkboxStatus, companyMembershipList));

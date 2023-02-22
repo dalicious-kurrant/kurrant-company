@@ -83,7 +83,7 @@ const UserStatus = () => {
       <Container>
         {!!dataList && dataList.length !== 0 && (
           <Table
-            useCheckbox={true}
+            useCheckbox={false}
             fieldsInput={userStatusFields}
             dataInput={dataList}
           />
