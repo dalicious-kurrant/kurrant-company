@@ -10,7 +10,7 @@ import {CompanyMembershipFields} from './CompanyMembershipData';
 
 import useDataRender from './useHooks/useDataRender';
 
-const CompanyMembership = ({}) => {
+const CompanyMembership = () => {
   const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
 
   const {status, isLoading} = useDataRender();
