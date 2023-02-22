@@ -1,15 +1,10 @@
-import axios from 'axios';
-import Pagination from 'common/Pagination/Pagination';
-import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
 
 import {useAtom} from 'jotai';
 import {getCompanyMembershipDataAtom} from 'jotai/state';
 
 import React from 'react';
-import {useState} from 'react';
-import {useEffect} from 'react';
-import {useQuery} from 'react-query';
+
 import styled from 'styled-components';
 import {CompanyMembershipFields} from './CompanyMembershipData';
 import useDataRender from './useHooks/useDataRender';

@@ -1,5 +1,5 @@
 import TableCheckbox from 'common/TableCheckbox';
-import {userStatusFields} from 'components/Contents/UserStatus/userStatusData';
+
 import {useAtom} from 'jotai';
 import {useEffect} from 'react';
 import {useState} from 'react';
@@ -14,13 +14,7 @@ import {TableCheckboxStatusAtom} from './store';
 // - 데이터 안에 정해진 필드가 아닌 필드가 들어있으면 자동으로 걸러준다
 // - 데이터 값이 number나 string이 아닌 경우는 '-'로 표기한다
 
-const Table = ({
-  fieldsInput,
-  dataInput,
-  isMemo = undefined,
-
-  handleChange,
-}) => {
+const Table = ({fieldsInput, dataInput, isMemo = false, handleChange}) => {
   const useTheme = theme;
 
   const [keyOfTableFieldsInput, setKeyOfTableFieldsInput] = useState([]);
@@ -30,11 +24,6 @@ const Table = ({
   useEffect(() => {
     setKeyOfTableFieldsInput(Object.keys(fieldsInput));
   }, [fieldsInput]);
-
-  // useEffect(() => {
-  //   if (!Array.isArray(keyOfTableFieldsInput)) return;
-  //   if (keyOfTableFieldsInput.length === 0) return;
-  // }, [keyOfTableFieldsInput]);
 
   useEffect(() => {
     const object1 = {parent: false};

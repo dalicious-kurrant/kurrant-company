@@ -17,7 +17,12 @@ import {CRUDAvaliableList} from 'data/CRUDAvaliableList';
 import {CompanyMembershipRegisterFields} from '../CompanyMembership/CompanyMembershipData';
 import useMutate from '../CompanyMembership/useMutate';
 import {makeInitialInput} from 'common/Register/logics/RegisterLogics';
-import {isCRUDAvaliable} from './ContentsHeaderLogics';
+import {
+  checkedValue,
+  idsToDelete,
+  isCRUDAvaliable,
+  numberOfTrues,
+} from './ContentsHeaderLogics';
 import useSetTitleByPathname from './hooks/useSetTitle';
 
 const ContentsHeader = () => {
@@ -36,41 +41,23 @@ const ContentsHeader = () => {
   // 수정
 
   const handleBundleClick = buttonStatus => {
-    let numberOfTrues = 0;
-    const yo = {...checkboxStatus};
-    delete yo.parent;
-
-    Object.values(yo).forEach(value => {
-      if (value === true) {
-        numberOfTrues = numberOfTrues + 1;
-      }
-    });
+    numberOfTrues({...checkboxStatus});
 
     if (buttonStatus === 'register') {
       setDataToEdit(makeInitialInput([...companyMembershipDataList][0]));
       setRegisterStatus(buttonStatus);
       setShowRegister(true);
     } else if (buttonStatus === 'edit') {
-      if (numberOfTrues === 0) {
+      if (numberOfTrues({...checkboxStatus}) === 0) {
         window.confirm(
           "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
         );
-      } else if (numberOfTrues !== 1) {
+      } else if (numberOfTrues({...checkboxStatus}) !== 1) {
+        // console.log(numberOfTrues({...checkboxStatus}));
+
         window.confirm("체크박스가 '하나만' 선택되어 있는지 확인해주세요 ");
-      } else if (numberOfTrues === 1) {
-        let checkedId = undefined;
-        Object.entries(yo).forEach(value => {
-          if (value[1] === true) {
-            checkedId = value[0];
-          }
-        });
-
-        [...companyMembershipDataList].forEach(value => {
-          if (value.id === parseInt(checkedId)) {
-            setDataToEdit(value);
-          }
-        });
-
+      } else if (numberOfTrues({...checkboxStatus}) === 1) {
+        setDataToEdit(checkedValue(checkboxStatus, companyMembershipDataList));
         setRegisterStatus(buttonStatus);
         setShowRegister(true);
       }
@@ -79,29 +66,16 @@ const ContentsHeader = () => {
         window.confirm(
           "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
         );
+        return;
       }
 
-      const idsToDelete = [];
-
-      Object.keys(yo).forEach(value => {
-        if (yo[value]) {
-          idsToDelete.push(value);
-        }
-      });
-
-      // idsToDelete.forEach(async value => {
-      //   await new Promise((resolve, reject) => {
-      //     try {
-      //       resolve(deleteMutate(value));
-      //     } catch (err) {
-      //       reject('안된 듯');
-      //     }
-      //   });
-      // });
-
-      idsToDelete.forEach(value => {
-        deleteMutate(value);
-      });
+      if (window.confirm('삭제하시겠습니까?')) {
+        idsToDelete({...checkboxStatus}).forEach(value => {
+          deleteMutate(value);
+        });
+      } else {
+        return;
+      }
     }
   };
 
