@@ -3,7 +3,6 @@ export const makeInitialInput = data => {
   if (!data) {
     console.log('register.jsx 의 31줄 보셈');
   }
-  console.log(data);
 
   let initialInput = {};
 

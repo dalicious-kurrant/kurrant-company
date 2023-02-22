@@ -41,7 +41,7 @@ const ContentsHeader = () => {
 
   const handleBundleClick = buttonStatus => {
     numberOfTrues({...checkboxStatus});
-    console.log(buttonStatus);
+
     if (buttonStatus === 'register') {
       setDataToEdit(makeInitialInput(CompanyMembershipFields));
       setRegisterStatus(buttonStatus);

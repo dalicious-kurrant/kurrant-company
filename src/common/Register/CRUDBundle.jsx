@@ -5,6 +5,7 @@ const CRUDBundle = ({handleBundleClick, showRegister}) => {
     if (e.target.id === 'register' || e.target.id === 'edit') {
       if (showRegister) {
         window.confirm("'닫기'버튼을 누른후에 시도해주세요");
+        return;
       }
     }
 

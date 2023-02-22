@@ -26,10 +26,6 @@ const Register = ({
 
   useLocationHooks(handleClose);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const [input, setInput] = useState(makeInitialInput(data));
 
   useEffect(() => {

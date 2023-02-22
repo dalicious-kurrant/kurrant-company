@@ -59,14 +59,8 @@ const UserStatus = () => {
       // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
     );
 
-    console.log(response.data.data.items);
-
     return response.data.data.items;
   });
-
-  // useEffect(() => {
-  //   console.log(dataList);
-  // }, [dataList]);
 
   if (isLoading)
     return (
