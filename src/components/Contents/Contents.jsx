@@ -1,6 +1,6 @@
 import {Outlet} from 'react-router-dom';
 import styled from 'styled-components';
-import ContentsHeader from './ContentsHeader';
+import ContentsHeader from './ContentsHeader/ContentsHeader';
 
 const Contents = () => {
   return (

@@ -1,5 +1,5 @@
 import TableCheckbox from 'common/TableCheckbox';
-import {userStatusFields} from 'components/Contents/UserStatus/userStatusData';
+
 import {useAtom} from 'jotai';
 import {useEffect} from 'react';
 import {useState} from 'react';
@@ -17,9 +17,9 @@ import {TableCheckboxStatusAtom} from './store';
 const Table = ({
   fieldsInput,
   dataInput,
-  isMemo = undefined,
-
+  isMemo = false,
   handleChange,
+  useCheckbox = true,
 }) => {
   const useTheme = theme;
 
@@ -30,11 +30,6 @@ const Table = ({
   useEffect(() => {
     setKeyOfTableFieldsInput(Object.keys(fieldsInput));
   }, [fieldsInput]);
-
-  useEffect(() => {
-    if (!Array.isArray(keyOfTableFieldsInput)) return;
-    if (keyOfTableFieldsInput.length === 0) return;
-  }, [keyOfTableFieldsInput]);
 
   useEffect(() => {
     const object1 = {parent: false};
@@ -78,16 +73,19 @@ const Table = ({
       <table bgcolor={useTheme.colors.white}>
         <thead>
           <tr>
-            <CheckBoxTh>
-              <TableCheckbox
-                width="2rem"
-                height="2rem"
-                css="margin:auto;"
-                value={'parent'}
-                checkboxStatus={checkboxStatus}
-                onChecked={onCheckCheckbox}
-              />
-            </CheckBoxTh>
+            {useCheckbox && (
+              <CheckBoxTh>
+                <TableCheckbox
+                  width="2rem"
+                  height="2rem"
+                  css="margin:auto;"
+                  value={'parent'}
+                  checkboxStatus={checkboxStatus}
+                  onChecked={onCheckCheckbox}
+                />
+              </CheckBoxTh>
+            )}
+
             {keyOfTableFieldsInput &&
               keyOfTableFieldsInput.map((val, index) => (
                 <th align="left" key={index}>
@@ -111,16 +109,18 @@ const Table = ({
 
               return (
                 <tr key={index1}>
-                  <CheckBoxTd align="center">
-                    <TableCheckbox
-                      width="2rem"
-                      height="2rem"
-                      css="margin:auto;"
-                      checkboxStatus={checkboxStatus}
-                      value={value1.id}
-                      onChecked={onCheckCheckbox}
-                    />
-                  </CheckBoxTd>
+                  {useCheckbox && (
+                    <CheckBoxTd align="center">
+                      <TableCheckbox
+                        width="2rem"
+                        height="2rem"
+                        css="margin:auto;"
+                        checkboxStatus={checkboxStatus}
+                        value={value1.id}
+                        onChecked={onCheckCheckbox}
+                      />
+                    </CheckBoxTd>
+                  )}
 
                   {yo.map((value3, index3) => (
                     <td align="left" key={index3}>
@@ -130,11 +130,7 @@ const Table = ({
 
                   {!!isMemo && (
                     <td className="memo">
-                      <MemoInput
-                        id={value1.id}
-                        input={value1}
-                        handleChange={handleChange}
-                      />
+                      <MemoInput input={value1} handleChange={handleChange} />
                     </td>
                   )}
                 </tr>
@@ -172,9 +168,9 @@ const Container = styled.div`
       padding: 0.6rem;
       font-size: 1.3rem;
       ${props => props.theme.colors.Black02}
-      ${props => props.theme.fonts.H10}
+      /* ${props => props.theme.fonts.H10} */
       /* flex: 1; */
-     
+
       :last-child {
       }
     }
@@ -192,6 +188,9 @@ const Container = styled.div`
       vertical-align: middle;
       padding: 0.6rem;
       height: 6.4rem;
+
+      /* flex: 1; */
+
       ${props => props.theme.fonts.Body07}
     }
 

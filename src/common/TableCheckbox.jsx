@@ -21,7 +21,6 @@ const TableCheckbox = ({
   return (
     <Container
       css={css}
-      // checked={true}
       checked={checkboxStatus[value]}
       width={width}
       height={height}
