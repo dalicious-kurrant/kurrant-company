@@ -7,24 +7,11 @@ import React from 'react';
 
 import styled from 'styled-components';
 import {CompanyMembershipFields} from './CompanyMembershipData';
-import useCompanyMembership from './useHooks/useCompanyMembership';
+
 import useDataRender from './useHooks/useDataRender';
 
 const CompanyMembership = ({}) => {
-  useCompanyMembership();
-
   const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
-
-  // const {
-  //   page,
-  //   setPage,
-  //   dataLimit,
-  //   setDataLimit,
-  //   pageList,
-  //   handleButtonClick,
-  //   handleGoToEdge,
-  //   handleMove,
-  // } = usePagination(companyMembershipList.length);
 
   const {status, isLoading} = useDataRender();
 
@@ -46,19 +33,6 @@ const CompanyMembership = ({}) => {
 
   return (
     <Container>
-      {/* <Pagination
-        dataTotalLength={companyMembershipList.length}
-        page={page}
-        setPage={setPage}
-        dataLimit={dataLimit}
-        setDataLimit={setDataLimit}
-        pageList={pageList}
-        handleButtonClick={handleButtonClick}
-        handleGoToEdge={handleGoToEdge}
-        handleMove={handleMove}
-        selectOptionArray={[1, 2, 4, 10]}
-      /> */}
-
       {Array.isArray(companyMembershipList) &&
       companyMembershipList.length !== 0 ? (
         <Table

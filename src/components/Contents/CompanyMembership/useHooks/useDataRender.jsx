@@ -17,8 +17,9 @@ const useDataRender = () => {
     const response = await axios.get(
       // `${process.env.REACT_APP_JSON_SERVER}/company-membership`,
       `${process.env.REACT_APP_BASE_URL}/v1/client/members/waiting?code=AAAAAA`,
+      // `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=AAAAAA`,
     );
-    // console.log(response.data.data.items);
+    console.log(response.data.data.items);
     return response.data.data.items;
   });
 
