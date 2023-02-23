@@ -11,6 +11,9 @@ export const calculateTotalPages = (dataLength, limit) => {
 };
 
 export const calculatePageButtons = (pageNow, totalPages) => {
+  // console.log(pageNow);
+  // console.log(totalPages);
+
   if (pageNow <= 0 || totalPages <= 0) {
     console.log('에러: 현재페이지 아니면 총 페이지수가 음수 임');
     return [];
@@ -34,9 +37,6 @@ export const calculatePageButtons = (pageNow, totalPages) => {
 
     yo.push(k);
   }
-
-  // console.log(`pageNow: ` + pageNow);
-  // console.log(`totalPages: ` + totalPages);
 
   return yo;
 };

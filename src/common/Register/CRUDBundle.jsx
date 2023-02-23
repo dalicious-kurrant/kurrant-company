@@ -5,25 +5,33 @@ const CRUDBundle = ({handleBundleClick, showRegister}) => {
     if (e.target.id === 'register' || e.target.id === 'edit') {
       if (showRegister) {
         window.confirm("'닫기'버튼을 누른후에 시도해주세요");
+        return;
       }
     }
 
     handleBundleClick(e.target.id);
   };
 
+  const handleSend = () => {
+    console.log('최종적용하기');
+  };
+
   return (
     <Container>
       <Wrap>
-        <div>CRUDBundle</div>
-        <button id="register" onClick={handleClick}>
+        <Button id="register" onClick={handleClick}>
           가입
-        </button>
-        <button id="edit" onClick={handleClick}>
+        </Button>
+        <Button id="edit" onClick={handleClick}>
           수정
-        </button>
-        <button id="delete" onClick={handleClick}>
+        </Button>
+        <Button id="delete" onClick={handleClick}>
           삭제
-        </button>
+        </Button>
+
+        <Wrap2>
+          <Button onClick={handleSend}>최종적용하기</Button>
+        </Wrap2>
       </Wrap>
     </Container>
   );
@@ -35,6 +43,14 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
+  /* border: 1px solid black; */
 `;
 
 const Wrap = styled.div``;
+
+const Wrap2 = styled.div``;
+
+const Button = styled.button`
+  font-size: 2.2rem;
+  margin: 0.6rem;
+`;

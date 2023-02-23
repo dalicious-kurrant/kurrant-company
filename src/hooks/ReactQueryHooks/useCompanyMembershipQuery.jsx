@@ -25,7 +25,7 @@ const useCompanyMembershipQuery = (
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
         // `${apiUrl_USER_STATUS}`,
-        `${apiUrl}/company-membership`,
+        `${apiUrl}/v1/client/members/waiting?code=AAAAAA`,
         // `${apiUrl_USER_STATUS}`,
       );
       return response.data.length;
@@ -48,7 +48,7 @@ const useCompanyMembershipQuery = (
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
         // `${apiUrl_USER_STATUS}?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
-        `${apiUrl}/company-membership/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
+        `${apiUrl}/v1/client/members/waiting?code=AAAAAA&_page=${queryKey[1]}&_limit=${queryKey[2]}`,
         // `${apiUrl_USER_STATUS}`,
       );
 

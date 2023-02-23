@@ -2,6 +2,8 @@ import {CompanyMembershipFields} from 'components/Contents/CompanyMembership/Com
 import styled from 'styled-components';
 
 const TextInput = ({
+  fieldsToOpen,
+  registerStatus,
   input,
   name,
   setInput,
@@ -14,14 +16,20 @@ const TextInput = ({
     e.preventDefault();
     const {name, value} = e.target;
 
-    setInput({...input, [name]: value, id: Date.now()});
+    if (registerStatus === 'register') {
+      setInput({...input, [name]: value, id: Date.now().toString()});
+    } else if (registerStatus === 'edit') {
+      setInput({...input, [name]: value});
+    } else {
+      console.log(registerStatus);
+    }
   };
 
   return (
     <>
       <Container flex={flex} width={width}>
         <TitleWrap>
-          <Title>{CompanyMembershipFields[name]}</Title>
+          <Title>{fieldsToOpen[name]}</Title>
         </TitleWrap>
 
         <TextInputInput

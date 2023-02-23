@@ -1,19 +1,12 @@
 export const CompanyMembershipFields = {
-  // userId: '아이디',
-  // groupId: '그룹아이디',
-  // groupName: '그룹이름',
-  employeeName: '사원 이름',
-  employeeEmail: '사원 이메일',
-  employeePhone: '사원 전화번호',
+  name: '사원 이름',
+  email: '사원 이메일',
+  phone: '사원 전화번호',
 };
 
-export const CompanyMembershipRegisterFields = [
-  // userId: '아이디',
-  // groupId: '그룹아이디',
-  // groupName: '그룹이름',
-
+export const CompanyMembershipFieldsData = [
   {
-    fieldName: 'employeeName',
+    fieldName: 'name',
     fieldNameKor: '사원 이름',
     placeholder: '예: 배수지',
     maxCharLength: 20,
@@ -21,7 +14,7 @@ export const CompanyMembershipRegisterFields = [
     width: undefined,
   },
   {
-    fieldName: 'employeeEmail',
+    fieldName: 'email',
     fieldNameKor: '사원 이메일',
     placeholder: '예: baesuzy123@naver.com',
     maxCharLength: 30,
@@ -29,7 +22,7 @@ export const CompanyMembershipRegisterFields = [
     width: undefined,
   },
   {
-    fieldName: 'employeePhone',
+    fieldName: 'phone',
     fieldNameKor: '사원 전화번호',
     placeholder: '예: 010-1234-4321',
     maxCharLength: 13,

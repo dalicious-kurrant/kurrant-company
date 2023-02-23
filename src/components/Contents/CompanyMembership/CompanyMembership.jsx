@@ -4,16 +4,20 @@ import Pagination from 'common/Pagination/Pagination';
 import usePagination from 'common/Pagination/usePagination';
 import Table from 'common/Table/Table';
 import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipQuery';
+
 import {useAtom} from 'jotai';
 import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
 import {getCompanyMembershipDataListAtom} from 'jotai/state';
+import {getCompanyMembershipDataAtom} from 'jotai/state';
+
 import React from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {useQuery} from 'react-query';
+
 import styled from 'styled-components';
 import {CompanyMembershipFields} from './CompanyMembershipData';
-
+import useDataRender from './useHooks/useDataRender';
 const CompanyMembership = ({}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
   const {data: dataTotalLength} = useQuery(
@@ -25,10 +29,10 @@ const CompanyMembership = ({}) => {
         `http://localhost:4000/company-membership`,
         // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
       );
-
-      return response.data.length;
     },
   );
+
+  const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
 
   const {
     page,
@@ -41,8 +45,10 @@ const CompanyMembership = ({}) => {
     handleMove,
   } = usePagination(dataTotalLength);
 
-  const {dataList, status, isLoading, editMutate, submitExelMutate} =
-    useCompanyMembershipQuery(page, dataLimit);
+  const {dataList, editMutate, submitExelMutate} = useCompanyMembershipQuery(
+    page,
+    dataLimit,
+  );
 
   const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
     getCompanyMembershipDataListAtom,
@@ -63,6 +69,7 @@ const CompanyMembership = ({}) => {
       editMutate(memoData);
     }
   }, [memoData]);
+  const {status, isLoading} = useDataRender();
 
   // if (isLoading)
   //   return (
@@ -86,7 +93,7 @@ const CompanyMembership = ({}) => {
       <ExcelTest submitExelMutate={submitExelMutate} />
       {plan.length < 1 && (
         <>
-          <Pagination
+          {/* <Pagination
             dataTotalLength={dataTotalLength}
             page={page}
             setPage={setPage}
@@ -97,14 +104,15 @@ const CompanyMembership = ({}) => {
             handleGoToEdge={handleGoToEdge}
             handleMove={handleMove}
             selectOptionArray={[1, 2, 4, 10]}
-          />
+          /> */}
 
-          {Array.isArray(dataList) && dataList.length !== 0 ? (
+          {Array.isArray(companyMembershipList) &&
+          companyMembershipList.length !== 0 ? (
             <Table
               fieldsInput={CompanyMembershipFields}
-              dataInput={dataList}
-              isMemo={true}
-              handleChange={handleMemoChange}
+              dataInput={companyMembershipList}
+              // isMemo={true}
+              // handleChange={handleMemoChange}
             />
           ) : (
             <div>아직 등록된 데이터가 없습니다. 데이터를 추가해주세요</div>
