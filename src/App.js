@@ -1,10 +1,12 @@
 import Router from './Shared/Router';
 import './App.css';
 import styled from 'styled-components';
+import {GlobalStyle} from 'theme/GlobalStyle';
 
 function App() {
   return (
     <AppContainer>
+      <GlobalStyle />
       <Router />
     </AppContainer>
   );
