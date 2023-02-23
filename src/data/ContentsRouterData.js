@@ -9,7 +9,7 @@ import AdjustmentManagementIcon from 'assets/svg/AdjustmentManagementIcon.svg';
 
 export const ContentsRouterData = [
   {
-    id: 'dashbard',
+    id: 'dashboard',
     name: '대시보드',
     iconSrc: DashboardIcon,
     selected: true,

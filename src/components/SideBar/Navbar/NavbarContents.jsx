@@ -1,5 +1,6 @@
+import {useEffect} from 'react';
 import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import Image from '../../../common/Image';
 
@@ -7,18 +8,27 @@ const NavbarContents = ({
   name,
   id,
   iconSrc,
-  selected,
-  handleSelected,
+  // selected,
+  // handleSelected,
   routeName,
   ...props
 }) => {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
 
+  const [selected, setSelected] = useState(false);
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    if (pathname === `/main/${id}`) {
+      setSelected(true);
+    } else {
+      setSelected(false);
+    }
+  }, [pathname]);
+
   const handleClick = e => {
     const {id} = e.currentTarget;
-
-    handleSelected(id);
 
     navigate(id);
   };
