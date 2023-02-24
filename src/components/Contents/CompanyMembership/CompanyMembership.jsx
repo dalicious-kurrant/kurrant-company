@@ -20,35 +20,10 @@ import {CompanyMembershipFields} from './CompanyMembershipData';
 import useDataRender from './useHooks/useDataRender';
 const CompanyMembership = ({}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
-  const {data: dataTotalLength} = useQuery(
-    ['getCompanyMembershipLength'],
-    async () => {
-      const response = await axios.get(
-        // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-        `http://localhost:4000/company-membership`,
-        // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-      );
-    },
-  );
 
   const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
 
-  const {
-    page,
-    setPage,
-    dataLimit,
-    setDataLimit,
-    pageList,
-    handleButtonClick,
-    handleGoToEdge,
-    handleMove,
-  } = usePagination(dataTotalLength);
-
-  const {dataList, editMutate, submitExelMutate} = useCompanyMembershipQuery(
-    page,
-    dataLimit,
-  );
+  const {dataList, editMutate, submitExelMutate} = useCompanyMembershipQuery();
 
   const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
     getCompanyMembershipDataListAtom,
