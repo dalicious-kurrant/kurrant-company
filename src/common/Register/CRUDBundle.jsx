@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import {Button} from 'semantic-ui-react';
+
 const CRUDBundle = ({handleBundleClick, showRegister}) => {
   const handleClick = e => {
     if (e.target.id === 'register' || e.target.id === 'edit') {
@@ -18,20 +20,57 @@ const CRUDBundle = ({handleBundleClick, showRegister}) => {
 
   return (
     <Container>
-      <Wrap>
-        <Button id="register" onClick={handleClick}>
-          가입
-        </Button>
-        <Button id="edit" onClick={handleClick}>
-          수정
-        </Button>
-        <Button id="delete" onClick={handleClick}>
-          삭제
-        </Button>
+      {/* <Wrap>
+        <Button.Group>
+          <BtnWrap>
+            <Button id="register" color="green" inverted onClick={handleClick}>
+              추가 열기
+            </Button>
+          </BtnWrap>
+          <BtnWrap>
+            <Button id="edit" color="blue" inverted onClick={handleClick}>
+              수정 열기
+            </Button>
+          </BtnWrap>
+          <BtnWrap>
+            <Button id="delete" inverted color="red" onClick={handleClick}>
+              삭제하기
+            </Button>
+          </BtnWrap>
+        </Button.Group>
 
-        <Wrap2>
-          <Button onClick={handleSend}>최종적용하기</Button>
-        </Wrap2>
+        <Button.Group>
+          <BtnWrap>
+            <Button onClick={handleSend}>최종적용하기</Button>
+          </BtnWrap>
+        </Button.Group>
+      </Wrap> */}
+
+      <Wrap>
+        <Button.Group>
+          <BtnWrap>
+            <Button id="register" color="green" inverted onClick={handleClick}>
+              추가 열기
+            </Button>
+          </BtnWrap>
+
+          <BtnWrap>
+            <Button id="edit" color="blue" inverted onClick={handleClick}>
+              수정 열기
+            </Button>
+          </BtnWrap>
+
+          <BtnWrap>
+            <Button id="delete" inverted color="red" onClick={handleClick}>
+              삭제하기
+            </Button>
+          </BtnWrap>
+        </Button.Group>
+        <div>
+          <Button.Group>
+            <Button onClick={handleSend}>최종적용하기</Button>
+          </Button.Group>
+        </div>
       </Wrap>
     </Container>
   );
@@ -43,14 +82,13 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
-  /* border: 1px solid black; */
 `;
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
-const Wrap2 = styled.div``;
-
-const Button = styled.button`
-  font-size: 2.2rem;
-  margin: 0.6rem;
+const BtnWrap = styled.div`
+  margin: 0.4rem 0.2rem;
 `;
