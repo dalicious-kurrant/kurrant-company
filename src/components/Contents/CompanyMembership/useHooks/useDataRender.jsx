@@ -20,7 +20,9 @@ const useDataRender = () => {
       // `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=AAAAAA`,
     );
 
-    return response.data.data.items;
+    console.log(response.data.data);
+
+    return response.data.data;
   });
 
   const [, setCompanyMembershipList] = useAtom(getCompanyMembershipListAtom);
