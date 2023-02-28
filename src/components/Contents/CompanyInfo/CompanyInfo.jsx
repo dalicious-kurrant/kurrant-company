@@ -45,35 +45,33 @@ const CompanyInfo = () => {
               <Table.HeaderCell textAlign="center">
                 온장고 대여 서비스 사용
               </Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">생성일</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">수정일</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             <Table.Row>
               <Table.Cell>{list?.id}</Table.Cell>
-              <Table.Cell>{list?.code}</Table.Cell>
-              <Table.Cell>{list?.name}</Table.Cell>
+              <Table.Cell textAlign="center">{list?.code}</Table.Cell>
+              <Table.Cell textAlign="center">{list?.name}</Table.Cell>
               <Table.Cell>{list?.zipCode}</Table.Cell>
               <Table.Cell>{list?.address1}</Table.Cell>
               <Table.Cell>{list?.address2}</Table.Cell>
               <Table.Cell>{list?.location}</Table.Cell>
               <Table.Cell>{diningType?.join(',')}</Table.Cell>
               <Table.Cell>{list?.serviceDays}</Table.Cell>
-              <Table.Cell>{list?.managerName}</Table.Cell>
+              <Table.Cell textAlign="center">{list?.managerName}</Table.Cell>
               <Table.Cell>{list?.managerPhone}</Table.Cell>
-              <Table.Cell>
+              <Table.Cell textAlign="center">
                 {list?.isMembershipSupport ? '지원' : '미지원'}
               </Table.Cell>
-              <Table.Cell>{list?.employeeCount}</Table.Cell>
-              <Table.Cell>{list?.isSetting ? '사용' : '미사용'}</Table.Cell>
-              <Table.Cell>{list?.isGarbage ? '사용' : '미사용'}</Table.Cell>
-              <Table.Cell>{list?.isHotStorage ? '사용' : '미사용'}</Table.Cell>
-              <Table.Cell>
-                {formattedDate(list?.createdDateTime, '년월일')}
+              <Table.Cell textAlign="center">{list?.employeeCount}</Table.Cell>
+              <Table.Cell textAlign="center">
+                {list?.isSetting ? '사용' : '미사용'}
               </Table.Cell>
-              <Table.Cell>
-                {formattedDate(list?.updatedDateTime, '년월일')}
+              <Table.Cell textAlign="center">
+                {list?.isGarbage ? '사용' : '미사용'}
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                {list?.isHotStorage ? '사용' : '미사용'}
               </Table.Cell>
             </Table.Row>
           </Table.Body>
