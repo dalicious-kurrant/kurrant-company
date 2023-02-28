@@ -1,3 +1,4 @@
+import CompanyInfo from 'components/Contents/CompanyInfo/CompanyInfo';
 import CompanyMembership from 'components/Contents/CompanyMembership/CompanyMembership';
 import Contents from 'components/Contents/Contents';
 import Notice from 'components/Contents/Notice/Notice';
@@ -18,6 +19,7 @@ const Router = () => {
           <Route path="user-status" element={<UserStatus />} />
           <Route path="notice" element={<Notice />} />
           <Route path="company-membership" element={<CompanyMembership />} />
+          <Route path="company-info" element={<CompanyInfo />} />
           <Route path="*" element={<NotYetContents />} />
         </Route>
       </Route>

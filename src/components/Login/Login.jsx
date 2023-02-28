@@ -31,38 +31,38 @@ const Login = () => {
     e.preventDefault();
     if (!clickReady) return;
 
-    if (true) {
-      // const response = await axios.post(
-      //   `http://3.35.197.186:8886/v1/auth/login`,
+    // if (true) {
+    //   const response = await axios.post(
+    //     `http://3.35.197.186:8886/v1/auth/login`,
 
-      //   {
-      //     code: 'AAAAAA',
-      //     password: '12345678',
-      //   },
-      // );
-      // console.log(response);
+    //     {
+    //       code: 'AAAAAA',
+    //       password: '12345678',
+    //     },
+    //   );
+    //   console.log(response);
 
-      navigate('/main');
-    } else {
-    }
-
-    // try {
-    //   const res = await instance.post('auth/login', input);
-    //   console.log(res);
-    //   if (res.statusCode === 200) {
-    //     const accessToken = res.data.accessToken;
-    //     localStorage.setItem('token', accessToken);
-    //     window.confirm(`로그인 성공!`);
-    //     navigate('/main');
-    //     setInput(initialInput);
-    //     // window.location.reload();
-    //   }
-    // } catch (err) {
-    //   window.confirm(`로그인 실패, 그룹 인증코드와 비번을 확인하세요`);
-    //   if (err.response.status === 401) {
-    //     // setLoginCheck(true);
-    //   }
+    //   navigate('/main');
+    // } else {
     // }
+
+    try {
+      const res = await instance.post('auth/login', input);
+      console.log(res);
+      if (res.statusCode === 200) {
+        const accessToken = res.data.accessToken;
+        localStorage.setItem('token', accessToken);
+        window.confirm(`로그인 성공!`);
+        navigate('/main');
+        setInput(initialInput);
+        // window.location.reload();
+      }
+    } catch (err) {
+      window.confirm(`로그인 실패, 그룹 인증코드와 비번을 확인하세요`);
+      if (err.response.status === 401) {
+        // setLoginCheck(true);
+      }
+    }
   };
 
   return (

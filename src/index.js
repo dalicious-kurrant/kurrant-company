@@ -8,7 +8,13 @@ import theme from './theme/theme';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import 'semantic-ui-css/semantic.min.css';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
