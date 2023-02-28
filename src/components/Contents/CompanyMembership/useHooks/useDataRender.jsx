@@ -5,8 +5,8 @@ import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 import {useAtom} from 'jotai';
 
-import {getCompanyMembershipDataAtom as getCompanyMembershipListAtom} from 'jotai/state';
 import axios from 'axios';
+import {getCompanyMembershipDataAtom} from 'jotai/state';
 
 const useDataRender = () => {
   const {
@@ -20,10 +20,12 @@ const useDataRender = () => {
       // `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=AAAAAA`,
     );
 
+    console.log(response.data.data.items);
+
     return response.data.data.items;
   });
 
-  const [, setCompanyMembershipList] = useAtom(getCompanyMembershipListAtom);
+  const [, setCompanyMembershipList] = useAtom(getCompanyMembershipDataAtom);
 
   useEffect(() => {
     if (getData) {

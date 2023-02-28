@@ -21,16 +21,14 @@ import useDataRender from './useHooks/useDataRender';
 const CompanyMembership = ({}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
 
-  const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
+  const [companyMembershipList, setCompanyMembershipList] = useAtom(
+    getCompanyMembershipDataAtom,
+  );
 
   const {dataList, editMutate, submitExelMutate} = useCompanyMembershipQuery();
 
-  const [companyMembershipDataList, setCompanyMembershipDataList] = useAtom(
-    getCompanyMembershipDataListAtom,
-  );
-
   useEffect(() => {
-    setCompanyMembershipDataList(dataList);
+    setCompanyMembershipList(dataList);
   }, [dataList]);
 
   const [memoData, setMemoData] = useState(undefined);
