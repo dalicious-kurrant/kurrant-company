@@ -9,9 +9,8 @@ import {shiftUserType, sliceStringDataByKey} from './userStatusLogics';
 const useUserStatusQuery = (
   uniqueQueryKey,
   atom,
-  url,
-  token = false,
-  enable = true,
+
+  // token = false,
 ) => {
   // 서버에서 데이터를 십플하게 받는 custom hook입니다
   // params : queryKey, atom, url, enable
@@ -20,24 +19,26 @@ const useUserStatusQuery = (
   // url : url
   // enable : useQuery를 껏다켰다 할 수 있음
 
-  const [, setData] = useAtom(atom);
+  const [, setJotaiData] = useAtom(atom);
   const queryClient = useQueryClient();
   const {data, status, isLoading} = useQuery(
     uniqueQueryKey,
 
-    token
-      ? async ({queryKey}) => {
-          const response = await instance.get(`${url}?limit=50`);
+    async ({queryKey}) => {
+      const response = await instance.get(`client/members?code=AAAAAA`);
 
-          return response.data;
-        }
-      : async ({queryKey}) => {
-          const response = await axios.get(url);
+      return response.data;
+    },
 
-          return response.data;
-        },
+    // token
+    //   ?
+    //   : async ({queryKey}) => {
+    //       const response = await axios.get(`/v1/client/members?code=AAAAAA`);
+
+    //       return response.data;
+    //     },
     {
-      enabled: enable,
+      enabled: true,
     },
   );
 
@@ -81,13 +82,10 @@ const useUserStatusQuery = (
 
   useEffect(() => {
     if (data) {
-      const dataYo = shiftUserType(data);
-
-      if (dataYo) {
-        setData(dataYo);
-      }
+      // const dataYo = shiftUserType(data);
+      setJotaiData(data);
     }
-  }, [data, setData]);
+  }, [data, setJotaiData]);
 
   return {
     status,

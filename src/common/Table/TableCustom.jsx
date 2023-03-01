@@ -27,6 +27,7 @@ const TableCustom = ({
   isMemo = false,
   handleChange,
   ellipsisList,
+  useCheckbox = true,
 }) => {
   // 데이터에 'id'필드가 없을시 생성해 줌
 
@@ -75,38 +76,23 @@ const TableCustom = ({
     }
   };
 
-  const onDeleteCancelClick = e => {
-    // const deleteTargetId = e.target.id.toString();
-    // const yes = [...tableDeleteList];
-    // let array1 = [];
-    // yes.forEach(v => {
-    //   if (v.toString() == deleteTargetId) {
-    //   } else {
-    //     array1.push(v);
-    //   }
-    // });
-    // array1
-  };
-
-  // useEffect(() => {
-  //   console.log(dataInput);
-  // }, [dataInput]);
-
   return (
     <>
       <Table celled>
         <Table.Header>
           <Table.Row>
-            <CheckBoxTh>
-              <TableCheckbox
-                width="2rem"
-                height="2rem"
-                css="margin:auto;"
-                value={'parent'}
-                checkboxStatus={checkboxStatus}
-                onChecked={onCheckCheckbox}
-              />
-            </CheckBoxTh>
+            {useCheckbox && (
+              <CheckBoxTh>
+                <TableCheckbox
+                  width="2rem"
+                  height="2rem"
+                  css="margin:auto;"
+                  value={'parent'}
+                  checkboxStatus={checkboxStatus}
+                  onChecked={onCheckCheckbox}
+                />
+              </CheckBoxTh>
+            )}
 
             {keyOfTableFieldsInput &&
               keyOfTableFieldsInput?.map((val, index) => {
@@ -141,17 +127,19 @@ const TableCustom = ({
               if (value1.isOnDeleteList) {
                 return (
                   <DeleteListTableRow key={index1}>
-                    <CheckBoxTd align="center">
-                      <TableCheckbox
-                        width="2rem"
-                        height="2rem"
-                        css="margin:auto;"
-                        checkboxStatus={checkboxStatus}
-                        value={value1.id}
-                        onChecked={onCheckCheckbox}
-                        disabled={true}
-                      />
-                    </CheckBoxTd>
+                    {useCheckbox && (
+                      <CheckBoxTd align="center">
+                        <TableCheckbox
+                          width="2rem"
+                          height="2rem"
+                          css="margin:auto;"
+                          checkboxStatus={checkboxStatus}
+                          value={value1.id}
+                          onChecked={onCheckCheckbox}
+                          disabled={true}
+                        />
+                      </CheckBoxTd>
+                    )}
 
                     {yo?.map((value3, index3) => {
                       let ellipsisOn = undefined;
@@ -194,16 +182,18 @@ const TableCustom = ({
               } else {
                 return (
                   <Table.Row key={index1}>
-                    <CheckBoxTd align="center">
-                      <TableCheckbox
-                        width="2rem"
-                        height="2rem"
-                        css="margin:auto;"
-                        checkboxStatus={checkboxStatus}
-                        value={value1.id}
-                        onChecked={onCheckCheckbox}
-                      />
-                    </CheckBoxTd>
+                    {useCheckbox && (
+                      <CheckBoxTd align="center">
+                        <TableCheckbox
+                          width="2rem"
+                          height="2rem"
+                          css="margin:auto;"
+                          checkboxStatus={checkboxStatus}
+                          value={value1.id}
+                          onChecked={onCheckCheckbox}
+                        />
+                      </CheckBoxTd>
+                    )}
 
                     {yo?.map((value3, index3) => {
                       let ellipsisOn = undefined;
