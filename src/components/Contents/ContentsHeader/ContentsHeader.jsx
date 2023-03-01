@@ -1,31 +1,10 @@
-import Register from 'common/Register/Register';
-import {TableCheckboxStatusAtom} from 'common/Table/store';
-import {useAtom} from 'jotai';
-import {getCompanyMembershipDataAtom} from 'jotai/state';
-
 import {useState} from 'react';
 
-import {useLocation} from 'react-router-dom';
-
 import styled from 'styled-components';
-import CRUDBundle from '../../../common/Register/CRUDBundle';
 
-import {
-  CompanyMembershipFields,
-  CompanyMembershipFieldsData,
-} from '../CompanyMembership/CompanyMembershipData';
-import useMutate from '../../../common/Register/hooks/useMutate';
-import {makeInitialInput} from 'common/Register/logics/RegisterLogics';
-import {
-  checkedValue,
-  idsToDelete,
-  isCRUDAvaliable,
-  numberOfTrues,
-} from './ContentsHeaderLogics';
 import useSetTitleByPathname from './hooks/useSetTitle';
 
 const ContentsHeader = () => {
-  const {pathname} = useLocation();
   const [content, setContent] = useState({name: '', shortIntroduction: ''});
 
   useSetTitleByPathname(setContent);

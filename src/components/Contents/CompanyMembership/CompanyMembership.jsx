@@ -1,18 +1,84 @@
+import useMutate from 'common/CRUD/useMutate';
 import ExcelTest from 'common/excel/ExcelTest';
+import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
+import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipExelQuery';
 
-import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipQuery';
+import useCompanyMembershipExelQuery from 'hooks/ReactQueryHooks/useCompanyMembershipExelQuery';
 
 import {useAtom} from 'jotai';
 import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
 
 import React from 'react';
+import {useEffect} from 'react';
+import {useState} from 'react';
 
 import styled from 'styled-components';
+import {clickButtonBundle} from '../Logics/Logics';
+import {CompanyMembershipFields} from './CompanyMembershipData';
+import {handleCompanyMembershipDelete} from './CompanyMembershipLogics';
+import {CompanyMembershipDataAtom} from './store';
 
 const CompanyMembership = ({}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
 
-  const {dataList, editMutate, submitExelMutate} = useCompanyMembershipQuery();
+  const {submitExelMutate} = useCompanyMembershipExelQuery();
+
+  const [companyMembershipData, setCompanyMembershipData] = useAtom(
+    CompanyMembershipDataAtom,
+  );
+  const [showRegister, setShowRegister] = useState(false);
+  const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
+  const [dataToEdit, setDataToEdit] = useState({});
+  const [registerStatus, setRegisterStatus] = useState('register');
+
+  const [tableDeleteList, setTableDeleteList] = useAtom(TableDeleteListAtom);
+
+  const {deleteMutate, submitMutate, editMutate} = useMutate(
+    CompanyMembershipDataAtom,
+  );
+
+  const token = localStorage.getItem('token');
+
+  const {sendFinalMutate, deleteFinalMutate} = useCompanyMembershipQuery(
+    ['getCustomerJSON'],
+    CompanyMembershipDataAtom,
+    'users/all',
+    token,
+  );
+
+  const handleBundleClick = buttonStatus => {
+    clickButtonBundle(
+      buttonStatus,
+      CompanyMembershipFields,
+      companyMembershipData,
+      checkboxStatus,
+      setDataToEdit,
+      setRegisterStatus,
+      setShowRegister,
+      deleteMutate,
+    );
+  };
+
+  const handleClose = () => {
+    setShowRegister(false);
+  };
+
+  useEffect(() => {
+    return () => {
+      setCheckboxStatus({});
+      setTableDeleteList([]);
+    };
+  }, []);
+
+  const handleDelete = () => {
+    handleCompanyMembershipDelete(
+      checkboxStatus,
+      tableDeleteList,
+      companyMembershipData,
+      setTableDeleteList,
+      setCompanyMembershipData,
+    );
+  };
 
   // if (isLoading)
   //   return (
