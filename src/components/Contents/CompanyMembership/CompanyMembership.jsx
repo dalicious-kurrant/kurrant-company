@@ -90,6 +90,10 @@ const CompanyMembership = ({}) => {
     );
   };
 
+  useEffect(() => {
+    console.log(companyMembershipData);
+  }, [companyMembershipData]);
+
   // if (isLoading)
   //   return (
   //     <>

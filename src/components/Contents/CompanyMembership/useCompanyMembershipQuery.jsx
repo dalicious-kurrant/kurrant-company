@@ -47,17 +47,16 @@ const useCompanyMembershipQuery = (
 
   const {mutate: sendFinalMutate} = useMutation(
     async todo => {
-      console.log('기업가입 리스트 추가 및 수정 성공');
       console.log(todo);
 
       const response = await instance.post(`client/members`, todo);
-
+      console.log('기업가입 리스트 추가 및 수정 성공');
       return response;
     },
     {
       onSuccess: () => {
-        console.log('유저정보 등록, 수정 success');
         queryClient.invalidateQueries(['getCompanyMembershipJSON']);
+        console.log('유저정보 등록, 수정 success');
       },
       onError: () => {
         console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
@@ -66,11 +65,11 @@ const useCompanyMembershipQuery = (
   );
   const {mutate: deleteFinalMutate} = useMutation(
     async todo => {
-      console.log('기업가입 리스트 삭제 성공');
       console.log(todo);
 
       const response = await instance.delete(`client/members/waiting`, todo);
-
+      // const response = await axios.delete(`/v1/client/members/waiting`, todo);
+      console.log('기업가입 리스트 삭제 성공');
       return response;
     },
     {

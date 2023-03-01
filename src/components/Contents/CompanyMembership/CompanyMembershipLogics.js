@@ -54,7 +54,13 @@ export const sendFinal = (
     return;
   }
 
-  let newData = {};
+  let newData = {
+    id: [],
+    email: [],
+    name: [],
+    phone: [],
+    code: 'AAAAAA',
+  };
 
   if (Object.values(checkboxStatus).includes(true)) {
     const checkboxStatusNow = {...removeParentKeyInCheckbox(checkboxStatus)};
@@ -79,7 +85,6 @@ export const sendFinal = (
     const emailArray = [];
     const nameArray = [];
     const phoneArray = [];
-    const code = 'AAAAAA';
 
     finalLaunch.forEach(v => {
       idArray.push(parseInt(v.id));
@@ -88,13 +93,10 @@ export const sendFinal = (
       phoneArray.push(v.phone ? v.phone : '');
     });
 
-    newData = {
-      id: idArray,
-      email: emailArray,
-      name: nameArray,
-      phone: phoneArray,
-      code: code,
-    };
+    newData['id'] = idArray;
+    newData['email'] = emailArray;
+    newData['name'] = nameArray;
+    newData['phone'] = phoneArray;
   }
 
   if (
@@ -128,8 +130,7 @@ const sendDelete = (tableDeleteList, deleteFinalMutate) => {
   // 스트링 -> 넘버
 
   const submitData = {
-    userIdList: toNumList,
-    groupId: 1,
+    waitMemberIdList: toNumList,
   };
 
   deleteFinalMutate(submitData);
