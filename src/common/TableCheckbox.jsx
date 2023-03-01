@@ -13,6 +13,7 @@ const TableCheckbox = ({
   value = undefined,
   checkboxStatus,
   onChecked,
+  disabled,
 }) => {
   const handleClick = () => {
     onChecked(value);
@@ -21,13 +22,15 @@ const TableCheckbox = ({
   return (
     <Container
       css={css}
+      // checked={true}
       checked={checkboxStatus[value]}
       width={width}
       height={height}
+      disabled={disabled}
       onClick={handleClick}>
-      {false && <Image src={CheckIcon} width={'70%'} height={'70%'} />}
-      {checkboxStatus[value] && (
-        <Image src={CheckIcon} width={'70%'} height={'70%'} />
+      {/* {false && <Image src={CheckIcon} width={'100%'} height={'100%'} />} */}
+      {(disabled || checkboxStatus[value]) && (
+        <Image src={CheckIcon} width={'100%'} height={'100%'} />
       )}
     </Container>
   );
@@ -35,7 +38,9 @@ const TableCheckbox = ({
 
 export default TableCheckbox;
 
-const Container = styled.div`
+const Container = styled.button`
+  opacity: ${({disabled}) => (disabled ? 0.5 : 1)};
+
   width: ${({width}) => width};
   height: ${({height}) => height};
   display: flex;
@@ -45,7 +50,7 @@ const Container = styled.div`
   ${({css}) => css}
   ${({checked, theme}) => {
     if (!checked) {
-      return `border: 2px solid ${theme.colors.Grey04};`;
+      return `border: 2px solid ${theme.colors.grey[7]};`;
     }
   }}
 
@@ -56,5 +61,7 @@ const Container = styled.div`
     return `${(widthValue + heightValue) / 8}${unit}`;
   }};
   background-color: ${props =>
-    props.checked ? props.theme.colors.Blue04 : 'transparent'};
+    props.disabled || props.checked
+      ? props.theme.colors.blue[600]
+      : 'transparent'};
 `;

@@ -4,7 +4,7 @@ import TableCheckbox from 'common/TableCheckbox';
 import {useAtom} from 'jotai';
 import {useEffect} from 'react';
 import {useState} from 'react';
-import Theme from 'style/Theme';
+
 import styled from 'styled-components';
 
 import MemoInput from './MemoInput/MemoInput';

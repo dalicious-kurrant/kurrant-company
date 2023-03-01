@@ -40,7 +40,6 @@ const TextInput = ({
           placeholder={placeholder}
           width={width}
           flex={flex}
-          // value={input[name]}
           value={handleFalsyValueToBlank(input[name])}
         />
       </Container>

@@ -1,6 +1,9 @@
+import CRUDBundle from 'common/CRUD/Register/CRUDBundle';
+import Register from 'common/CRUD/Register/Register';
 import useMutate from 'common/CRUD/useMutate';
 import ExcelTest from 'common/excel/ExcelTest';
 import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
+import TableCustom from 'common/Table/TableCustom';
 import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipExelQuery';
 
 import useCompanyMembershipExelQuery from 'hooks/ReactQueryHooks/useCompanyMembershipExelQuery';
@@ -11,11 +14,18 @@ import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
 import React from 'react';
 import {useEffect} from 'react';
 import {useState} from 'react';
+import {TableWrapper} from 'style/common.style';
 
 import styled from 'styled-components';
 import {clickButtonBundle} from '../Logics/Logics';
-import {CompanyMembershipFields} from './CompanyMembershipData';
-import {handleCompanyMembershipDelete} from './CompanyMembershipLogics';
+import {
+  CompanyMembershipFields,
+  CompanyMembershipFieldsData,
+} from './CompanyMembershipData';
+import {
+  handleCompanyMembershipDelete,
+  sendFinal,
+} from './CompanyMembershipLogics';
 import {CompanyMembershipDataAtom} from './store';
 
 const CompanyMembership = ({}) => {
@@ -100,7 +110,54 @@ const CompanyMembership = ({}) => {
   return (
     <Container>
       <ExcelTest submitExelMutate={submitExelMutate} />
-      {plan.length < 1 && <></>}
+      {plan.length < 1 && (
+        <>
+          {companyMembershipData && (
+            <div>
+              <CRUDBundle
+                handleBundleClick={handleBundleClick}
+                showRegister={showRegister}
+                sendFinal={() => {
+                  sendFinal(
+                    companyMembershipData,
+                    sendFinalMutate,
+                    checkboxStatus,
+                    tableDeleteList,
+                    deleteFinalMutate,
+                  );
+                }}
+                sendDelete={handleDelete}
+                checkboxStatus={checkboxStatus}
+              />
+
+              {showRegister && (
+                <Register
+                  registerStatus={registerStatus}
+                  submitMutate={submitMutate}
+                  editMutate={editMutate}
+                  handleClose={handleClose}
+                  data={dataToEdit}
+                  fieldsToOpen={CompanyMembershipFields}
+                  fieldsData={CompanyMembershipFieldsData}
+                />
+              )}
+            </div>
+          )}
+
+          <TableWrapper>
+            {companyMembershipData && companyMembershipData.length > 0 && (
+              <TableCustom
+                fieldsInput={CompanyMembershipFields}
+                dataInput={companyMembershipData}
+                ellipsisList={[
+                  {key: 'password', length: '5rem'},
+                  {key: 'email', length: '22rem'},
+                ]}
+              />
+            )}
+          </TableWrapper>
+        </>
+      )}
     </Container>
   );
 };
