@@ -27,64 +27,65 @@ import useSetTitleByPathname from './hooks/useSetTitle';
 const ContentsHeader = () => {
   const {pathname} = useLocation();
   const [content, setContent] = useState({name: '', shortIntroduction: ''});
-  const [showRegister, setShowRegister] = useState(false);
-  const [checkboxStatus] = useAtom(TableCheckboxStatusAtom);
-  const [dataToEdit, setDataToEdit] = useState({});
-  const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
-  const [registerStatus, setRegisterStatus] = useState('register');
-
-  const {submitMutate, editMutate, deleteMutate} = useMutate();
 
   useSetTitleByPathname(setContent);
 
-  // 수정
+  // const [showRegister, setShowRegister] = useState(false);
+  // const [checkboxStatus] = useAtom(TableCheckboxStatusAtom);
+  // const [dataToEdit, setDataToEdit] = useState({});
+  // const [companyMembershipList] = useAtom(getCompanyMembershipDataAtom);
+  // const [registerStatus, setRegisterStatus] = useState('register');
 
-  const handleBundleClick = buttonStatus => {
-    numberOfTrues({...checkboxStatus});
+  // const {submitMutate, editMutate, deleteMutate} = useMutate();
 
-    if (buttonStatus === 'register') {
-      setDataToEdit(makeInitialInput(CompanyMembershipFields));
-      setRegisterStatus(buttonStatus);
-      setShowRegister(true);
-    } else if (buttonStatus === 'edit') {
-      if (numberOfTrues({...checkboxStatus}) === 0) {
-        window.confirm(
-          "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
-        );
-      } else if (numberOfTrues({...checkboxStatus}) !== 1) {
-        window.confirm("체크박스가 '하나만' 선택되어 있는지 확인해주세요 ");
-      } else if (numberOfTrues({...checkboxStatus}) === 1) {
-        setDataToEdit(checkedValue(checkboxStatus, companyMembershipList));
-        setRegisterStatus(buttonStatus);
-        setShowRegister(true);
-      }
-    } else if (buttonStatus === 'delete') {
-      if (numberOfTrues === 0) {
-        window.confirm(
-          "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
-        );
-        return;
-      }
+  // // 수정
 
-      if (window.confirm('삭제하시겠습니까?')) {
-        idsToDelete({...checkboxStatus}).forEach(value => {
-          deleteMutate(value);
-        });
-      } else {
-        return;
-      }
-    }
-  };
+  // const handleBundleClick = buttonStatus => {
+  //   numberOfTrues({...checkboxStatus});
 
-  const handleClose = () => {
-    setShowRegister(false);
-  };
+  //   if (buttonStatus === 'register') {
+  //     setDataToEdit(makeInitialInput(CompanyMembershipFields));
+  //     setRegisterStatus(buttonStatus);
+  //     setShowRegister(true);
+  //   } else if (buttonStatus === 'edit') {
+  //     if (numberOfTrues({...checkboxStatus}) === 0) {
+  //       window.confirm(
+  //         "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
+  //       );
+  //     } else if (numberOfTrues({...checkboxStatus}) !== 1) {
+  //       window.confirm("체크박스가 '하나만' 선택되어 있는지 확인해주세요 ");
+  //     } else if (numberOfTrues({...checkboxStatus}) === 1) {
+  //       setDataToEdit(checkedValue(checkboxStatus, companyMembershipList));
+  //       setRegisterStatus(buttonStatus);
+  //       setShowRegister(true);
+  //     }
+  //   } else if (buttonStatus === 'delete') {
+  //     if (numberOfTrues === 0) {
+  //       window.confirm(
+  //         "아래의 기업 가입 리스트중에 체크박스를 눌러 수정할 기업을 '하나만' 선택해주세요.",
+  //       );
+  //       return;
+  //     }
+
+  //     if (window.confirm('삭제하시겠습니까?')) {
+  //       idsToDelete({...checkboxStatus}).forEach(value => {
+  //         deleteMutate(value);
+  //       });
+  //     } else {
+  //       return;
+  //     }
+  //   }
+  // };
+
+  // const handleClose = () => {
+  //   setShowRegister(false);
+  // };
 
   return (
     <Container>
       <TitleH1>{content.name}</TitleH1>
       <ExplanationSpan>{content.shortIntroduction}</ExplanationSpan>
-
+      {/* 
       {isCRUDAvaliable(pathname) && (
         <CRUDBundle
           handleBundleClick={handleBundleClick}
@@ -102,7 +103,7 @@ const ContentsHeader = () => {
           fieldsToOpen={CompanyMembershipFields}
           fieldsData={CompanyMembershipFieldsData}
         />
-      )}
+      )} */}
     </Container>
   );
 };

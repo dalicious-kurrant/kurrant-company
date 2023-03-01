@@ -66,26 +66,11 @@ const CompanyMembership = ({}) => {
       <ExcelTest submitExelMutate={submitExelMutate} />
       {plan.length < 1 && (
         <>
-          {/* <Pagination
-            dataTotalLength={dataTotalLength}
-            page={page}
-            setPage={setPage}
-            dataLimit={dataLimit}
-            setDataLimit={setDataLimit}
-            pageList={pageList}
-            handleButtonClick={handleButtonClick}
-            handleGoToEdge={handleGoToEdge}
-            handleMove={handleMove}
-            selectOptionArray={[1, 2, 4, 10]}
-          /> */}
-
           {Array.isArray(companyMembershipList) &&
           companyMembershipList.length !== 0 ? (
             <Table
               fieldsInput={CompanyMembershipFields}
               dataInput={companyMembershipList}
-              // isMemo={true}
-              // handleChange={handleMemoChange}
             />
           ) : (
             <div>아직 등록된 데이터가 없습니다. 데이터를 추가해주세요</div>

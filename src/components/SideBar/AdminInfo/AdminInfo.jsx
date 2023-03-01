@@ -10,6 +10,8 @@ const AdminInfo = () => {
 
   const handleLogout = () => {
     // 로그아웃 로직
+    localStorage.removeItem('token');
+
     navigate('/');
   };
 
