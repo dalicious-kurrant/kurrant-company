@@ -8,7 +8,7 @@ const apiUrl =
     ? process.env.REACT_APP_JSON_SERVER
     : process.env.REACT_APP_BASE_URL;
 
-const useCompanyMembershipQuery = (
+const useCompanyMembershipExelQuery = (
   page = 1,
   dataLimit = 1,
   disableList = [],
@@ -150,4 +150,4 @@ const useCompanyMembershipQuery = (
     submitExelMutate,
   };
 };
-export default useCompanyMembershipQuery;
+export default useCompanyMembershipExelQuery;

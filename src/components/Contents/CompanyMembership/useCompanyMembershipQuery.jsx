@@ -9,9 +9,9 @@ import {shiftUserType, sliceStringDataByKey} from './CompanyMembershipLogics';
 const useCompanyMembershipQuery = (
   uniqueQueryKey,
   atom,
-  url,
+
   token = false,
-  enable = true,
+  // enable = true,
 ) => {
   // 서버에서 데이터를 십플하게 받는 custom hook입니다
   // params : queryKey, atom, url, enable
@@ -20,32 +20,37 @@ const useCompanyMembershipQuery = (
   // url : url
   // enable : useQuery를 껏다켰다 할 수 있음
 
-  const [, setData] = useAtom(atom);
+  const [, setJotaiData] = useAtom(atom);
   const queryClient = useQueryClient();
   const {data, status, isLoading} = useQuery(
     uniqueQueryKey,
 
     token
       ? async ({queryKey}) => {
-          const response = await instance.get(`${url}?limit=50`);
+          const response = await instance.get(
+            `client/members/waiting?code=AAAAAA`,
+          );
 
           return response.data;
         }
       : async ({queryKey}) => {
-          const response = await axios.get(url);
+          const response = await axios.get(
+            `client/members/waiting?code=AAAAAA`,
+          );
 
           return response.data;
         },
     {
-      enabled: enable,
+      enabled: true,
     },
   );
 
   const {mutate: sendFinalMutate} = useMutation(
     async todo => {
+      console.log('기업가입 리스트 추가 및 수정 성공');
       console.log(todo);
 
-      const response = await instance.post(`users`, todo);
+      const response = await instance.post(`client/members`, todo);
 
       return response;
     },
@@ -61,10 +66,10 @@ const useCompanyMembershipQuery = (
   );
   const {mutate: deleteFinalMutate} = useMutation(
     async todo => {
-      console.log('sendDelete');
+      console.log('기업가입 리스트 삭제 성공');
       console.log(todo);
 
-      const response = await instance.patch(`users`, todo);
+      const response = await instance.delete(`client/members/waiting`, todo);
 
       return response;
     },
@@ -81,14 +86,9 @@ const useCompanyMembershipQuery = (
 
   useEffect(() => {
     if (data) {
-      // const dataYo = sliceStringDataByKey(shiftUserType(data), 'password', 5);
-      const dataYo = shiftUserType(data);
-
-      if (dataYo) {
-        setData(dataYo);
-      }
+      setJotaiData(data);
     }
-  }, [data, setData]);
+  }, [data, setJotaiData]);
 
   return {
     status,

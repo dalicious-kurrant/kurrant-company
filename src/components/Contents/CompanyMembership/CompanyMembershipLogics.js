@@ -54,9 +54,7 @@ export const sendFinal = (
     return;
   }
 
-  let newData2 = {
-    userList: [],
-  };
+  let newData = {};
 
   if (Object.values(checkboxStatus).includes(true)) {
     const checkboxStatusNow = {...removeParentKeyInCheckbox(checkboxStatus)};
@@ -77,71 +75,25 @@ export const sendFinal = (
       }
     });
 
-    const newData = finalLaunch.map(value => {
-      let yo = {};
+    const idArray = [];
+    const emailArray = [];
+    const nameArray = [];
+    const phoneArray = [];
+    const code = 'AAAAAA';
 
-      // 우선 아래의 항목만 수정가능하게 만듬
-
-      // yo['userId'] = handleFalsyValueToBlank(value.email);
-
-      // '유저타입' 값 치환하기
-
-      let roleValue = '';
-      if (value.role === 'USER') {
-        roleValue = '일반';
-      } else if (value.role === 'MANAGER') {
-        roleValue = '관리자';
-      } else if (value.role === 'GUEST') {
-        roleValue = '게스트';
-      } else {
-        roleValue = '';
-      }
-
-      // yo['userId'] = parseInt(value.id);
-      // yo['password'] = handleFalsyValueToBlank(value.password);
-      // yo['name'] = handleFalsyValueToBlank(value.userName);
-      // yo['email'] = handleFalsyValueToBlank(value.email);
-      // yo['phone'] = handleFalsyValueToBlank(value.phone);
-      // yo['role'] = roleValue;
-      // yo['status'] = 1;
-      // yo['groupName'] = value.groupName;
-      // yo['point'] = value.point;
-      // yo['gourmetType'] = value.gourmetType;
-      // yo['isMembership'] = value.isMembership;
-      // yo['marketingAgree'] = true;
-      // yo['marketingAgreedDateTime'] = '2023-02-28 10:28:30';
-      // yo['marketingAlarm'] = true;
-      // yo['userOrderAlarm'] = true;
-      // yo['recentLoginDateTime'] = value.recentLoginDateTime;
-      // yo['userCreatedDateTime'] = value.userCreatedDateTime;
-
-      /////
-
-      yo['userId'] = parseInt(value.id);
-      yo['password'] = handleFalsyValueToBlank(value.password);
-      yo['name'] = handleFalsyValueToBlank(value.userName);
-      yo['email'] = handleFalsyValueToBlank(value.email);
-      yo['phone'] = handleFalsyValueToBlank(value.phone)
-        ? handleFalsyValueToBlank(value.phone)
-        : '010-0000-0000';
-      yo['role'] = roleValue ? roleValue : '일반';
-      yo['status'] = value.status ? value.status : 1;
-      yo['groupName'] = value.groupName ? value.groupName : '달리셔스';
-      yo['point'] = 1;
-      yo['gourmetType'] = 0;
-      yo['isMembership'] = true;
-      yo['marketingAgree'] = true;
-      yo['marketingAgreedDateTime'] = '2000-01-01 00:00:00';
-      yo['marketingAlarm'] = true;
-      yo['userOrderAlarm'] = true;
-      yo['recentLoginDateTime'] = '2000-01-01 00:00:00';
-      yo['userCreatedDateTime'] = '2000-01-01 00:00:00';
-
-      return yo;
+    finalLaunch.forEach(v => {
+      idArray.push(parseInt(v.id));
+      emailArray.push(v.email ? v.email : '');
+      nameArray.push(v.name ? v.name : '');
+      phoneArray.push(v.phone ? v.phone : '');
     });
 
-    newData2 = {
-      userList: newData,
+    newData = {
+      id: idArray,
+      email: emailArray,
+      name: nameArray,
+      phone: phoneArray,
+      code: code,
     };
   }
 
@@ -150,8 +102,14 @@ export const sendFinal = (
       '기존에 있던 데이터가 아래의 테이블에 있는 데이터로 변경됩니다 진행하시겠습니까?',
     )
   ) {
-    if (newData2.userList.length > 0) {
-      sendFinalMutate(newData2);
+    if (
+      newData.id.length > 0 &&
+      newData.email.length > 0 &&
+      newData.name.length > 0 &&
+      newData.phone.length > 0 &&
+      newData.code
+    ) {
+      sendFinalMutate(newData);
     }
 
     if (tableDeleteList.length > 0) {
@@ -175,33 +133,27 @@ const sendDelete = (tableDeleteList, deleteFinalMutate) => {
   };
 
   deleteFinalMutate(submitData);
-
-  // if (window.confirm('정보가 삭제됩니다 진행하시겠습니까?')) {
-
-  // } else {
-  //   return;
-  // }
 };
 
 // 유저타입 USER -> 일반 , MANAGER -> 관리자
 
-export const shiftUserType = companyMembershipData => {
-  if (companyMembershipData.length > 0) {
-    const shifted = [...companyMembershipData];
+// export const shiftUserType = companyMembershipData => {
+//   if (companyMembershipData.length > 0) {
+//     const shifted = [...companyMembershipData];
 
-    const shiftedData = shifted.map(value => {
-      if (value.role === 'USER') {
-        value.role = '일반';
-      } else if (value.role === 'MANAGER') {
-        value.role = '관리자';
-      } else if (value.role === 'GUEST') {
-        value.role = '게스트';
-      }
-      return value;
-    });
-    return shiftedData;
-  }
-};
+//     const shiftedData = shifted.map(value => {
+//       if (value.role === 'USER') {
+//         value.role = '일반';
+//       } else if (value.role === 'MANAGER') {
+//         value.role = '관리자';
+//       } else if (value.role === 'GUEST') {
+//         value.role = '게스트';
+//       }
+//       return value;
+//     });
+//     return shiftedData;
+//   }
+// };
 
 // 비밀번호 5자로 줄이기
 

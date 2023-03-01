@@ -4,7 +4,6 @@ import useMutate from 'common/CRUD/useMutate';
 import ExcelTest from 'common/excel/ExcelTest';
 import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
 import TableCustom from 'common/Table/TableCustom';
-import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipExelQuery';
 
 import useCompanyMembershipExelQuery from 'hooks/ReactQueryHooks/useCompanyMembershipExelQuery';
 
@@ -27,6 +26,7 @@ import {
   sendFinal,
 } from './CompanyMembershipLogics';
 import {CompanyMembershipDataAtom} from './store';
+import useCompanyMembershipQuery from './useCompanyMembershipQuery';
 
 const CompanyMembership = ({}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
@@ -50,9 +50,9 @@ const CompanyMembership = ({}) => {
   const token = localStorage.getItem('token');
 
   const {sendFinalMutate, deleteFinalMutate} = useCompanyMembershipQuery(
-    ['getCustomerJSON'],
+    ['getCompanyMembershipJSON'],
     CompanyMembershipDataAtom,
-    'users/all',
+
     token,
   );
 
@@ -149,10 +149,6 @@ const CompanyMembership = ({}) => {
               <TableCustom
                 fieldsInput={CompanyMembershipFields}
                 dataInput={companyMembershipData}
-                ellipsisList={[
-                  {key: 'password', length: '5rem'},
-                  {key: 'email', length: '22rem'},
-                ]}
               />
             )}
           </TableWrapper>

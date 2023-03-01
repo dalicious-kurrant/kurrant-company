@@ -28,7 +28,6 @@ const TableCheckbox = ({
       height={height}
       disabled={disabled}
       onClick={handleClick}>
-      {/* {false && <Image src={CheckIcon} width={'100%'} height={'100%'} />} */}
       {(disabled || checkboxStatus[value]) && (
         <Image src={CheckIcon} width={'100%'} height={'100%'} />
       )}
