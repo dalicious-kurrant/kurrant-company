@@ -52,6 +52,7 @@ const Login = () => {
       if (res.statusCode === 200) {
         const accessToken = res.data.accessToken;
         localStorage.setItem('token', accessToken);
+        localStorage.setItem('code', input['code']);
         window.confirm(`로그인 성공!`);
         window.location.replace('/main');
 
