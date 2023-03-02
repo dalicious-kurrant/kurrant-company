@@ -26,11 +26,15 @@ import {
   handleCompanyMembershipDelete,
   sendFinal,
 } from './CompanyMembershipLogics';
-import {CompanyMembershipDataAtom} from './store';
+import {
+  CompanyMembershipDataAtom,
+  CompanyMembershipExelImportAtom,
+} from './store';
 import useCompanyMembershipQuery from './useCompanyMembershipQuery';
 
 const CompanyMembership = ({}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
+  const [importData, setImportData] = useAtom(CompanyMembershipExelImportAtom);
 
   const {submitExelMutate} = useCompanyMembershipExelQuery();
 
@@ -112,10 +116,12 @@ const CompanyMembership = ({}) => {
   //     </div>
   //   );
 
+  console.log(importData);
+
   return (
     <Container>
       <ExcelTest submitExelMutate={submitExelMutate} />
-      {plan.length > 0 ? (
+      {/* {plan.length > 0 ? (
         <ExcelComponent />
       ) : (
         <>
@@ -155,12 +161,59 @@ const CompanyMembership = ({}) => {
             {companyMembershipData && companyMembershipData.length > 0 && (
               <TableCustom
                 fieldsInput={CompanyMembershipFields}
-                dataInput={companyMembershipData}
+                dataInput={
+                  importData.length > 0 ? importData : companyMembershipData
+                }
               />
             )}
           </TableWrapper>
         </>
-      )}
+      )} */}
+
+      <>
+        {companyMembershipData && (
+          <div>
+            <CRUDBundle
+              handleBundleClick={handleBundleClick}
+              showRegister={showRegister}
+              sendFinal={() => {
+                sendFinal(
+                  companyMembershipData,
+                  sendFinalMutate,
+                  checkboxStatus,
+                  tableDeleteList,
+                  deleteFinalMutate,
+                );
+              }}
+              sendDelete={handleDelete}
+              checkboxStatus={checkboxStatus}
+            />
+
+            {showRegister && (
+              <Register
+                registerStatus={registerStatus}
+                submitMutate={submitMutate}
+                editMutate={editMutate}
+                handleClose={handleClose}
+                data={dataToEdit}
+                fieldsToOpen={CompanyMembershipFields}
+                fieldsData={CompanyMembershipFieldsData}
+              />
+            )}
+          </div>
+        )}
+
+        <TableWrapper>
+          {companyMembershipData && companyMembershipData.length > 0 && (
+            <TableCustom
+              fieldsInput={CompanyMembershipFields}
+              dataInput={
+                importData.length > 0 ? importData : companyMembershipData
+              }
+            />
+          )}
+        </TableWrapper>
+      </>
     </Container>
   );
 };

@@ -1,4 +1,7 @@
-import {CompanyMembershipExelExportAtom} from 'components/Contents/CompanyMembership/store';
+import {
+  CompanyMembershipExelExportAtom,
+  CompanyMembershipExelImportAtom,
+} from 'components/Contents/CompanyMembership/store';
 import {useAtom} from 'jotai';
 import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
 import {useRef} from 'react';
@@ -25,6 +28,8 @@ const C = {
 };
 const ExcelTest = ({submitExelMutate}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
+  const [companyMembershipImportExcel, setCompanyMembershipImportExcel] =
+    useAtom(CompanyMembershipExelImportAtom);
   const [companyMembershipExelExport, setCompanyMembershipExelExport] = useAtom(
     CompanyMembershipExelExportAtom,
   );
@@ -49,22 +54,38 @@ const ExcelTest = ({submitExelMutate}) => {
         const worksheet = workbook.Sheets[sheetName];
         const json = xlsx.utils.sheet_to_json(worksheet);
         console.log(sheetName);
-        if (sheetName === '기업 가입 가능 리스트') {
-          // if (sheetName === '고객 스팟 공지') {
-          const result = json.map(v => {
-            const ret = {
-              id: v.id,
-              groupId: v.groupId,
-              groupName: v.groupName,
-              email: v.employeeEmail,
-              name: v.employeeName,
-              phone: v.employeePhone,
-            };
-            console.log(ret);
-            return ret;
-          });
-          setPlan(result);
-        }
+        // if (sheetName === '기업 가입 가능 리스트') {
+        //   // if (sheetName === '고객 스팟 공지') {
+
+        // }
+        console.log(json);
+        const result = json.map(v => {
+          const ret = {
+            id: v.id,
+            // groupId: v.groupId,
+            // groupName: v.groupName,
+            // email: v.employeeEmail,
+            // name: v.employeeName,
+            // phone: v.employeePhone,
+            email: v.email,
+            name: v.name,
+            phone: v.phone,
+          };
+          // console.log(ret);
+          return ret;
+        });
+
+        // 키값 집어 넣기
+
+        const result1 = [
+          {id: 'id', email: '이메일', name: '이름', phone: '전화번호'},
+          ...result,
+        ];
+
+        // setPlan(result);
+        // setPlan(result);
+        // console.log(result);
+        setCompanyMembershipImportExcel(result);
       };
       reader.readAsArrayBuffer(e.target.files[0]);
     }
@@ -75,7 +96,7 @@ const ExcelTest = ({submitExelMutate}) => {
     console.log(plan);
 
     if (plan && plan.length > 0) {
-      companyExelExport(plan);
+      // companyExelExport(plan);
     }
     if (companyMembershipExelExport && companyMembershipExelExport.length > 0) {
       companyExelExport(companyMembershipExelExport);
@@ -114,7 +135,7 @@ const ExcelTest = ({submitExelMutate}) => {
           />
         </Button.Group>
       </C.BtnWrapper>
-      {plan && plan.length > 0 && <ExcelComponent />}
+      {/* {plan && plan.length > 0 && <ExcelComponent />} */}
     </Container>
   );
 };
