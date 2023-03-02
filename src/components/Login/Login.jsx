@@ -53,7 +53,8 @@ const Login = () => {
         const accessToken = res.data.accessToken;
         localStorage.setItem('token', accessToken);
         window.confirm(`로그인 성공!`);
-        navigate('/main');
+        window.location.replace('/main');
+
         setInput(initialInput);
         // window.location.reload();
       }
