@@ -33,7 +33,7 @@ import {
 import useCompanyMembershipQuery from './useCompanyMembershipQuery';
 
 const CompanyMembership = ({}) => {
-  const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
+  // const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
   const [importData, setImportData] = useAtom(CompanyMembershipExelImportAtom);
 
   const {submitExelMutate} = useCompanyMembershipExelQuery();
@@ -57,7 +57,6 @@ const CompanyMembership = ({}) => {
   const {sendFinalMutate, deleteFinalMutate} = useCompanyMembershipQuery(
     ['getCompanyMembershipJSON'],
     CompanyMembershipDataAtom,
-
     token,
   );
 
@@ -115,8 +114,6 @@ const CompanyMembership = ({}) => {
   //       있어요
   //     </div>
   //   );
-
-  console.log(importData);
 
   return (
     <Container>

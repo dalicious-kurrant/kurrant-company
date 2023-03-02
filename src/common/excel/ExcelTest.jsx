@@ -58,7 +58,7 @@ const ExcelTest = ({submitExelMutate}) => {
         //   // if (sheetName === '고객 스팟 공지') {
 
         // }
-        console.log(json);
+        // console.log(json);
         const result = json.map(v => {
           const ret = {
             id: v.id,
@@ -92,9 +92,6 @@ const ExcelTest = ({submitExelMutate}) => {
   };
 
   const onDownloadFile = async () => {
-    console.log('hi');
-    console.log(plan);
-
     if (plan && plan.length > 0) {
       // companyExelExport(plan);
     }
