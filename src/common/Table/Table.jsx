@@ -88,7 +88,10 @@ const Table = ({
 
             {keyOfTableFieldsInput &&
               keyOfTableFieldsInput.map((val, index) => (
-                <th align="left" key={index}>
+                <th
+                  style={{border: '1px solid #9d9d9d'}}
+                  align="center"
+                  key={index}>
                   {fieldsInput[val]}
                 </th>
               ))}
@@ -123,7 +126,10 @@ const Table = ({
                   )}
 
                   {yo.map((value3, index3) => (
-                    <td align="left" key={index3}>
+                    <td
+                      style={{border: '1px solid #9d9d9d'}}
+                      align="center"
+                      key={index3}>
                       {handleFalsyValue(value3)}
                     </td>
                   ))}

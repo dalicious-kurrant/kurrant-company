@@ -56,14 +56,14 @@ export const userStatusMockData = [
 ];
 
 export const userStatusFields = {
-  userId: '아이디',
-  // password: '비밀번호',
   name: '사용자 이름',
+  email: '이메일',
+  // userId: '아이디',
+  // password: '비밀번호',
   // userType: '유저타입 (0: 일반, 1:관리자)',
   phone: '폰 번호',
-  email: '이메일',
-  groupName: '그룹이름',
-  point: '보유 포인트',
+  // groupName: '그룹이름',
+  // point: '보유 포인트',
   // gourmetType: '미식가 타입',
   // isMembership: '멤버십 여부',
 };
