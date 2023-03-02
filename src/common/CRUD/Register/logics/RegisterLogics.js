@@ -1,11 +1,5 @@
 export const makeInitialInput = data => {
-  // 여기부분이 udnefined에러가 많이 나오는데
-  if (!data) {
-    console.log('register.jsx 의 31줄 보셈');
-  }
-
   let initialInput = {};
-
   Object.keys(data).map(value => {
     initialInput[value] = '';
   });
@@ -38,17 +32,16 @@ export const handleSubmitLogic = (
   const fieldsArray = fieldsInput.map(value => input[value.fieldName]);
 
   if (registerStatus === 'register') {
-    if (fieldsArray.includes('')) {
-      setSubmitStatus('notFulfilled');
-      return;
-    }
+    // if (fieldsArray.includes('')) {
+    //   setSubmitStatus('notFulfilled');
+    //   return;
+    // }
     setSubmitStatus('doneRegister');
     submitMutate(input);
   } else if (registerStatus === 'edit') {
-    if (fieldsArray.includes('')) {
-      setSubmitStatus('notFulfilled');
-      return;
-    }
+    // if (fieldsArray.includes('')) {
+    //   setSubmitStatus('notFulfilled');
+    // }
 
     setSubmitStatus('doneEdit');
     editMutate(input);

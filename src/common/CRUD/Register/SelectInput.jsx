@@ -1,13 +1,15 @@
-import {CompanyMembershipFields} from 'components/Contents/CompanyMembership/CompanyMembershipData';
+import React from 'react';
 import styled from 'styled-components';
+import {handleFalsyValueToBlank} from 'utils/valueHandlingLogics';
 
-const TextInput = ({
+const SelectInput = ({
   fieldsToOpen,
   registerStatus,
   input,
   name,
   setInput,
   placeholder,
+  options,
   width = '100%',
   flex = 1,
   maxCharLength = 36,
@@ -32,7 +34,7 @@ const TextInput = ({
           <Title>{fieldsToOpen[name]}</Title>
         </TitleWrap>
 
-        <TextInputInput
+        <Select
           type="text"
           maxLength={maxCharLength}
           name={name}
@@ -40,14 +42,24 @@ const TextInput = ({
           placeholder={placeholder}
           width={width}
           flex={flex}
-          value={input[name]}
-        />
+          value={handleFalsyValueToBlank(input[name])}>
+          <PlaceholderOption value="" disabled>
+            {placeholder}
+          </PlaceholderOption>
+
+          {options.map((val, index) => {
+            return (
+              <Option key={index} value={val.value}>
+                {val.name}
+              </Option>
+            );
+          })}
+        </Select>
       </Container>
     </>
   );
 };
-
-export default TextInput;
+export default SelectInput;
 
 const Container = styled.div`
   ${({flex}) => {
@@ -64,10 +76,11 @@ const Container = styled.div`
 `;
 
 const TitleWrap = styled.div`
-  background-color: #ffffff;
+  background-color: ${props => props.theme.colors.grey[8]};
   padding: 0 1rem;
+
   height: 3rem;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   /* text-align: center; */
   display: flex;
   align-items: center;
@@ -78,27 +91,44 @@ const Title = styled.span`
   display: inline-block;
 `;
 
-const TextInputInput = styled.input`
-  border: 1px solid ${props => props.theme.colors.Grey07};
+const Select = styled.select`
+  /* 화살표 디자인하기 */
+
   ${({width}) => {
     if (width) {
       return `width:${width};`;
     }
   }}
+  ${({flex}) => {
+    if (flex) {
+      return `flex:${flex};`;
+    }
+  }}
+    border: 1px solid ${props => props.theme.LightGray};
+  padding: 0 0.7rem;
 
-  height: 5.8rem;
+  font-size: 1.1rem;
 
-  &::placeholder {
-    color: ${props => props.theme.colors.Grey05};
-  }
-  /* color: ${props => props.theme.Black}; */
-
-  /* border: none; */
-  padding: 0 1rem;
+  ${({marginLeft}) => {
+    if (marginLeft) {
+      return `margin-left: ${marginLeft};`;
+    } else {
+      return ``;
+    }
+  }};
   height: 3rem;
-  font-size: 1.8rem;
-
   &:focus {
     outline: none;
   }
+`;
+
+const Option = styled.option`
+  border: none;
+  /* height: 100%; */
+  font-size: 1.2rem;
+  /* color: ${props => props.theme.Black}; */
+`;
+
+const PlaceholderOption = styled(Option)`
+  color: ${props => props.theme.Gray};
 `;

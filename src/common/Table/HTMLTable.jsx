@@ -3,9 +3,13 @@ import TableCheckbox from 'common/TableCheckbox';
 import {useAtom} from 'jotai';
 import {useEffect} from 'react';
 import {useState} from 'react';
+import Theme from 'style/Theme';
 import styled from 'styled-components';
-import theme from 'theme/theme';
-import {handleFalsyValue} from 'utils/valueHandlingLogics';
+
+import {
+  handleFalsyValueToHyphen,
+  handleFalsyValueToString,
+} from 'utils/valueHandlingLogics';
 import MemoInput from './MemoInput/MemoInput';
 import {TableCheckboxStatusAtom} from './store';
 
@@ -14,14 +18,8 @@ import {TableCheckboxStatusAtom} from './store';
 // - 데이터 안에 정해진 필드가 아닌 필드가 들어있으면 자동으로 걸러준다
 // - 데이터 값이 number나 string이 아닌 경우는 '-'로 표기한다
 
-const Table = ({
-  fieldsInput,
-  dataInput,
-  isMemo = false,
-  handleChange,
-  useCheckbox = true,
-}) => {
-  const useTheme = theme;
+const HTMLTable = ({fieldsInput, dataInput, isMemo = false, handleChange}) => {
+  const useTheme = Theme;
 
   const [keyOfTableFieldsInput, setKeyOfTableFieldsInput] = useState([]);
 
@@ -73,18 +71,16 @@ const Table = ({
       <table bgcolor={useTheme.colors.white}>
         <thead>
           <tr>
-            {useCheckbox && (
-              <CheckBoxTh>
-                <TableCheckbox
-                  width="2rem"
-                  height="2rem"
-                  css="margin:auto;"
-                  value={'parent'}
-                  checkboxStatus={checkboxStatus}
-                  onChecked={onCheckCheckbox}
-                />
-              </CheckBoxTh>
-            )}
+            <CheckBoxTh>
+              <TableCheckbox
+                width="2rem"
+                height="2rem"
+                css="margin:auto;"
+                value={'parent'}
+                checkboxStatus={checkboxStatus}
+                onChecked={onCheckCheckbox}
+              />
+            </CheckBoxTh>
 
             {keyOfTableFieldsInput &&
               keyOfTableFieldsInput.map((val, index) => (
@@ -104,6 +100,7 @@ const Table = ({
             dataInput.map((value1, index1) => {
               // 필드에 없는 값들은 걸러내기
               let yo = [];
+
               keyOfTableFieldsInput.forEach((value2, index2) => {
                 if (Object.keys(value1).includes(value2)) {
                   yo.push(value1[value2]);
@@ -112,27 +109,24 @@ const Table = ({
 
               return (
                 <tr key={index1}>
-                  {useCheckbox && (
-                    <CheckBoxTd align="center">
-                      <TableCheckbox
-                        width="2rem"
-                        height="2rem"
-                        css="margin:auto;"
-                        checkboxStatus={checkboxStatus}
-                        value={value1.id}
-                        onChecked={onCheckCheckbox}
-                      />
-                    </CheckBoxTd>
-                  )}
+                  <CheckBoxTd align="center">
+                    <TableCheckbox
+                      width="2rem"
+                      height="2rem"
+                      css="margin:auto;"
+                      checkboxStatus={checkboxStatus}
+                      value={value1.id}
+                      onChecked={onCheckCheckbox}
+                    />
+                  </CheckBoxTd>
 
-                  {yo.map((value3, index3) => (
-                    <td
-                      style={{border: '1px solid #9d9d9d'}}
-                      align="center"
-                      key={index3}>
-                      {handleFalsyValue(value3)}
-                    </td>
-                  ))}
+                  {yo.map((value3, index3) => {
+                    return (
+                      <td align="left" key={index3}>
+                        {handleFalsyValueToHyphen(value3)}
+                      </td>
+                    );
+                  })}
 
                   {!!isMemo && (
                     <td className="memo">
@@ -148,7 +142,7 @@ const Table = ({
   );
 };
 
-export default Table;
+export default HTMLTable;
 
 const Container = styled.div`
   border-collapse: collapse;
@@ -164,24 +158,21 @@ const Container = styled.div`
   }
 
   thead {
-    border-bottom: 2px solid ${props => props.theme.colors.Grey03};
+    /* border-bottom: 2px solid ${props => props.theme.colors.Grey03}; */
 
     tr {
       height: 5rem;
     }
     th {
+      border: 1px solid ${props => props.theme.colors.grey[6]};
       vertical-align: middle;
       padding: 0.6rem;
       font-size: 1.3rem;
-      ${props => props.theme.colors.Black02}
-      /* ${props => props.theme.fonts.H10} */
-      /* flex: 1; */
 
       :last-child {
       }
     }
     .memo {
-      /* background-color: aquamarine; */
       padding: 0;
       width: 30rem;
     }
@@ -191,13 +182,10 @@ const Container = styled.div`
     tr {
     }
     td {
+      border: 1px solid ${props => props.theme.colors.grey[6]};
       vertical-align: middle;
       padding: 0.6rem;
       height: 6.4rem;
-
-      /* flex: 1; */
-
-      ${props => props.theme.fonts.Body07}
     }
 
     .memo {

@@ -1,48 +1,102 @@
-import axios from 'axios';
+import CRUDBundle from 'common/CRUD/Register/CRUDBundle';
+import Register from 'common/CRUD/Register/Register';
+import useMutate from 'common/CRUD/useMutate';
+import ExcelComponent from 'common/excel/ExcelComponent';
 import ExcelTest from 'common/excel/ExcelTest';
-import Pagination from 'common/Pagination/Pagination';
-import usePagination from 'common/Pagination/usePagination';
-import Table from 'common/Table/Table';
-import useCompanyMembershipQuery from 'hooks/ReactQueryHooks/useCompanyMembershipQuery';
+import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
+import TableCustom from 'common/Table/TableCustom';
+
+import useCompanyMembershipExelQuery from 'hooks/ReactQueryHooks/useCompanyMembershipExelQuery';
 
 import {useAtom} from 'jotai';
 import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
-import {getCompanyMembershipDataListAtom} from 'jotai/state';
-import {getCompanyMembershipDataAtom} from 'jotai/state';
 
 import React from 'react';
-import {useState} from 'react';
 import {useEffect} from 'react';
-import {useQuery} from 'react-query';
+import {useState} from 'react';
+import {TableWrapper} from 'style/common.style';
 
 import styled from 'styled-components';
-import {CompanyMembershipFields} from './CompanyMembershipData';
-import useDataRender from './useHooks/useDataRender';
-const CompanyMembership = ({}) => {
-  const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
+import {clickButtonBundle} from '../Logics/Logics';
+import {
+  CompanyMembershipFields,
+  CompanyMembershipFieldsData,
+} from './CompanyMembershipData';
+import {
+  handleCompanyMembershipDelete,
+  sendFinal,
+} from './CompanyMembershipLogics';
+import {
+  CompanyMembershipDataAtom,
+  CompanyMembershipExelImportAtom,
+} from './store';
+import useCompanyMembershipQuery from './useCompanyMembershipQuery';
 
-  const [companyMembershipList, setCompanyMembershipList] = useAtom(
-    getCompanyMembershipDataAtom,
+const CompanyMembership = ({}) => {
+  // const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
+  const [importData, setImportData] = useAtom(CompanyMembershipExelImportAtom);
+
+  const {submitExelMutate} = useCompanyMembershipExelQuery();
+
+  const [companyMembershipData, setCompanyMembershipData] = useAtom(
+    CompanyMembershipDataAtom,
+  );
+  const [showRegister, setShowRegister] = useState(false);
+  const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
+  const [dataToEdit, setDataToEdit] = useState({});
+  const [registerStatus, setRegisterStatus] = useState('register');
+
+  const [tableDeleteList, setTableDeleteList] = useAtom(TableDeleteListAtom);
+
+  const {deleteMutate, submitMutate, editMutate} = useMutate(
+    CompanyMembershipDataAtom,
   );
 
-  const {dataList, editMutate, submitExelMutate} = useCompanyMembershipQuery();
+  const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    setCompanyMembershipList(dataList);
-  }, [dataList]);
+  const {sendFinalMutate, deleteFinalMutate} = useCompanyMembershipQuery(
+    ['getCompanyMembershipJSON'],
+    CompanyMembershipDataAtom,
+    token,
+  );
 
-  const [memoData, setMemoData] = useState(undefined);
+  const handleBundleClick = buttonStatus => {
+    clickButtonBundle(
+      buttonStatus,
+      CompanyMembershipFields,
+      companyMembershipData,
+      checkboxStatus,
+      setDataToEdit,
+      setRegisterStatus,
+      setShowRegister,
+      deleteMutate,
+    );
+  };
 
-  const handleMemoChange = data => {
-    setMemoData(data);
+  const handleClose = () => {
+    setShowRegister(false);
   };
 
   useEffect(() => {
-    if (memoData) {
-      editMutate(memoData);
-    }
-  }, [memoData]);
-  const {status, isLoading} = useDataRender();
+    return () => {
+      setCheckboxStatus({});
+      setTableDeleteList([]);
+    };
+  }, []);
+
+  const handleDelete = () => {
+    handleCompanyMembershipDelete(
+      checkboxStatus,
+      tableDeleteList,
+      companyMembershipData,
+      setTableDeleteList,
+      setCompanyMembershipData,
+    );
+  };
+
+  useEffect(() => {
+    console.log(companyMembershipData);
+  }, [companyMembershipData]);
 
   // if (isLoading)
   //   return (
@@ -64,34 +118,99 @@ const CompanyMembership = ({}) => {
   return (
     <Container>
       <ExcelTest submitExelMutate={submitExelMutate} />
-      {plan.length < 1 && (
+      {/* {plan.length > 0 ? (
+        <ExcelComponent />
+      ) : (
         <>
-          {/* <Pagination
-            dataTotalLength={dataTotalLength}
-            page={page}
-            setPage={setPage}
-            dataLimit={dataLimit}
-            setDataLimit={setDataLimit}
-            pageList={pageList}
-            handleButtonClick={handleButtonClick}
-            handleGoToEdge={handleGoToEdge}
-            handleMove={handleMove}
-            selectOptionArray={[1, 2, 4, 10]}
-          /> */}
+          {companyMembershipData && (
+            <div>
+              <CRUDBundle
+                handleBundleClick={handleBundleClick}
+                showRegister={showRegister}
+                sendFinal={() => {
+                  sendFinal(
+                    companyMembershipData,
+                    sendFinalMutate,
+                    checkboxStatus,
+                    tableDeleteList,
+                    deleteFinalMutate,
+                  );
+                }}
+                sendDelete={handleDelete}
+                checkboxStatus={checkboxStatus}
+              />
 
-          {Array.isArray(companyMembershipList) &&
-          companyMembershipList.length !== 0 ? (
-            <Table
-              fieldsInput={CompanyMembershipFields}
-              dataInput={companyMembershipList}
-              // isMemo={true}
-              // handleChange={handleMemoChange}
-            />
-          ) : (
-            <div>아직 등록된 데이터가 없습니다. 데이터를 추가해주세요</div>
+              {showRegister && (
+                <Register
+                  registerStatus={registerStatus}
+                  submitMutate={submitMutate}
+                  editMutate={editMutate}
+                  handleClose={handleClose}
+                  data={dataToEdit}
+                  fieldsToOpen={CompanyMembershipFields}
+                  fieldsData={CompanyMembershipFieldsData}
+                />
+              )}
+            </div>
           )}
+
+          <TableWrapper>
+            {companyMembershipData && companyMembershipData.length > 0 && (
+              <TableCustom
+                fieldsInput={CompanyMembershipFields}
+                dataInput={
+                  importData.length > 0 ? importData : companyMembershipData
+                }
+              />
+            )}
+          </TableWrapper>
         </>
-      )}
+      )} */}
+
+      <>
+        {companyMembershipData && (
+          <div>
+            <CRUDBundle
+              handleBundleClick={handleBundleClick}
+              showRegister={showRegister}
+              sendFinal={() => {
+                sendFinal(
+                  companyMembershipData,
+                  sendFinalMutate,
+                  checkboxStatus,
+                  tableDeleteList,
+                  deleteFinalMutate,
+                );
+              }}
+              sendDelete={handleDelete}
+              checkboxStatus={checkboxStatus}
+            />
+
+            {showRegister && (
+              <Register
+                registerStatus={registerStatus}
+                submitMutate={submitMutate}
+                editMutate={editMutate}
+                handleClose={handleClose}
+                data={dataToEdit}
+                fieldsToOpen={CompanyMembershipFields}
+                fieldsData={CompanyMembershipFieldsData}
+              />
+            )}
+          </div>
+        )}
+
+        <TableWrapper>
+          {companyMembershipData && companyMembershipData.length > 0 && (
+            <TableCustom
+              fieldsInput={CompanyMembershipFields}
+              dataInput={
+                importData.length > 0 ? importData : companyMembershipData
+              }
+            />
+          )}
+        </TableWrapper>
+      </>
     </Container>
   );
 };

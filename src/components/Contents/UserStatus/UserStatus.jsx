@@ -1,30 +1,33 @@
-import axios from 'axios';
-import DataLimitSelect from 'common/Pagination/Childs/DataLimitSelect';
-import {
-  calculatePageMove,
-  calculateTotalPages,
-} from 'common/Pagination/Logics/PaginationLogics';
-import Pagination from 'common/Pagination/Pagination';
-import usePagination from 'common/Pagination/usePagination';
-import Table from 'common/Table/Table';
-
-import {userStatusFields} from 'components/Contents/UserStatus/userStatusData';
+import CRUDBundle from 'common/CRUD/Register/CRUDBundle';
+import Register from 'common/CRUD/Register/Register';
+import useMutate from 'common/CRUD/useMutate';
+import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
+import TableCustom from 'common/Table/TableCustom';
+import {useAtom} from 'jotai';
+import {useState} from 'react';
 import {useEffect} from 'react';
-
-import {useQuery} from 'react-query';
+import {TableWrapper} from 'style/common.style';
 
 import styled from 'styled-components';
+import {clickButtonBundle} from '../Logics/Logics';
+import {UserStatusDataAtom} from './store';
+import {UserStatusFields, UserStatusFieldsData} from './userStatusData';
+import {handleUserStatusDelete, sendFinal} from './userStatusLogics';
+import useUserStatusQuery from './useUserStatusQuery';
 
 const UserStatus = () => {
-  ////////////////////////////////////////////////////////////////////
-  // pagination 쓰는 법
+  const [userStatusData, setUserStatusData] = useAtom(UserStatusDataAtom);
 
-  // pagination위치: src/common/Pagination의 Pagination.jsx와 usePagination.jsx를 가져다 쓰면 됩니다
+  const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
 
-  // 준비물 총 세가지: 필요한 데이터 딱 두가지 & 필요한 설정 딱 한가지
+  const [tableDeleteList, setTableDeleteList] = useAtom(TableDeleteListAtom);
 
-  // 필요한 데이터 딱 두가지
+  const {status, isLoading} = useUserStatusQuery(
+    ['getUserStatusJSON'],
+    UserStatusDataAtom,
+  );
 
+<<<<<<< HEAD
   // 1. paginate된 데이터(dataList: array)
   //      -  현재 페이지는 'page', 페이지 당 보여주는 데이터 수 는 'dataLimit'로 paginate시켰습니다.
   // 2. 받아오는 데이터 총 개수(dataTotalLength: number)
@@ -63,6 +66,14 @@ const UserStatus = () => {
     // console.log(response);
     return response.data.data;
   });
+=======
+  useEffect(() => {
+    return () => {
+      setCheckboxStatus({});
+      setTableDeleteList([]);
+    };
+  }, []);
+>>>>>>> feature/jaesin1
 
   if (isLoading)
     return (
@@ -79,6 +90,7 @@ const UserStatus = () => {
         있어요
       </div>
     );
+<<<<<<< HEAD
   console.log(dataList);
   if (status === 'success')
     return (
@@ -92,6 +104,24 @@ const UserStatus = () => {
         )}
       </Container>
     );
+=======
+
+  return (
+    <Container>
+      <>
+        <TableWrapper>
+          {userStatusData && userStatusData.length > 0 && (
+            <TableCustom
+              fieldsInput={UserStatusFields}
+              dataInput={userStatusData}
+              useCheckbox={false}
+            />
+          )}
+        </TableWrapper>
+      </>
+    </Container>
+  );
+>>>>>>> feature/jaesin1
 };
 
 export default UserStatus;
