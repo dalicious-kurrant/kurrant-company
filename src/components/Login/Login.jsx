@@ -54,7 +54,8 @@ const Login = () => {
         localStorage.setItem('token', accessToken);
         localStorage.setItem('code', input['code']);
         window.confirm(`로그인 성공!`);
-        navigate('/main');
+        window.location.replace('/main');
+
         setInput(initialInput);
         // window.location.reload();
       }
