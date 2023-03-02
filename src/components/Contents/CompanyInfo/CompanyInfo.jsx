@@ -2,6 +2,8 @@ import {Table} from 'semantic-ui-react';
 import {PageWrapper, TableWrapper} from 'style/common.style';
 import {useGetCorporationInfo} from 'hooks/useCorporation';
 import {formattedDate} from 'utils/dateFormatter';
+import withCommas from 'utils/withCommas';
+import {phoneNumberFormmatter} from 'utils/phoneNumberFormatter';
 
 const CompanyInfo = () => {
   const {data: corpList} = useGetCorporationInfo();
@@ -28,12 +30,22 @@ const CompanyInfo = () => {
               <Table.HeaderCell textAlign="center">위치</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">식사 타입</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">식사 요일</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">담당자 ID</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">담당자</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">
                 담당자 전화번호
               </Table.HeaderCell>
               <Table.HeaderCell textAlign="center">
                 기업멤버십 지원여부
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                아침 지원금
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                점심 지원금
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                저녁 지원금
               </Table.HeaderCell>
               <Table.HeaderCell textAlign="center">사원수</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">
@@ -58,11 +70,24 @@ const CompanyInfo = () => {
               <Table.Cell>{list?.location}</Table.Cell>
               <Table.Cell>{diningType?.join(',')}</Table.Cell>
               <Table.Cell>{list?.serviceDays}</Table.Cell>
+              <Table.Cell textAlign="center">{list?.managerId}</Table.Cell>
               <Table.Cell textAlign="center">{list?.managerName}</Table.Cell>
-              <Table.Cell>{list?.managerPhone}</Table.Cell>
+              <Table.Cell>
+                {phoneNumberFormmatter(list?.managerPhone) || '-'}
+              </Table.Cell>
               <Table.Cell textAlign="center">
                 {list?.isMembershipSupport ? '지원' : '미지원'}
               </Table.Cell>
+              <Table.Cell textAlign="center">
+                {withCommas(list?.morningSupportPrice) || '-'}
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                {withCommas(list?.lunchSupportPrice) || '-'}
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                {withCommas(list?.dinnerSupportPrice) || '-'}
+              </Table.Cell>
+
               <Table.Cell textAlign="center">{list?.employeeCount}</Table.Cell>
               <Table.Cell textAlign="center">
                 {list?.isSetting ? '사용' : '미사용'}
