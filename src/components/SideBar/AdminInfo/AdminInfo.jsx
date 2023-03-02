@@ -4,6 +4,7 @@ import KurrantLogo from 'assets/svg/KurrantLogo.svg';
 
 import DefaultProfileIcon from 'assets/svg/DefaultProfileIcon.svg';
 import {useNavigate} from 'react-router-dom';
+import {Button} from 'semantic-ui-react';
 
 const AdminInfo = () => {
   const navigate = useNavigate();
@@ -33,8 +34,11 @@ const AdminInfo = () => {
           <UserName>조재신</UserName>
         </NameWrap>
       </ProfileWrap>
-
-      <LogoutButten onClick={handleLogout}>로그아웃</LogoutButten>
+      <Button.Group>
+        <BtnWrap>
+          <LogoutButten onClick={handleLogout}>로그아웃</LogoutButten>
+        </BtnWrap>
+      </Button.Group>
     </Container>
   );
 };
@@ -100,7 +104,11 @@ const UserName = styled.span`
   font-size: 1.7rem;
   font-weight: 800;
 `;
-const LogoutButten = styled.button`
+const LogoutButten = styled(Button)`
   background-color: ${props => props.theme.colors.white};
   font-size: 1.8rem;
+`;
+
+const BtnWrap = styled.div`
+  transform: scale(calc(100 / 62.5));
 `;

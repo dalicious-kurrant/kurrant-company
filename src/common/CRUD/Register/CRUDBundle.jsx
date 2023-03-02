@@ -78,6 +78,7 @@ const Container = styled.div`
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
+  /* transform: scale(calc(100 / 62.5)); */
 `;
 
 const Wrap2 = styled.div`
