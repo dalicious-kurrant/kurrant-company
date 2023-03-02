@@ -58,8 +58,8 @@ const UserStatus = () => {
       // `${process.env.REACT_APP_JSON_SERVER}/user-status/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
       // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
     );
-
-    return response.data.data.items;
+    // console.log(response);
+    return response.data.data;
   });
 
   if (isLoading)
@@ -77,7 +77,7 @@ const UserStatus = () => {
         있어요
       </div>
     );
-
+  console.log(dataList);
   if (status === 'success')
     return (
       <Container>
