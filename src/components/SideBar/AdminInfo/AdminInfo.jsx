@@ -4,10 +4,13 @@ import KurrantLogo from 'assets/svg/KurrantLogo.svg';
 
 import DefaultProfileIcon from 'assets/svg/DefaultProfileIcon.svg';
 import {useNavigate} from 'react-router-dom';
+import {useGetCorporationInfo} from 'hooks/useCorporation';
 
 const AdminInfo = () => {
   const navigate = useNavigate();
-
+  const {data: corpList} = useGetCorporationInfo();
+  const list = corpList?.data;
+  console.log(list);
   const handleLogout = () => {
     // 로그아웃 로직
     navigate('/');
@@ -27,8 +30,8 @@ const AdminInfo = () => {
         </ProfileImageWrap>
 
         <NameWrap>
-          <CompanyName>달리셔스</CompanyName>
-          <UserName>조재신</UserName>
+          <CompanyName>{list?.name}</CompanyName>
+          <UserName>{list?.managerName}</UserName>
         </NameWrap>
       </ProfileWrap>
 

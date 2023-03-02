@@ -52,10 +52,11 @@ const UserStatus = () => {
     isLoading,
     // } = useQuery(['getUserStatus', page, dataLimit], async ({queryKey}) => {
   } = useQuery(['getUserStatus'], async ({queryKey}) => {
+    const code = localStorage.getItem('code');
     const response = await axios.get(
       // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
       // `${process.env.REACT_APP_BASE_URL}/v1/client/members/waiting?code=AAAAAA`,
-      `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=AAAAAA`,
+      `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=${code}`,
       // `${process.env.REACT_APP_JSON_SERVER}/user-status/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
       // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
     );

@@ -14,7 +14,7 @@ const useCompanyMembershipQuery = (
   disableList = [],
 ) => {
   const queryClient = useQueryClient();
-
+  const code = localStorage.getItem('code');
   // disableList에 들어갈 수 있는 것들
   // getCompanyMembershipLength , getCompanyMembership,
 
@@ -25,7 +25,7 @@ const useCompanyMembershipQuery = (
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
         // `${apiUrl_USER_STATUS}`,
-        `${apiUrl}/v1/client/members/waiting?code=AAAAAA`,
+        `${apiUrl}/v1/client/members/waiting?code=${code}`,
         // `${apiUrl_USER_STATUS}`,
       );
       return response.data.length;
@@ -45,10 +45,11 @@ const useCompanyMembershipQuery = (
   } = useQuery(
     ['getCompanyMembership', page, dataLimit],
     async ({queryKey}) => {
+      const code = localStorage.getItem('code');
       const response = await axios.get(
         // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
         // `${apiUrl_USER_STATUS}?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
-        `${apiUrl}/v1/client/members/waiting?code=AAAAAA&_page=${queryKey[1]}&_limit=${queryKey[2]}`,
+        `${apiUrl}/v1/client/members/waiting?code=${code}&_page=${queryKey[1]}&_limit=${queryKey[2]}`,
         // `${apiUrl_USER_STATUS}`,
       );
 

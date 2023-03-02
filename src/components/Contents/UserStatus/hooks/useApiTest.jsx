@@ -8,8 +8,9 @@ const useApiTest = () => {
     status,
     isLoading,
   } = useQuery(['getUserInfo'], async () => {
+    const code = localStorage.getItem('code');
     const response = await instance.get(
-      `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=AAAAAA`,
+      `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=${code}`,
     );
 
     // console.log(response.data);
