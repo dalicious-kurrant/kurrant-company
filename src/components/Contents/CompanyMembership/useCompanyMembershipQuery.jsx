@@ -1,10 +1,12 @@
 import axios from 'axios';
 import instance from 'configs/axiosConfig';
 import {useAtom} from 'jotai';
+import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
 import {useEffect} from 'react';
 import {useMutation, useQuery, useQueryClient} from 'react-query';
 
 import {shiftUserType, sliceStringDataByKey} from './CompanyMembershipLogics';
+import {CompanyMembershipExelExportAtom} from './store';
 
 const useCompanyMembershipQuery = (
   uniqueQueryKey,
@@ -19,6 +21,9 @@ const useCompanyMembershipQuery = (
   // atom : jotai의 아톰
   // url : url
   // enable : useQuery를 껏다켰다 할 수 있음
+
+  // const [exelPlan, setExelPlan] = useAtom(exelCompanyMembershipAtom);
+  const [exelExport, setExelExport] = useAtom(CompanyMembershipExelExportAtom);
 
   const [, setJotaiData] = useAtom(atom);
   const queryClient = useQueryClient();
@@ -67,7 +72,7 @@ const useCompanyMembershipQuery = (
     async todo => {
       console.log(todo);
 
-      const response = await instance.delete(`client/members/waiting`, todo);
+      const response = await instance.post(`client/members/waiting`, todo);
       // const response = await axios.delete(`/v1/client/members/waiting`, todo);
       console.log('기업가입 리스트 삭제 성공');
       return response;
@@ -84,8 +89,18 @@ const useCompanyMembershipQuery = (
   );
 
   useEffect(() => {
+    return () => {
+      setJotaiData([]);
+      setExelExport([]);
+    };
+  }, []);
+
+  useEffect(() => {
     if (data) {
       setJotaiData(data);
+      setExelExport(data);
+
+      // setExelPlan(data);
     }
   }, [data, setJotaiData]);
 

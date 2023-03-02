@@ -1,3 +1,4 @@
+import {CompanyMembershipExelExportAtom} from 'components/Contents/CompanyMembership/store';
 import {useAtom} from 'jotai';
 import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
 import {useRef} from 'react';
@@ -24,6 +25,10 @@ const C = {
 };
 const ExcelTest = ({submitExelMutate}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
+  const [companyMembershipExelExport, setCompanyMembershipExelExport] = useAtom(
+    CompanyMembershipExelExportAtom,
+  );
+
   const inputRef = useRef();
   const onUploadFileButtonClick = useCallback(() => {
     if (!inputRef.current) {
@@ -34,6 +39,7 @@ const ExcelTest = ({submitExelMutate}) => {
   }, []);
   const readUploadFile = e => {
     e.preventDefault();
+
     if (e.target.files) {
       const reader = new FileReader();
       reader.onload = e => {
@@ -42,7 +48,9 @@ const ExcelTest = ({submitExelMutate}) => {
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const json = xlsx.utils.sheet_to_json(worksheet);
+        console.log(sheetName);
         if (sheetName === '기업 가입 가능 리스트') {
+          // if (sheetName === '고객 스팟 공지') {
           const result = json.map(v => {
             const ret = {
               id: v.id,
@@ -63,10 +71,17 @@ const ExcelTest = ({submitExelMutate}) => {
   };
 
   const onDownloadFile = async () => {
+    console.log('hi');
+    console.log(plan);
+
     if (plan && plan.length > 0) {
       companyExelExport(plan);
     }
+    if (companyMembershipExelExport && companyMembershipExelExport.length > 0) {
+      companyExelExport(companyMembershipExelExport);
+    }
   };
+
   const onSaveExel = async () => {
     const req = [...plan];
     req.shift();
@@ -75,6 +90,7 @@ const ExcelTest = ({submitExelMutate}) => {
     setPlan([]);
     console.log(result);
   };
+
   return (
     <Container>
       <C.BtnWrapper>

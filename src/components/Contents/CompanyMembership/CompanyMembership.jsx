@@ -1,6 +1,7 @@
 import CRUDBundle from 'common/CRUD/Register/CRUDBundle';
 import Register from 'common/CRUD/Register/Register';
 import useMutate from 'common/CRUD/useMutate';
+import ExcelComponent from 'common/excel/ExcelComponent';
 import ExcelTest from 'common/excel/ExcelTest';
 import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
 import TableCustom from 'common/Table/TableCustom';
@@ -114,7 +115,9 @@ const CompanyMembership = ({}) => {
   return (
     <Container>
       <ExcelTest submitExelMutate={submitExelMutate} />
-      {plan.length < 1 && (
+      {plan.length > 0 ? (
+        <ExcelComponent />
+      ) : (
         <>
           {companyMembershipData && (
             <div>
