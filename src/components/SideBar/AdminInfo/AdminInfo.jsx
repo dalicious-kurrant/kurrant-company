@@ -4,11 +4,8 @@ import KurrantLogo from 'assets/svg/KurrantLogo.svg';
 
 import DefaultProfileIcon from 'assets/svg/DefaultProfileIcon.svg';
 import {useNavigate} from 'react-router-dom';
-<<<<<<< HEAD
 import {useGetCorporationInfo} from 'hooks/useCorporation';
-=======
 import {Button} from 'semantic-ui-react';
->>>>>>> feature/jaesin1
 
 const AdminInfo = () => {
   const navigate = useNavigate();
