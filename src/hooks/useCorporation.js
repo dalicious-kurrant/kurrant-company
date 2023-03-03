@@ -26,8 +26,9 @@ export function useSaveExelCorporation() {
 
 export function useDeleteMember() {
   return useMutation(data => registerCorporationApis.deleteMember(data), {
-    onSuccess: () => {
-      return window.location.reload();
+    onSuccess: res => {
+      console.log(res, '000');
+      //return window.location.reload();
     },
   });
 }
