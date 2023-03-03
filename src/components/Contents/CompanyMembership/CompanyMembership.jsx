@@ -98,7 +98,7 @@ const CompanyMembership = ({}) => {
   useEffect(() => {
     console.log(companyMembershipData);
     setExelExport(companyMembershipData);
-  }, [companyMembershipData]);
+  }, [companyMembershipData, setExelExport]);
 
   // if (isLoading)
   //   return (
