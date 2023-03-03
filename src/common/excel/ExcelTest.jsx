@@ -3,11 +3,12 @@ import {
   CompanyMembershipExelExportAtom,
   CompanyMembershipExelImportAtom,
 } from 'components/Contents/CompanyMembership/store';
-import {useSaveExelCorporation} from 'hooks/useCorporation';
+import {useDeleteMember, useSaveExelCorporation} from 'hooks/useCorporation';
 
 import {useAtom} from 'jotai';
 import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
 import {useRef} from 'react';
+import {useState} from 'react';
 import {useCallback} from 'react';
 import {useEffect} from 'react';
 import {Button} from 'semantic-ui-react';
@@ -32,7 +33,7 @@ const C = {
 const ExcelTest = ({submitExelMutate}) => {
   const [plan, setPlan] = useAtom(exelCompanyMembershipAtom);
   const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
-  console.log(checkboxStatus, '979');
+  const [checkId, setCheckID] = useState([]);
   const [companyMembershipImportExcel, setCompanyMembershipImportExcel] =
     useAtom(CompanyMembershipExelImportAtom);
   const [companyMembershipExelExport, setCompanyMembershipExelExport] = useAtom(
@@ -41,6 +42,7 @@ const ExcelTest = ({submitExelMutate}) => {
   // console.log(companyMembershipImportExcel, '-0966');
   const inputRef = useRef();
   const {mutateAsync: saveCorporation} = useSaveExelCorporation();
+  const {mutateAsync: deleteId} = useDeleteMember();
   const onUploadFileButtonClick = useCallback(() => {
     if (!inputRef.current) {
       return;
@@ -48,6 +50,20 @@ const ExcelTest = ({submitExelMutate}) => {
     inputRef.current.value = '';
     inputRef.current.click();
   }, []);
+  const selectedData = [];
+  Object.entries(checkboxStatus).forEach(value => {
+    if (value[1] === true) {
+      selectedData.push(value[0]);
+    }
+  });
+
+  const deleteButton = async () => {
+    const arr = selectedData.filter(el => el !== 'parent');
+    setCheckID(arr);
+
+    await deleteId({waitMemberIdList: checkId});
+  };
+
   const readUploadFile = e => {
     e.preventDefault();
 
@@ -141,6 +157,7 @@ const ExcelTest = ({submitExelMutate}) => {
   return (
     <Container>
       <C.BtnWrapper>
+        {/* <Button content="test" onClick={deleteButton} /> */}
         <Button
           color="green"
           icon="save"
