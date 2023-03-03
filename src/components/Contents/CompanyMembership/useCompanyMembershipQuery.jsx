@@ -98,7 +98,7 @@ const useCompanyMembershipQuery = (
   useEffect(() => {
     if (data) {
       setJotaiData(data);
-      setExelExport(data);
+      // setExelExport(data);
 
       // setExelPlan(data);
     }

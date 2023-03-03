@@ -28,6 +28,7 @@ import {
 } from './CompanyMembershipLogics';
 import {
   CompanyMembershipDataAtom,
+  CompanyMembershipExelExportAtom,
   CompanyMembershipExelImportAtom,
 } from './store';
 import useCompanyMembershipQuery from './useCompanyMembershipQuery';
@@ -37,7 +38,7 @@ const CompanyMembership = ({}) => {
   const [importData, setImportData] = useAtom(CompanyMembershipExelImportAtom);
 
   const {submitExelMutate} = useCompanyMembershipExelQuery();
-
+  const [exelExport, setExelExport] = useAtom(CompanyMembershipExelExportAtom);
   const [companyMembershipData, setCompanyMembershipData] = useAtom(
     CompanyMembershipDataAtom,
   );
@@ -96,6 +97,7 @@ const CompanyMembership = ({}) => {
 
   useEffect(() => {
     console.log(companyMembershipData);
+    setExelExport(companyMembershipData);
   }, [companyMembershipData]);
 
   // if (isLoading)
