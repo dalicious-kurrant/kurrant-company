@@ -1,68 +1,38 @@
-import axios from 'axios';
-import DataLimitSelect from 'common/Pagination/Childs/DataLimitSelect';
-import {
-  calculatePageMove,
-  calculateTotalPages,
-} from 'common/Pagination/Logics/PaginationLogics';
-import Pagination from 'common/Pagination/Pagination';
-import usePagination from 'common/Pagination/usePagination';
-import Table from 'common/Table/Table';
-
-import {userStatusFields} from 'components/Contents/UserStatus/userStatusData';
+import CRUDBundle from 'common/CRUD/Register/CRUDBundle';
+import Register from 'common/CRUD/Register/Register';
+import useMutate from 'common/CRUD/useMutate';
+import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
+import TableCustom from 'common/Table/TableCustom';
+import {useAtom} from 'jotai';
+import {useState} from 'react';
 import {useEffect} from 'react';
-
-import {useQuery} from 'react-query';
+import {TableWrapper} from 'style/common.style';
 
 import styled from 'styled-components';
+import {clickButtonBundle} from '../Logics/Logics';
+import {UserStatusDataAtom} from './store';
+import {UserStatusFields, UserStatusFieldsData} from './userStatusData';
+import {handleUserStatusDelete, sendFinal} from './userStatusLogics';
+import useUserStatusQuery from './useUserStatusQuery';
 
 const UserStatus = () => {
-  ////////////////////////////////////////////////////////////////////
-  // pagination 쓰는 법
+  const [userStatusData, setUserStatusData] = useAtom(UserStatusDataAtom);
 
-  // pagination위치: src/common/Pagination의 Pagination.jsx와 usePagination.jsx를 가져다 쓰면 됩니다
+  const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
 
-  // 준비물 총 세가지: 필요한 데이터 딱 두가지 & 필요한 설정 딱 한가지
+  const [tableDeleteList, setTableDeleteList] = useAtom(TableDeleteListAtom);
 
-  // 필요한 데이터 딱 두가지
+  const {status, isLoading} = useUserStatusQuery(
+    ['getUserStatusJSON'],
+    UserStatusDataAtom,
+  );
 
-  // 1. paginate된 데이터(dataList: array)
-  //      -  현재 페이지는 'page', 페이지 당 보여주는 데이터 수 는 'dataLimit'로 paginate시켰습니다.
-  // 2. 받아오는 데이터 총 개수(dataTotalLength: number)
-
-  // 필요한 설정 딱 한가지
-
-  // 1. '몇'개 씩 보이게 하기의 '몇'을 배열로 넣어주시면 됩니다
-  // 예) 1, 2, 4, 10 개씩 보여주고 싶다 -> [1, 2, 4, 10]
-
-  // 위 준비물이 모두 준비가 됬다면...
-
-  // usePagination(dataTotalLength)
-
-  //  <Pagination  selectOptionArray={[1, 2, 4, 10]} />
-
-  // 이상입니다
-
-  // 질문은 슬랙으로~~
-
-  ////////////////////////////////////////////////////////////////////
-
-  const {
-    data: dataList,
-    status,
-    isLoading,
-    // } = useQuery(['getUserStatus', page, dataLimit], async ({queryKey}) => {
-  } = useQuery(['getUserStatus'], async ({queryKey}) => {
-    const code = localStorage.getItem('code');
-    const response = await axios.get(
-      // `${process.env.REACT_APP_SERVER_URL}/v1/client/members`,
-      // `${process.env.REACT_APP_BASE_URL}/v1/client/members/waiting?code=AAAAAA`,
-      `${process.env.REACT_APP_BASE_URL}/v1/client/members?code=${code}`,
-      // `${process.env.REACT_APP_JSON_SERVER}/user-status/?_page=${queryKey[1]}&_limit=${queryKey[2]}`,
-      // `${process.env.REACT_APP_JSON_SERVER_USER_STATUS}`,
-    );
-    // console.log(response);
-    return response.data.data;
-  });
+  useEffect(() => {
+    return () => {
+      setCheckboxStatus({});
+      setTableDeleteList([]);
+    };
+  }, []);
 
   if (isLoading)
     return (
@@ -79,19 +49,22 @@ const UserStatus = () => {
         있어요
       </div>
     );
-  console.log(dataList);
-  if (status === 'success')
-    return (
-      <Container>
-        {!!dataList && dataList.length !== 0 && (
-          <Table
-            useCheckbox={false}
-            fieldsInput={userStatusFields}
-            dataInput={dataList}
-          />
-        )}
-      </Container>
-    );
+
+  return (
+    <Container>
+      <>
+        <TableWrapper>
+          {userStatusData && userStatusData.length > 0 && (
+            <TableCustom
+              fieldsInput={UserStatusFields}
+              dataInput={userStatusData}
+              useCheckbox={false}
+            />
+          )}
+        </TableWrapper>
+      </>
+    </Container>
+  );
 };
 
 export default UserStatus;

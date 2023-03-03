@@ -1,8 +1,13 @@
 import styled from 'styled-components';
-
 import {Button} from 'semantic-ui-react';
 
-const CRUDBundle = ({handleBundleClick, showRegister}) => {
+const CRUDBundle = ({
+  handleBundleClick,
+  showRegister,
+  sendFinal,
+  sendDelete,
+  checkboxStatus,
+}) => {
   const handleClick = e => {
     if (e.target.id === 'register' || e.target.id === 'edit') {
       if (showRegister) {
@@ -15,37 +20,15 @@ const CRUDBundle = ({handleBundleClick, showRegister}) => {
   };
 
   const handleSend = () => {
-    console.log('최종적용하기');
+    sendFinal();
+  };
+
+  const handleDelete = () => {
+    sendDelete();
   };
 
   return (
     <Container>
-      {/* <Wrap>
-        <Button.Group>
-          <BtnWrap>
-            <Button id="register" color="green" inverted onClick={handleClick}>
-              추가 열기
-            </Button>
-          </BtnWrap>
-          <BtnWrap>
-            <Button id="edit" color="blue" inverted onClick={handleClick}>
-              수정 열기
-            </Button>
-          </BtnWrap>
-          <BtnWrap>
-            <Button id="delete" inverted color="red" onClick={handleClick}>
-              삭제하기
-            </Button>
-          </BtnWrap>
-        </Button.Group>
-
-        <Button.Group>
-          <BtnWrap>
-            <Button onClick={handleSend}>최종적용하기</Button>
-          </BtnWrap>
-        </Button.Group>
-      </Wrap> */}
-
       <Wrap>
         <Button.Group>
           <BtnWrap>
@@ -59,18 +42,23 @@ const CRUDBundle = ({handleBundleClick, showRegister}) => {
               수정 열기
             </Button>
           </BtnWrap>
-
           <BtnWrap>
-            <Button id="delete" inverted color="red" onClick={handleClick}>
+            <Button id="delete" inverted color="red" onClick={handleDelete}>
               삭제하기
             </Button>
           </BtnWrap>
         </Button.Group>
-        <Wrap2>
+        {/* <Wrap2>
           <Button.Group>
-            <Button onClick={handleSend}>최종적용하기</Button>
+            <FinalSendButton
+              checkboxstatus={checkboxStatus}
+              onClick={handleSend}
+              // disabled={!Object.values(checkboxStatus).includes(true)}
+            >
+              최종적용하기
+            </FinalSendButton>
           </Button.Group>
-        </Wrap2>
+        </Wrap2> */}
       </Wrap>
     </Container>
   );
@@ -82,11 +70,15 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
+  margin-bottom: 20px;
+
+  /* border: 1px solid black; */
 `;
 
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
+  /* transform: scale(calc(100 / 62.5)); */
 `;
 
 const Wrap2 = styled.div`
@@ -95,4 +87,14 @@ const Wrap2 = styled.div`
 
 const BtnWrap = styled.div`
   margin: 0.4rem 0.2rem;
+`;
+
+const FinalSendButton = styled(Button)`
+  /* opacity: ${({checkboxstatus}) => {
+    if (!Object.values(checkboxstatus).includes(true)) {
+      return 0.5;
+    } else {
+      return 1;
+    }
+  }}; */
 `;
