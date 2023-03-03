@@ -157,7 +157,7 @@ const ExcelTest = ({submitExelMutate}) => {
   return (
     <Container>
       <C.BtnWrapper>
-        <Button content="test" onClick={deleteButton} />
+        {/* <Button content="test" onClick={deleteButton} /> */}
         <Button
           color="green"
           icon="save"
