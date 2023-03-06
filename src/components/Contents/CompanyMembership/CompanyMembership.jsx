@@ -55,11 +55,12 @@ const CompanyMembership = ({}) => {
 
   const token = localStorage.getItem('token');
 
-  const {sendFinalMutate, deleteFinalMutate} = useCompanyMembershipQuery(
-    ['getCompanyMembershipJSON'],
-    CompanyMembershipDataAtom,
-    token,
-  );
+  const {isLoading, status, sendFinalMutate, deleteFinalMutate} =
+    useCompanyMembershipQuery(
+      ['getCompanyMembershipJSON'],
+      CompanyMembershipDataAtom,
+      token,
+    );
 
   const handleBundleClick = buttonStatus => {
     clickButtonBundle(
@@ -86,16 +87,6 @@ const CompanyMembership = ({}) => {
   }, []);
 
   const handleDelete = () => {
-    // handleCompanyMembershipDelete(
-    //   checkboxStatus,
-    //   tableDeleteList,
-    //   companyMembershipData,
-    //   setTableDeleteList,
-    //   setCompanyMembershipData,
-    // );
-
-    console.log('delete');
-
     // 삭제할 값들의 id골라내기
 
     let deleteIdArray = [];
@@ -135,25 +126,31 @@ const CompanyMembership = ({}) => {
   //   console.log(importData.length);
   // }, [importData]);
 
-  // if (isLoading)
-  //   return (
-  //     <>
-  //       {' '}
-  //       <ExcelTest submitExelMutate={submitExelMutate} />
-  //       <div>로딩중입니다..</div>{' '}
-  //     </>
-  //   );
-
-  // if (status === 'error')
-  //   return (
-  //     <div>
-  //       에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
-  //       있어요
-  //     </div>
-  //   );
-
   const bool1 = companyMembershipData && companyMembershipData.length > 0;
   const bool2 = importData && importData.length > 0;
+
+  if (isLoading)
+    return (
+      <>
+        {' '}
+        <div>로딩중입니다..</div>{' '}
+      </>
+    );
+
+  if (companyMembershipData.length < 1)
+    return (
+      <>
+        <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>{' '}
+      </>
+    );
+
+  if (status === 'error')
+    return (
+      <div>
+        에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
+        있어요
+      </div>
+    );
 
   return (
     <Container>
@@ -165,15 +162,6 @@ const CompanyMembership = ({}) => {
             <CRUDBundle
               handleBundleClick={handleBundleClick}
               showRegister={showRegister}
-              // sendFinal={() => {
-              //   sendFinal(
-              //     companyMembershipData,
-              //     sendFinalMutate,
-              //     checkboxStatus,
-              //     tableDeleteList,
-              //     deleteFinalMutate,
-              //   );
-              // }}
               sendDelete={handleDelete}
               checkboxStatus={checkboxStatus}
             />
