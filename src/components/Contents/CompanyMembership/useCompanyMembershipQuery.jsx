@@ -27,20 +27,22 @@ const useCompanyMembershipQuery = (
 
   const [, setJotaiData] = useAtom(atom);
   const queryClient = useQueryClient();
+  const getToken = localStorage.getItem('code');
+
   const {data, status, isLoading} = useQuery(
     uniqueQueryKey,
 
     token
       ? async ({queryKey}) => {
           const response = await instance.get(
-            `client/members/waiting?code=AAAAAA`,
+            `client/members/waiting?code=${getToken}`,
           );
 
           return response.data;
         }
       : async ({queryKey}) => {
           const response = await axios.get(
-            `client/members/waiting?code=AAAAAA`,
+            `client/members/waiting?code=${getToken}`,
           );
 
           return response.data;

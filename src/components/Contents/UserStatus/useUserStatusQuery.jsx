@@ -21,11 +21,12 @@ const useUserStatusQuery = (
 
   const [, setJotaiData] = useAtom(atom);
   const queryClient = useQueryClient();
+  const getCode = localStorage.getItem('code');
   const {data, status, isLoading} = useQuery(
     uniqueQueryKey,
 
     async ({queryKey}) => {
-      const response = await instance.get(`client/members?code=AAAAAA`);
+      const response = await instance.get(`client/members?code=${getCode}`);
 
       return response.data;
     },
