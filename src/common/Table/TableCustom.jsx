@@ -75,6 +75,9 @@ const TableCustom = ({
       });
     }
   };
+  useEffect(() => {
+    console.log(dataInput);
+  }, [dataInput]);
 
   return (
     <>

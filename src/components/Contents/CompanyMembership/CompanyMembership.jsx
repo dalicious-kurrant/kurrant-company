@@ -100,6 +100,11 @@ const CompanyMembership = ({}) => {
     setExelExport(companyMembershipData);
   }, [companyMembershipData, setExelExport]);
 
+  useEffect(() => {
+    console.log(importData);
+    console.log(importData.length);
+  }, [importData]);
+
   // if (isLoading)
   //   return (
   //     <>
@@ -116,6 +121,9 @@ const CompanyMembership = ({}) => {
   //       있어요
   //     </div>
   //   );
+
+  const bool1 = companyMembershipData && companyMembershipData.length > 0;
+  const bool2 = importData && importData.length > 0;
 
   return (
     <Container>
@@ -203,7 +211,7 @@ const CompanyMembership = ({}) => {
         )}
 
         <TableWrapper>
-          {companyMembershipData && companyMembershipData.length > 0 && (
+          {(bool1 || bool2) && (
             <TableCustom
               fieldsInput={CompanyMembershipFields}
               dataInput={
