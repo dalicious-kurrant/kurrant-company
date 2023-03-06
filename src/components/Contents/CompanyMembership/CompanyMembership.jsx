@@ -86,24 +86,54 @@ const CompanyMembership = ({}) => {
   }, []);
 
   const handleDelete = () => {
-    handleCompanyMembershipDelete(
-      checkboxStatus,
-      tableDeleteList,
-      companyMembershipData,
-      setTableDeleteList,
-      setCompanyMembershipData,
-    );
+    // handleCompanyMembershipDelete(
+    //   checkboxStatus,
+    //   tableDeleteList,
+    //   companyMembershipData,
+    //   setTableDeleteList,
+    //   setCompanyMembershipData,
+    // );
+
+    console.log('delete');
+
+    // 삭제할 값들의 id골라내기
+
+    let deleteIdArray = [];
+    let list = [...companyMembershipData];
+
+    // parent 빼내기
+    const {parent, ...checkList} = checkboxStatus;
+
+    Object.entries(checkList).forEach(v => {
+      if (v[1] === true) {
+        // console.log(v[0]);
+
+        const deleteData = list.find(val => val.id === parseInt(v[0]));
+        // console.log(deleteData);
+        deleteIdArray.push(deleteData.id);
+      }
+    });
+
+    if (window.confirm(`${deleteIdArray.toString()}를 삭제하시겠습니까?`)) {
+      const input = {
+        waitMemberIdList: deleteIdArray,
+      };
+
+      deleteFinalMutate(input);
+    } else {
+      return;
+    }
   };
 
   useEffect(() => {
-    console.log(companyMembershipData);
+    // console.log(companyMembershipData);
     setExelExport(companyMembershipData);
   }, [companyMembershipData, setExelExport]);
 
-  useEffect(() => {
-    console.log(importData);
-    console.log(importData.length);
-  }, [importData]);
+  // useEffect(() => {
+  //   console.log(importData);
+  //   console.log(importData.length);
+  // }, [importData]);
 
   // if (isLoading)
   //   return (
@@ -128,54 +158,6 @@ const CompanyMembership = ({}) => {
   return (
     <Container>
       <ExcelTest submitExelMutate={submitExelMutate} />
-      {/* {plan.length > 0 ? (
-        <ExcelComponent />
-      ) : (
-        <>
-          {companyMembershipData && (
-            <div>
-              <CRUDBundle
-                handleBundleClick={handleBundleClick}
-                showRegister={showRegister}
-                sendFinal={() => {
-                  sendFinal(
-                    companyMembershipData,
-                    sendFinalMutate,
-                    checkboxStatus,
-                    tableDeleteList,
-                    deleteFinalMutate,
-                  );
-                }}
-                sendDelete={handleDelete}
-                checkboxStatus={checkboxStatus}
-              />
-
-              {showRegister && (
-                <Register
-                  registerStatus={registerStatus}
-                  submitMutate={submitMutate}
-                  editMutate={editMutate}
-                  handleClose={handleClose}
-                  data={dataToEdit}
-                  fieldsToOpen={CompanyMembershipFields}
-                  fieldsData={CompanyMembershipFieldsData}
-                />
-              )}
-            </div>
-          )}
-
-          <TableWrapper>
-            {companyMembershipData && companyMembershipData.length > 0 && (
-              <TableCustom
-                fieldsInput={CompanyMembershipFields}
-                dataInput={
-                  importData.length > 0 ? importData : companyMembershipData
-                }
-              />
-            )}
-          </TableWrapper>
-        </>
-      )} */}
 
       <>
         {companyMembershipData && (
@@ -183,15 +165,15 @@ const CompanyMembership = ({}) => {
             <CRUDBundle
               handleBundleClick={handleBundleClick}
               showRegister={showRegister}
-              sendFinal={() => {
-                sendFinal(
-                  companyMembershipData,
-                  sendFinalMutate,
-                  checkboxStatus,
-                  tableDeleteList,
-                  deleteFinalMutate,
-                );
-              }}
+              // sendFinal={() => {
+              //   sendFinal(
+              //     companyMembershipData,
+              //     sendFinalMutate,
+              //     checkboxStatus,
+              //     tableDeleteList,
+              //     deleteFinalMutate,
+              //   );
+              // }}
               sendDelete={handleDelete}
               checkboxStatus={checkboxStatus}
             />
