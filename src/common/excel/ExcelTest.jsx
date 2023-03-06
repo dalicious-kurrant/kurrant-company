@@ -80,7 +80,7 @@ const ExcelTest = ({submitExelMutate}) => {
         //   // if (sheetName === '고객 스팟 공지') {
 
         // }
-        // console.log(json);
+
         const result = json.map(v => {
           const ret = {
             id: v.id,
@@ -106,7 +106,7 @@ const ExcelTest = ({submitExelMutate}) => {
 
         // setPlan(result);
         // setPlan(result);
-        // console.log(result);
+        console.log(result, '00');
         setCompanyMembershipImportExcel(result);
       };
       reader.readAsArrayBuffer(e.target.files[0]);
