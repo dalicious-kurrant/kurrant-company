@@ -75,4 +75,5 @@ const Text = styled.span`
   color: ${props =>
     props.hovered ? props.theme.colors.Blue02 : props.theme.colors.Grey07};
   font-size: 2rem;
+  cursor: pointer;
 `;
