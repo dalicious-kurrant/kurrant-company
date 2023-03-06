@@ -140,7 +140,7 @@ const CompanyMembership = ({}) => {
   if (companyMembershipData.length < 1)
     return (
       <>
-        <div>들어있는 데이터가 아직 없습니다. 데이터를 추가해주세요.</div>{' '}
+        <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>{' '}
       </>
     );
 
