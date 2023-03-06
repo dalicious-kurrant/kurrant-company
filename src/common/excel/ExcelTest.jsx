@@ -1,5 +1,6 @@
 import {TableCheckboxStatusAtom} from 'common/Table/store';
 import {
+  CompanyMembershipDataAtom,
   CompanyMembershipExelExportAtom,
   CompanyMembershipExelImportAtom,
 } from 'components/Contents/CompanyMembership/store';
@@ -38,6 +39,9 @@ const ExcelTest = ({submitExelMutate}) => {
     useAtom(CompanyMembershipExelImportAtom);
   const [companyMembershipExelExport, setCompanyMembershipExelExport] = useAtom(
     CompanyMembershipExelExportAtom,
+  );
+  const [companyMembershipData, setCompanyMembershipData] = useAtom(
+    CompanyMembershipDataAtom,
   );
   // console.log(companyMembershipImportExcel, '-0966');
   const inputRef = useRef();
@@ -122,18 +126,14 @@ const ExcelTest = ({submitExelMutate}) => {
     }
   };
 
-  const onSaveExel = async () => {
+  const onSaveData = async data1 => {
     const code = localStorage.getItem('code');
-    // const req = [...plan];
-    // req.shift();
-    // const result = await submitExelMutate({saveList: req});
-    // //alert('저장에 성공 하셨습니다.');
-    // setPlan([]);
-    // console.log(result);
+
+    const receivedData = [...data1];
 
     const saveUserList = [];
-    if (companyMembershipImportExcel) {
-      companyMembershipImportExcel.map(el => {
+    if (receivedData) {
+      receivedData.map(el => {
         // code: code,
         saveUserList.push({
           id: Number(el.id),
@@ -157,18 +157,19 @@ const ExcelTest = ({submitExelMutate}) => {
   return (
     <Container>
       <C.BtnWrapper>
-        {/* <Button content="test" onClick={deleteButton} /> */}
         <Button
           color="green"
           icon="save"
           content="저장"
           onClick={() => {
             if (companyMembershipImportExcel.length !== 0) {
-              onSaveExel();
+              onSaveData(companyMembershipImportExcel);
+            } else {
+              onSaveData(companyMembershipData);
             }
           }}
         />
-        {/* <Button icon="history" content="히스토리" /> */}
+
         <Button.Group>
           <Button
             color="blue"
@@ -187,7 +188,6 @@ const ExcelTest = ({submitExelMutate}) => {
           />
         </Button.Group>
       </C.BtnWrapper>
-      {/* {plan && plan.length > 0 && <ExcelComponent />} */}
     </Container>
   );
 };
