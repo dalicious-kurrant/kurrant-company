@@ -8,14 +8,14 @@ import SquarePlusIcon from 'assets/svg/SquarePlusIcon.svg';
 import AdjustmentManagementIcon from 'assets/svg/AdjustmentManagementIcon.svg';
 
 export const ContentsRouterData = [
-  {
-    id: 'dashboard',
-    name: '대시보드',
-    iconSrc: DashboardIcon,
-    selected: true,
-    routeName: 'dashbard',
-    shortIntroduction: '대시보드입니다',
-  },
+  // {
+  //   id: 'dashboard',
+  //   name: '대시보드',
+  //   iconSrc: DashboardIcon,
+  //   selected: true,
+  //   routeName: 'dashbard',
+  //   shortIntroduction: '대시보드입니다',
+  // },
   {
     id: 'notice',
     name: '공지사항',
@@ -32,14 +32,14 @@ export const ContentsRouterData = [
     routeName: 'company-info',
     shortIntroduction: '고객사 정보입니다',
   },
-  {
-    id: 'current-status',
-    name: '상세 현황',
-    iconSrc: DiagramIcon,
-    selected: false,
-    routeName: 'current-status',
-    shortIntroduction: '상세현황입니다',
-  },
+  // {
+  //   id: 'current-status',
+  //   name: '상세 현황',
+  //   iconSrc: DiagramIcon,
+  //   selected: false,
+  //   routeName: 'current-status',
+  //   shortIntroduction: '상세현황입니다',
+  // },
   {
     id: 'user-status',
     name: '멤버십/유저 현황',
@@ -48,22 +48,22 @@ export const ContentsRouterData = [
     routeName: 'user-status',
     shortIntroduction: '멤버십/유저 현황입니다',
   },
-  {
-    id: 'service-status',
-    name: '서비스 현황',
-    iconSrc: AssignmentIcon,
-    selected: false,
-    routeName: 'service-status',
-    shortIntroduction: '서비스 현황입니다',
-  },
-  {
-    id: 'additional-order',
-    name: '추가 주문',
-    iconSrc: SquarePlusIcon,
-    selected: false,
-    routeName: 'additional-order',
-    shortIntroduction: '추가 주문입니다',
-  },
+  // {
+  //   id: 'service-status',
+  //   name: '서비스 현황',
+  //   iconSrc: AssignmentIcon,
+  //   selected: false,
+  //   routeName: 'service-status',
+  //   shortIntroduction: '서비스 현황입니다',
+  // },
+  // {
+  //   id: 'additional-order',
+  //   name: '추가 주문',
+  //   iconSrc: SquarePlusIcon,
+  //   selected: false,
+  //   routeName: 'additional-order',
+  //   shortIntroduction: '추가 주문입니다',
+  // },
   {
     id: 'adjustment-management',
     name: '정산 관리',
