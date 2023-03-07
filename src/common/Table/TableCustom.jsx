@@ -35,8 +35,6 @@ const TableCustom = ({
 
   const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
 
-  // const [tableDeleteList, setTableDeleteList] = useAtom(TableDeleteListAtom);
-
   useEffect(() => {
     setKeyOfTableFieldsInput(Object.keys(fieldsInput));
   }, [fieldsInput]);

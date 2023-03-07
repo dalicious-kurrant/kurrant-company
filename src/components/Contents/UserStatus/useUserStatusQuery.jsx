@@ -40,6 +40,8 @@ const useUserStatusQuery = (
     //     },
     {
       enabled: true,
+      retry: 1,
+      retryDelay: 800,
     },
   );
 
