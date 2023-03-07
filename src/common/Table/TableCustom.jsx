@@ -35,13 +35,12 @@ const TableCustom = ({
 
   const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
 
-  const [tableDeleteList, setTableDeleteList] = useAtom(TableDeleteListAtom);
-
   useEffect(() => {
     setKeyOfTableFieldsInput(Object.keys(fieldsInput));
   }, [fieldsInput]);
 
   useEffect(() => {
+    if (dataInput && dataInput.length < 1) return;
     const object1 = {parent: false};
     const yo1 = [...dataInput].map(value => {
       return value.id;
