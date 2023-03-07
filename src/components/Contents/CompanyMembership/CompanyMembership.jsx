@@ -117,7 +117,6 @@ const CompanyMembership = ({}) => {
   };
 
   useEffect(() => {
-    // console.log(companyMembershipData);
     setExelExport(companyMembershipData);
   }, [companyMembershipData, setExelExport]);
 
@@ -126,8 +125,8 @@ const CompanyMembership = ({}) => {
   //   console.log(importData.length);
   // }, [importData]);
 
-  const bool1 = companyMembershipData && companyMembershipData.length > 0;
-  const bool2 = importData && importData.length > 0;
+  let bool1 = companyMembershipData && companyMembershipData.length > 0;
+  let bool2 = importData && importData.length > 0;
 
   if (isLoading)
     return (
@@ -137,57 +136,60 @@ const CompanyMembership = ({}) => {
       </>
     );
 
-  if (companyMembershipData.length < 1)
-    return (
-      <>
-        <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>{' '}
-      </>
-    );
-
-  if (status === 'error')
-    return (
-      <div>
-        에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
-        있어요
-      </div>
-    );
-
   return (
     <Container>
       <ExcelTest submitExelMutate={submitExelMutate} />
 
       <>
-        {companyMembershipData && (
-          <div>
-            <CRUDBundle
-              handleBundleClick={handleBundleClick}
-              showRegister={showRegister}
-              sendDelete={handleDelete}
-              checkboxStatus={checkboxStatus}
-            />
+        <div>
+          <CRUDBundle
+            handleBundleClick={handleBundleClick}
+            showRegister={showRegister}
+            sendDelete={handleDelete}
+            checkboxStatus={checkboxStatus}
+          />
 
-            {showRegister && (
-              <Register
-                registerStatus={registerStatus}
-                submitMutate={submitMutate}
-                editMutate={editMutate}
-                handleClose={handleClose}
-                data={dataToEdit}
-                fieldsToOpen={CompanyMembershipFields}
-                fieldsData={CompanyMembershipFieldsData}
-              />
-            )}
-          </div>
-        )}
+          {showRegister && (
+            <Register
+              registerStatus={registerStatus}
+              submitMutate={submitMutate}
+              editMutate={editMutate}
+              handleClose={handleClose}
+              data={dataToEdit}
+              fieldsToOpen={CompanyMembershipFields}
+              fieldsData={CompanyMembershipFieldsData}
+            />
+          )}
+        </div>
 
         <TableWrapper>
-          {(bool1 || bool2) && (
+          {status === 'error' && (
+            <div>
+              에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
+              있어요
+            </div>
+          )}
+
+          {status === 'success' &&
+            companyMembershipData.length < 1 &&
+            importData.length < 1 && (
+              <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>
+            )}
+
+          {bool1 || bool2 ? (
             <TableCustom
               fieldsInput={CompanyMembershipFields}
               dataInput={
                 importData.length > 0 ? importData : companyMembershipData
               }
             />
+          ) : (
+            <>
+              <TableCustom
+                fieldsInput={CompanyMembershipFields}
+                dataInput={[]}
+              />
+            </>
           )}
         </TableWrapper>
       </>
