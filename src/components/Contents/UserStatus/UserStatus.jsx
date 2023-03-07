@@ -33,6 +33,12 @@ const UserStatus = () => {
 
   let bool1 = userStatusData && userStatusData.length > 0;
 
+  useEffect(() => {
+    if (status === 'error') {
+      console.log(`멤버십 유저현황  데이터 요청 중 에러가 났습니다 `);
+    }
+  }, [status]);
+
   if (isLoading)
     return (
       <>
@@ -45,13 +51,6 @@ const UserStatus = () => {
     <Container>
       <>
         <TableWrapper>
-          {status === 'error' && (
-            <div>
-              에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
-              있어요
-            </div>
-          )}
-
           {status === 'success' && userStatusData.length < 1 && (
             <div>데이터가 아직 없습니다. </div>
           )}
