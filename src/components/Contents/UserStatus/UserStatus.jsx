@@ -34,18 +34,13 @@ const UserStatus = () => {
     };
   }, []);
 
+  let bool1 = userStatusData && userStatusData.length > 0;
+
   if (isLoading)
     return (
       <>
         {' '}
         <div>로딩중입니다..</div>{' '}
-      </>
-    );
-
-  if (userStatusData.length < 1)
-    return (
-      <>
-        <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>{' '}
       </>
     );
 
@@ -61,12 +56,21 @@ const UserStatus = () => {
     <Container>
       <>
         <TableWrapper>
-          {userStatusData && userStatusData.length > 0 && (
+          {bool1 ? (
             <TableCustom
               fieldsInput={UserStatusFields}
               dataInput={userStatusData}
               useCheckbox={false}
             />
+          ) : (
+            <>
+              <div>데이터가 아직 없습니다. </div>
+              <TableCustom
+                fieldsInput={UserStatusFields}
+                dataInput={[]}
+                useCheckbox={false}
+              />
+            </>
           )}
         </TableWrapper>
       </>

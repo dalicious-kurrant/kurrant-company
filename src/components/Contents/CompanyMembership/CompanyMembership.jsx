@@ -126,21 +126,14 @@ const CompanyMembership = ({}) => {
   //   console.log(importData.length);
   // }, [importData]);
 
-  const bool1 = companyMembershipData && companyMembershipData.length > 0;
-  const bool2 = importData && importData.length > 0;
+  let bool1 = companyMembershipData && companyMembershipData.length > 0;
+  let bool2 = importData && importData.length > 0;
 
   if (isLoading)
     return (
       <>
         {' '}
         <div>로딩중입니다..</div>{' '}
-      </>
-    );
-
-  if (companyMembershipData.length < 1)
-    return (
-      <>
-        <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>{' '}
       </>
     );
 
@@ -157,37 +150,44 @@ const CompanyMembership = ({}) => {
       <ExcelTest submitExelMutate={submitExelMutate} />
 
       <>
-        {companyMembershipData && (
-          <div>
-            <CRUDBundle
-              handleBundleClick={handleBundleClick}
-              showRegister={showRegister}
-              sendDelete={handleDelete}
-              checkboxStatus={checkboxStatus}
-            />
+        <div>
+          <CRUDBundle
+            handleBundleClick={handleBundleClick}
+            showRegister={showRegister}
+            sendDelete={handleDelete}
+            checkboxStatus={checkboxStatus}
+          />
 
-            {showRegister && (
-              <Register
-                registerStatus={registerStatus}
-                submitMutate={submitMutate}
-                editMutate={editMutate}
-                handleClose={handleClose}
-                data={dataToEdit}
-                fieldsToOpen={CompanyMembershipFields}
-                fieldsData={CompanyMembershipFieldsData}
-              />
-            )}
-          </div>
-        )}
+          {showRegister && (
+            <Register
+              registerStatus={registerStatus}
+              submitMutate={submitMutate}
+              editMutate={editMutate}
+              handleClose={handleClose}
+              data={dataToEdit}
+              fieldsToOpen={CompanyMembershipFields}
+              fieldsData={CompanyMembershipFieldsData}
+            />
+          )}
+        </div>
 
         <TableWrapper>
-          {(bool1 || bool2) && (
+          {bool1 || bool2 ? (
             <TableCustom
               fieldsInput={CompanyMembershipFields}
               dataInput={
                 importData.length > 0 ? importData : companyMembershipData
               }
             />
+          ) : (
+            <>
+              <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>
+
+              <TableCustom
+                fieldsInput={CompanyMembershipFields}
+                dataInput={[]}
+              />
+            </>
           )}
         </TableWrapper>
       </>
