@@ -11,7 +11,7 @@ const AdminInfo = () => {
   const navigate = useNavigate();
   const {data: corpList} = useGetCorporationInfo();
   const list = corpList?.data;
-
+  console.log(corpList, '9888');
   const handleLogout = () => {
     // 로그아웃 로직
     localStorage.removeItem('token');

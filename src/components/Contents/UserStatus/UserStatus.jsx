@@ -3,7 +3,7 @@ import TableCustom from 'common/Table/TableCustom';
 import {useAtom} from 'jotai';
 
 import {useEffect} from 'react';
-import {TableWrapper} from 'style/common.style';
+import {PageWrapper, TableWrapper} from 'style/common.style';
 
 import styled from 'styled-components';
 
@@ -41,14 +41,24 @@ const UserStatus = () => {
 
   if (isLoading)
     return (
-      <>
-        {' '}
-        <div>로딩중입니다..</div>{' '}
-      </>
+      <PageWrapper>
+        <div>로딩중</div>
+      </PageWrapper>
     );
+
+
+  // if (status === 'error')
+  //   return (
+  //     <div>
+  //       에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
+  //       있어요
+  //     </div>
+  //   );
+
 
   return (
     <Container>
+      <h1>멤버십/유저 현황</h1>
       <>
         <TableWrapper>
           {status === 'success' && userStatusData.length < 1 && (
