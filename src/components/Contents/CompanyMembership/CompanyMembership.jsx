@@ -128,6 +128,12 @@ const CompanyMembership = ({}) => {
   let bool1 = companyMembershipData && companyMembershipData.length > 0;
   let bool2 = importData && importData.length > 0;
 
+  useEffect(() => {
+    if (status === 'error') {
+      console.log(`기업 가입 리스트 데이터 요청 중 에러가 났습니다 `);
+    }
+  }, [status]);
+
   if (isLoading)
     return (
       <>
@@ -163,13 +169,6 @@ const CompanyMembership = ({}) => {
         </div>
 
         <TableWrapper>
-          {status === 'error' && (
-            <div>
-              에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
-              있어요
-            </div>
-          )}
-
           {status === 'success' &&
             companyMembershipData.length < 1 &&
             importData.length < 1 && (

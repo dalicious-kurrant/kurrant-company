@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const CompanyInfo = () => {
   const {data: corpList} = useGetCorporationInfo();
   const list = corpList?.data;
-  console.log(list);
+
   const diningType = list?.diningTypes?.map(el => {
     const type = el === 1 ? '아침' : el === 2 ? '점심' : '저녁';
     return type;
@@ -18,6 +18,7 @@ const CompanyInfo = () => {
   return (
     // <PageWrapper>
     <div>
+      <h1>고객사 정보</h1>
       <TableWrapper>
         <Table celled>
           <Table.Body>
