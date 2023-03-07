@@ -1,18 +1,15 @@
-import CRUDBundle from 'common/CRUD/Register/CRUDBundle';
-import Register from 'common/CRUD/Register/Register';
-import useMutate from 'common/CRUD/useMutate';
 import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
 import TableCustom from 'common/Table/TableCustom';
 import {useAtom} from 'jotai';
-import {useState} from 'react';
+
 import {useEffect} from 'react';
 import {TableWrapper} from 'style/common.style';
 
 import styled from 'styled-components';
-import {clickButtonBundle} from '../Logics/Logics';
+
 import {UserStatusDataAtom} from './store';
 import {UserStatusFields, UserStatusFieldsData} from './userStatusData';
-import {handleUserStatusDelete, sendFinal} from './userStatusLogics';
+
 import useUserStatusQuery from './useUserStatusQuery';
 
 const UserStatus = () => {
@@ -44,18 +41,21 @@ const UserStatus = () => {
       </>
     );
 
-  if (status === 'error')
-    return (
-      <div>
-        에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
-        있어요
-      </div>
-    );
-
   return (
     <Container>
       <>
         <TableWrapper>
+          {status === 'error' && (
+            <div>
+              에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
+              있어요
+            </div>
+          )}
+
+          {status === 'success' && userStatusData.length < 1 && (
+            <div>데이터가 아직 없습니다. </div>
+          )}
+
           {bool1 ? (
             <TableCustom
               fieldsInput={UserStatusFields}
@@ -64,7 +64,6 @@ const UserStatus = () => {
             />
           ) : (
             <>
-              <div>데이터가 아직 없습니다. </div>
               <TableCustom
                 fieldsInput={UserStatusFields}
                 dataInput={[]}

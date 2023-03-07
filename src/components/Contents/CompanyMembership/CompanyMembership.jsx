@@ -117,7 +117,6 @@ const CompanyMembership = ({}) => {
   };
 
   useEffect(() => {
-    // console.log(companyMembershipData);
     setExelExport(companyMembershipData);
   }, [companyMembershipData, setExelExport]);
 
@@ -135,14 +134,6 @@ const CompanyMembership = ({}) => {
         {' '}
         <div>로딩중입니다..</div>{' '}
       </>
-    );
-
-  if (status === 'error')
-    return (
-      <div>
-        에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
-        있어요
-      </div>
     );
 
   return (
@@ -172,6 +163,19 @@ const CompanyMembership = ({}) => {
         </div>
 
         <TableWrapper>
+          {status === 'error' && (
+            <div>
+              에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
+              있어요
+            </div>
+          )}
+
+          {status === 'success' &&
+            companyMembershipData.length < 1 &&
+            importData.length < 1 && (
+              <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>
+            )}
+
           {bool1 || bool2 ? (
             <TableCustom
               fieldsInput={CompanyMembershipFields}
@@ -181,8 +185,6 @@ const CompanyMembership = ({}) => {
             />
           ) : (
             <>
-              <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>
-
               <TableCustom
                 fieldsInput={CompanyMembershipFields}
                 dataInput={[]}
