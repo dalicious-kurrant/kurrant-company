@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const NotYetContents = () => {
   return (
     <Container>
-      <div>준비중</div>
+      <h1>정산 관리</h1>
     </Container>
   );
 };

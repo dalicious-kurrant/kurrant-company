@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Notice = () => {
   return (
     <Container>
-      <div>Notice</div>
+      <h1>공지사항</h1>
     </Container>
   );
 };
