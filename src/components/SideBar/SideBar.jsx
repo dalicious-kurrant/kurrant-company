@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import Navbar from './Navbar/Navbar';
 import AdminInfo from './AdminInfo/AdminInfo';
+import Sidebar from 'components/Snb/Sidebar';
 
 const SideBar = () => {
   return (
     <>
       <Container>
-        <AdminInfo />
-        <Navbar />
+        {/* <AdminInfo />
+        <Navbar /> */}
+        <Sidebar />
       </Container>
     </>
   );

@@ -1,0 +1,57 @@
+import {ReactComponent as Dashboard} from '../../assets/snb/dashboard.svg';
+import {ReactComponent as Speaker} from '../../assets/snb/speaker.svg';
+import {ReactComponent as Group} from '../../assets/snb/group.svg';
+import {ReactComponent as Diagram} from '../../assets/snb/diagram.svg';
+import {ReactComponent as Membership} from '../../assets/snb/membership.svg';
+import {ReactComponent as Service} from '../../assets/snb/service.svg';
+import {ReactComponent as AddOrder} from '../../assets/snb/addOrder.svg';
+import {ReactComponent as Payment} from '../../assets/snb/payment.svg';
+import {ReactComponent as Corporation} from '../../assets/snb/corporation.svg';
+import {ReactComponent as ActiveDashboard} from '../../assets/activeSnb/dashboard.svg';
+import {ReactComponent as ActiveSpeaker} from '../../assets/activeSnb/speaker.svg';
+import {ReactComponent as ActiveGroup} from '../../assets/activeSnb/group.svg';
+import {ReactComponent as ActiveDiagram} from '../../assets/activeSnb/diagram.svg';
+import {ReactComponent as ActiveMembership} from '../../assets/activeSnb/membership.svg';
+import {ReactComponent as ActiveService} from '../../assets/activeSnb/service.svg';
+import {ReactComponent as ActiveAddOrder} from '../../assets/activeSnb/addOrder.svg';
+import {ReactComponent as ActivePayment} from '../../assets/activeSnb/payment.svg';
+import {ReactComponent as ActiveCorporation} from '../../assets/activeSnb/corporation.svg';
+
+export const menuData = [
+  // {
+  //   name: '대시보드',
+  //   path: 'dashbard',
+  //   icon: <Dashboard />,
+  //   activeIcon: <ActiveDashboard />,
+  // },
+  {
+    name: '공지사항',
+    path: '/notice',
+    icon: <Speaker />,
+    activeIcon: <ActiveSpeaker />,
+  },
+  {
+    name: '고객사 정보',
+    path: '/company-info',
+    icon: <Group />,
+    activeIcon: <ActiveGroup />,
+  },
+  {
+    name: '멤버십/유저 현황',
+    path: '/user-status',
+    icon: <Membership />,
+    activeIcon: <ActiveMembership />,
+  },
+  {
+    name: '정산 관리',
+    path: '/adjustment-management',
+    icon: <Payment />,
+    activeIcon: <ActivePayment />,
+  },
+  {
+    name: '기업 가입 리스트',
+    path: '/company-membership',
+    icon: <Corporation />,
+    activeIcon: <ActiveCorporation />,
+  },
+];
