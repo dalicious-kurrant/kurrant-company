@@ -52,7 +52,7 @@ const UserStatus = () => {
       <>
         <TableWrapper>
           {status === 'success' && userStatusData.length < 1 && (
-            <div>데이터가 아직 없습니다. </div>
+            <div>가입한 유저가 없습니다. </div>
           )}
 
           {bool1 ? (

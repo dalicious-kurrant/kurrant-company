@@ -172,7 +172,9 @@ const CompanyMembership = ({}) => {
           {status === 'success' &&
             companyMembershipData.length < 1 &&
             importData.length < 1 && (
-              <div>데이터가 아직 없습니다. 데이터를 추가해주세요.</div>
+              <div>
+                기업 가입 인원이 아직 없습니다. 기업 가입 인원을 추가해주세요.
+              </div>
             )}
 
           {bool1 || bool2 ? (
