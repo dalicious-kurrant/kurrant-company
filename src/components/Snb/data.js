@@ -37,12 +37,6 @@ export const menuData = [
     activeIcon: <ActiveGroup />,
   },
   {
-    name: '주문현황',
-    path: '/orderDetail',
-    icon: <Diagram />,
-    activeIcon: <ActiveDiagram />,
-  },
-  {
     name: '멤버십/유저 현황',
     path: '/user-status',
     icon: <Membership />,
@@ -55,7 +49,7 @@ export const menuData = [
     activeIcon: <ActivePayment />,
   },
   {
-    name: '구성원 초대하기',
+    name: '기업 가입 리스트',
     path: '/company-membership',
     icon: <Corporation />,
     activeIcon: <ActiveCorporation />,
