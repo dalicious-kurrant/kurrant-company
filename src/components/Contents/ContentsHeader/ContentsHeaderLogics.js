@@ -5,12 +5,11 @@ export const isCRUDAvaliable = pathname => {
 };
 
 export const numberOfTrues = checkboxStatus => {
-  // console.log(checkboxStatus);
   let total = 0;
-  const yo = {...checkboxStatus};
-  delete yo.parent;
 
-  Object.values(yo).forEach(value => {
+  const {parent, ...rest} = {...checkboxStatus};
+
+  Object.values(rest).forEach(value => {
     if (value === true) {
       total = total + 1;
     }

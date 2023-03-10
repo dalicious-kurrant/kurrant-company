@@ -35,6 +35,7 @@ export const UserStatusFieldsData = [
     maxCharLength: 30,
     flex: 1,
     width: undefined,
+
     inputType: inputType.text,
   },
   {

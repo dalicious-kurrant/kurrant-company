@@ -7,17 +7,17 @@ export const removeParentKeyInCheckbox = checkboxStatus => {
 };
 
 export const extractOnlyTruesNumberArray = checkboxStatus => {
-  const yes = removeParentKeyInCheckbox({...checkboxStatus});
+  let onlyTrues = [];
 
-  let yo = [];
+  Object.entries(removeParentKeyInCheckbox({...checkboxStatus})).forEach(
+    value => {
+      if (value[1] === true) {
+        onlyTrues.push(parseInt(value[0]));
+      }
+    },
+  );
 
-  Object.entries(yes).forEach(value => {
-    if (value[1] === true) {
-      yo.push(parseInt(value[0]));
-    }
-  });
-
-  return yo;
+  return onlyTrues;
 };
 
 export const makeId = dataInput => {
@@ -38,14 +38,13 @@ export const isInCheckFilterList = (filterList, fieldName) => {
   // console.log(filterList);
   // console.log(fieldName);
 
-  const yo = [...filterList];
-  let jojo = false;
-  yo.forEach(v => {
+  let isInCheck = false;
+  [...filterList].forEach(v => {
     if (v.fieldName === fieldName) {
       console.log(fieldName);
-      jojo = true;
+      isInCheck = true;
     }
   });
 
-  return jojo;
+  return isInCheck;
 };
