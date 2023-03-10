@@ -12,3 +12,9 @@ export function useGetOrderList(startDate, endDate, params) {
     return orderApis.orderList(startDate, endDate, params);
   });
 }
+
+export function useGetOrderDetailList(orderCode) {
+  return useQuery('orderDetailList', () => {
+    return orderApis.orderDetail(orderCode);
+  });
+}
