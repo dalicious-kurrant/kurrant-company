@@ -68,8 +68,7 @@ const OrderPage = () => {
 
   const user = userOption && `&userId=${userOption}`;
   const spots = spotOption && `&spots=${spotOption}`;
-  const diningTypecode =
-    diningTypeOption && `&diningTypeCode=${diningTypeOption}`;
+  const diningTypecode = diningTypeOption && `&diningType=${diningTypeOption}`;
   const params = {
     user: user && user,
     spots: spots && spots,
@@ -85,7 +84,7 @@ const OrderPage = () => {
     refetch();
   }, [startDate, endDate, user, spots, diningTypecode, refetch]);
   return (
-    <div>
+    <div style={{width: '78%'}}>
       <h1>주문 현황</h1>
 
       <label>서비스일 날짜</label>
@@ -159,24 +158,42 @@ const OrderPage = () => {
         <Table celled>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell textAlign="center">날짜</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">그룹 이름</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">스팟 이름</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">유저 이름</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">번호</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">식사 타입</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">배송 시간</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">주문 상태</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">
-                메이커스 이름
+                <div style={{width: 100}}>날짜</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 150}}>그룹 이름</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 100}}>스팟 이름</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 100}}>유저 이름</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">번호</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 80}}>식사 타입</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 80}}>배송 시간</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 70}}>주문 상태</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 100}}> 메이커스 이름</div>
               </Table.HeaderCell>
               <Table.HeaderCell textAlign="center" width={2}>
-                상품 이름
+                <div style={{width: 150}}>상품 이름</div>
               </Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">수량</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">최종 가격</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 50}}>수량</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 80}}>최종 가격</div>
+              </Table.HeaderCell>
               <Table.HeaderCell textAlign="center" width={3}>
-                오더 번호
+                <div style={{width: 150}}> 오더 번호</div>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
