@@ -14,12 +14,13 @@ import {useGetGroupInformation} from 'hooks/useOrder';
 import {useGetOrderList} from '../../hooks/useOrder';
 import {useEffect, useState} from 'react';
 import withCommas from '../../utils/withCommas';
+import {useNavigate} from 'react-router-dom';
 
 const OrderPage = () => {
+  const navigate = useNavigate();
   const [startDate, setStartDate] = useAtom(startDateAtom);
   const [endDate, setEndDate] = useAtom(endDateAtom);
   const {data: groupList} = useGetGroupInformation();
-  const {data: orderList, refetch} = useGetOrderList(startDate, endDate);
 
   const [userOption, setUserOption] = useState('');
   const [spotOption, setSpotOption] = useState('');
@@ -57,22 +58,33 @@ const OrderPage = () => {
     setEndDate(e.target.value);
   };
 
+  const goToPage = code => {
+    navigate('orderDetail/' + code, {
+      state: {
+        orderCode: code,
+      },
+    });
+  };
+
   const user = userOption && `&userId=${userOption}`;
   const spots = spotOption && `&spots=${spotOption}`;
-  const diningTypecode =
-    diningTypeOption && `&diningTypeCode=${diningTypeOption}`;
+  const diningTypecode = diningTypeOption && `&diningType=${diningTypeOption}`;
   const params = {
     user: user && user,
     spots: spots && spots,
     type: diningTypecode && diningTypecode,
   };
-
+  const {data: orderList, refetch} = useGetOrderList(
+    startDate,
+    endDate,
+    params,
+  );
   console.log(orderList);
   useEffect(() => {
     refetch();
-  }, [startDate, endDate, refetch]);
+  }, [startDate, endDate, user, spots, diningTypecode, refetch]);
   return (
-    <div>
+    <div style={{width: '78%'}}>
       <h1>주문 현황</h1>
 
       <label>서비스일 날짜</label>
@@ -97,14 +109,14 @@ const OrderPage = () => {
             options={userArr}
             placeholder="유저"
             // defaultValue={defaultUser}
-            // onChange={e => {
-            //   if (e) {
-            //     setUserOption(e.value);
-            //     setDefaultUser(e);
-            //   } else {
-            //     setUserOption('');
-            //   }
-            // }}
+            onChange={e => {
+              if (e) {
+                setUserOption(e.value);
+                setDefaultUser(e);
+              } else {
+                setUserOption('');
+              }
+            }}
           />
         </div>
         <div>
@@ -114,14 +126,14 @@ const OrderPage = () => {
             options={spotArr}
             placeholder="스팟 선택"
             // defaultValue={defaultSpot}
-            // onChange={e => {
-            //   if (e) {
-            //     setSpotOption(e.value);
-            //     setDefaultSpot(e);
-            //   } else {
-            //     setSpotOption('');
-            //   }
-            // }}
+            onChange={e => {
+              if (e) {
+                setSpotOption(e.value);
+                setDefaultSpot(e);
+              } else {
+                setSpotOption('');
+              }
+            }}
           />
         </div>
         <div>
@@ -131,14 +143,14 @@ const OrderPage = () => {
             options={typeArr}
             placeholder="식사타입"
             // defaultValue={defaultDining}
-            // onChange={e => {
-            //   if (e) {
-            //     setDiningTypeOption(e.value);
-            //     setDefaultDining(e);
-            //   } else {
-            //     setDiningTypeOption('');
-            //   }
-            // }}
+            onChange={e => {
+              if (e) {
+                setDiningTypeOption(e.value);
+                setDefaultDining(e);
+              } else {
+                setDiningTypeOption('');
+              }
+            }}
           />
         </div>
       </SelectBoxWrapper>
@@ -146,24 +158,44 @@ const OrderPage = () => {
         <Table celled>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell textAlign="center">날짜</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">그룹 이름</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">스팟 이름</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">유저 이름</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">번호</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">식사 타입</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">배송 시간</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">주문 상태</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">
-                메이커스 이름
+                <div style={{width: 100}}>날짜</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 150}}>그룹 이름</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 100}}>스팟 이름</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 100}}>유저 이름</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 50}}>번호</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 80}}>식사 타입</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 80}}>배송 시간</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 70}}>주문 상태</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 100}}> 메이커스 이름</div>
               </Table.HeaderCell>
               <Table.HeaderCell textAlign="center" width={2}>
-                상품 이름
+                <div style={{width: 150}}>상품 이름</div>
               </Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">수량</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">최종 가격</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 50}}>수량</div>
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 80}}>최종 가격</div>
+              </Table.HeaderCell>
               <Table.HeaderCell textAlign="center" width={3}>
-                오더 번호
+                <div style={{width: 150}}> 오더 번호</div>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -171,7 +203,7 @@ const OrderPage = () => {
             {orderList?.data?.orderItemDailyFoods?.map((v, idx) => {
               return (
                 <TableRow
-                  // onClick={() => goToPage(v.orderCode)}
+                  onClick={() => goToPage(v.orderCode)}
                   key={v.orderCode + idx}>
                   <Table.Cell textAlign="center">{v.serviceDate}</Table.Cell>
                   <Table.Cell textAlign="center">{v.groupName}</Table.Cell>

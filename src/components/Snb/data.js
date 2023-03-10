@@ -38,7 +38,7 @@ export const menuData = [
   },
   {
     name: '주문현황',
-    path: '/orderDetail',
+    path: '/order',
     icon: <Diagram />,
     activeIcon: <ActiveDiagram />,
   },
