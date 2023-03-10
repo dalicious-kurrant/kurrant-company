@@ -170,7 +170,9 @@ const OrderPage = () => {
               <Table.HeaderCell textAlign="center">
                 <div style={{width: 100}}>유저 이름</div>
               </Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">번호</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">
+                <div style={{width: 50}}>번호</div>
+              </Table.HeaderCell>
               <Table.HeaderCell textAlign="center">
                 <div style={{width: 80}}>식사 타입</div>
               </Table.HeaderCell>
