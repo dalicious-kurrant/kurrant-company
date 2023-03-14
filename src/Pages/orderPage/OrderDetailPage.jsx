@@ -155,11 +155,8 @@ export default OrderDetailPage;
 
 const Wrap = styled.div`
   margin-top: 50px;
-  /* display: flex;
-  justify-content: center; */
 `;
 const TableWrap = styled.div`
-  width: 80%;
   overflow: auto;
 `;
 
