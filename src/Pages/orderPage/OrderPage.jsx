@@ -168,7 +168,7 @@ const OrderPage = () => {
                       )
                     </Table.Cell>
                     <Table.Cell textAlign="center">
-                      {withCommas(el.totalPrice)}원
+                      {withCommas(el.totalPrice === 0 ? '0' : el.totalPrice)}원
                     </Table.Cell>
                   </Table.Row>
                 );
