@@ -1,5 +1,5 @@
 import {useAtom} from 'jotai';
-import {Table, TableBody, TableHeader} from 'semantic-ui-react';
+import {Button, Table, TableBody, TableHeader} from 'semantic-ui-react';
 import {PageWrapper, TableWrapper} from 'style/common.style';
 import styled from 'styled-components';
 import {
@@ -13,11 +13,15 @@ import {
 import Select from 'react-select';
 import {useGetGroupInformation, useGetOrderStatistic} from 'hooks/useOrder';
 import {useGetOrderList} from '../../hooks/useOrder';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import withCommas from '../../utils/withCommas';
 import {useNavigate} from 'react-router-dom';
 
 const OrderPage = () => {
+  const userRef = useRef(null);
+  const spotRef = useRef(null);
+  const makersRef = useRef(null);
+  const diningTypeRef = useRef(null);
   const navigate = useNavigate();
   const [startDate, setStartDate] = useAtom(startDateAtom);
   const [endDate, setEndDate] = useAtom(endDateAtom);
@@ -26,10 +30,10 @@ const OrderPage = () => {
     endDate,
   );
 
-  const [userOption, setUserOption] = useState('');
-  const [spotOption, setSpotOption] = useState('');
-  const [diningTypeOption, setDiningTypeOption] = useState('');
-  const [makersOption, setMakersOption] = useState('');
+  const [userOption, setUserOption] = useAtom(userOptionAtom);
+  const [spotOption, setSpotOption] = useAtom(spotOptionAtom);
+  const [diningTypeOption, setDiningTypeOption] = useAtom(diningTypeOptionAtom);
+  const [makersOption, setMakersOption] = useAtom(makersOptionAtom);
 
   const [defaultUser, setDefaultUser] = useAtom(userOptionAtom);
   const [defaultSpot, setDefaultSpot] = useAtom(spotOptionAtom);
@@ -79,10 +83,11 @@ const OrderPage = () => {
     });
   };
 
-  const user = userOption && `&userId=${userOption}`;
-  const spots = spotOption && `&spots=${spotOption}`;
-  const diningTypecode = diningTypeOption && `&diningType=${diningTypeOption}`;
-  const makersId = makersOption && `&makersId=${makersOption}`;
+  const user = userOption && `&userId=${userOption.value}`;
+  const spots = spotOption && `&spots=${spotOption.value}`;
+  const diningTypecode =
+    diningTypeOption && `&diningType=${diningTypeOption.value}`;
+  const makersId = makersOption && `&makersId=${makersOption.value}`;
 
   const params = {
     user: user && user,
@@ -97,7 +102,22 @@ const OrderPage = () => {
   );
   const {data: orderStatistic, refetch: statisticRefetch} =
     useGetOrderStatistic(startDate, endDate);
-  console.log(orderStatistic, '--');
+
+  const onClearSelect = () => {
+    if (userRef.current) {
+      userRef.current.clearValue();
+    }
+    if (spotRef.current) {
+      spotRef.current.clearValue();
+    }
+    if (makersRef.current) {
+      makersRef.current.clearValue();
+    }
+    if (diningTypeRef.current) {
+      diningTypeRef.current.clearValue();
+    }
+  };
+
   useEffect(() => {
     refetch();
   }, [startDate, endDate, user, spots, diningTypecode, makersId, refetch]);
@@ -112,19 +132,30 @@ const OrderPage = () => {
       <h1>주문 현황</h1>
 
       <label>서비스일 날짜</label>
-      <div>
-        <DateInput
-          type="date"
-          defaultValue={startDate}
-          onChange={e => getStartDate(e)}
-        />
-        <DateSpan>-</DateSpan>
-        <DateInput
-          type="date"
-          defaultValue={endDate}
-          onChange={e => getEndDate(e)}
-        />
-      </div>
+      <TopWrap>
+        <div>
+          <DateInput
+            type="date"
+            defaultValue={startDate}
+            onChange={e => getStartDate(e)}
+          />
+          <DateSpan>-</DateSpan>
+          <DateInput
+            type="date"
+            defaultValue={endDate}
+            onChange={e => getEndDate(e)}
+          />
+        </div>
+        <div style={{marginLeft: 10}}>
+          <Button
+            color="black"
+            content="필터 초기화"
+            icon="redo"
+            onClick={onClearSelect}
+            size="big"
+          />
+        </div>
+      </TopWrap>
       <StatisticWrap>
         <TableWrapper>
           <Table celled>
@@ -147,7 +178,6 @@ const OrderPage = () => {
             </Table.Header>
             <Table.Body>
               {orderStatistic?.data?.map((el, i) => {
-                console.log(el.orderUserCount, el.buyingUserCount);
                 return (
                   <Table.Row key={i}>
                     <Table.Cell textAlign="center">{el.serviceDate}</Table.Cell>
@@ -181,10 +211,10 @@ const OrderPage = () => {
         <div>
           <span>유저</span>
           <SelectBox
-            // ref={userRef}
+            ref={userRef}
             options={userArr}
             placeholder="유저"
-            // defaultValue={defaultUser}
+            defaultValue={defaultUser}
             onChange={e => {
               if (e) {
                 setUserOption(e.value);
@@ -198,10 +228,10 @@ const OrderPage = () => {
         <div>
           <span>스팟 선택</span>
           <SelectBox
-            // ref={spotRef}
+            ref={spotRef}
             options={spotArr}
             placeholder="스팟 선택"
-            // defaultValue={defaultSpot}
+            defaultValue={defaultSpot}
             onChange={e => {
               if (e) {
                 setSpotOption(e.value);
@@ -215,10 +245,10 @@ const OrderPage = () => {
         <div>
           <span>메이커스 선택</span>
           <SelectBox
-            // ref={spotRef}
+            ref={makersRef}
             options={makersArr}
             placeholder="메이커스 선택"
-            // defaultValue={defaultSpot}
+            defaultValue={defaultmakers}
             onChange={e => {
               if (e) {
                 setMakersOption(e.value);
@@ -232,10 +262,10 @@ const OrderPage = () => {
         <div>
           <span>식사타입</span>
           <SelectBox
-            // ref={diningRef}
+            ref={diningTypeRef}
             options={typeArr}
             placeholder="식사타입"
-            // defaultValue={defaultDining}
+            defaultValue={defaultDining}
             onChange={e => {
               if (e) {
                 setDiningTypeOption(e.value);
@@ -368,4 +398,8 @@ const TableRow = styled(Table.Row)`
 
 const StatisticWrap = styled.div`
   margin: 24px 0px;
+`;
+
+const TopWrap = styled.div`
+  display: flex;
 `;
