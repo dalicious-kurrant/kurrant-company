@@ -1,7 +1,7 @@
 import CRUDBundle from 'common/CRUD/Register/CRUDBundle';
 import Register from 'common/CRUD/Register/Register';
 import useMutate from 'common/CRUD/useMutate';
-import ExcelComponent from 'common/excel/ExcelComponent';
+
 import ExcelTest from 'common/excel/ExcelTest';
 import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
 import TableCustom from 'common/Table/TableCustom';
@@ -9,7 +9,6 @@ import TableCustom from 'common/Table/TableCustom';
 import useCompanyMembershipExelQuery from 'hooks/ReactQueryHooks/useCompanyMembershipExelQuery';
 
 import {useAtom} from 'jotai';
-import {exelCompanyMembershipAtom} from 'jotai/compayMembership';
 
 import React from 'react';
 import {useEffect} from 'react';
@@ -22,10 +21,7 @@ import {
   CompanyMembershipFields,
   CompanyMembershipFieldsData,
 } from './CompanyMembershipData';
-import {
-  handleCompanyMembershipDelete,
-  sendFinal,
-} from './CompanyMembershipLogics';
+
 import {
   CompanyMembershipDataAtom,
   CompanyMembershipExelExportAtom,

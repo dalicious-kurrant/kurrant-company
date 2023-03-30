@@ -29,6 +29,7 @@ const List = styled.li`
 
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  cursor: pointer;
 `;
 
 const Menu = styled.div`

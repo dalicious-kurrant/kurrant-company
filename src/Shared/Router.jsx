@@ -4,12 +4,13 @@ import Contents from 'components/Contents/Contents';
 import Notice from 'components/Contents/Notice/Notice';
 import NotYetContents from 'components/Contents/NotYetContents/NotYetContents';
 import UserStatus from 'components/Contents/UserStatus/UserStatus';
-import Calculate from 'Pages/Calculate';
-import DetailPage from 'Pages/orderPage/OrderPage';
+import Calculate from '../Pages/Calculate';
+import OrderPage from '../Pages/orderPage/OrderPage';
 import {Route, Routes} from 'react-router-dom';
 import LoginPage from '../Pages/LoginPage';
 import MainPage from '../Pages/MainPage';
 import PrivateRoute from './PrivateRoute';
+import OrderDetailPage from '../Pages/orderPage/OrderDetailPage';
 
 const Router = () => {
   return (
@@ -20,7 +21,8 @@ const Router = () => {
           <Route path="" element={<NotYetContents />} />
           <Route path="user-status" element={<UserStatus />} />
           <Route path="notice" element={<Notice />} />
-          <Route path="orderDetail" element={<DetailPage />} />
+          <Route path="order" element={<OrderPage />} />
+          <Route path="order/orderDetail/:code" element={<OrderDetailPage />} />
           <Route path="company-membership" element={<CompanyMembership />} />
           <Route path="company-info" element={<CompanyInfo />} />
           <Route path="adjustment-management" element={<Calculate />} />

@@ -23,20 +23,20 @@ export const handleCompanyMembershipDelete = (
 
   deleteList = [...new Set(deleteList)];
 
-  let yo = [];
+  let injectDeleteList = [];
   const companyMembershipDataToDelete = [...companyMembershipData];
 
   companyMembershipDataToDelete.forEach(v => {
     if (deleteList.includes(v.id.toString())) {
       v['isOnDeleteList'] = true;
-      yo.push(v);
+      injectDeleteList.push(v);
     } else {
-      yo.push(v);
+      injectDeleteList.push(v);
     }
   });
 
   setTableDeleteList(deleteList);
-  setCompanyMembershipData(yo);
+  setCompanyMembershipData(injectDeleteList);
 };
 
 export const sendFinal = (

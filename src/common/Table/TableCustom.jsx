@@ -15,11 +15,6 @@ import {handleFalsyValueToHyphen} from 'utils/valueHandlingLogics';
 
 // import putId from './'
 
-const options = [
-  {key: '달리셔스', text: '달리셔스', value: '달리셔스'},
-  {key: '커런트', text: '커런트', value: '커런트'},
-];
-
 const TableCustom = ({
   fieldsInput,
   dataInput,
@@ -99,14 +94,15 @@ const TableCustom = ({
             {keyOfTableFieldsInput &&
               keyOfTableFieldsInput?.map((val, index) => {
                 return (
-                  <Table.HeaderCell align="left" key={index}>
+                  <MinWidthCell align="left" key={index}>
                     {fieldsInput[val]}
-                  </Table.HeaderCell>
+                  </MinWidthCell>
                 );
               })}
 
             {!!isMemo && (
-              <Table.HeaderCell className="memo">Memo</Table.HeaderCell>
+              // <Table.HeaderCell className="memo">Memo</Table.HeaderCell>
+              <MinWidthCell className="memo">Memo</MinWidthCell>
             )}
           </Table.Row>
         </Table.Header>
@@ -116,11 +112,11 @@ const TableCustom = ({
             dataInput.map((value1, index1) => {
               // 필드에 없는 값들은 걸러내기
 
-              let yo = [];
+              let filtered = [];
 
               keyOfTableFieldsInput?.forEach((value2, index2) => {
                 if (Object.keys(value1).includes(value2)) {
-                  yo.push({[value2]: value1[value2]});
+                  filtered.push({[value2]: value1[value2]});
                 }
               });
 
@@ -143,7 +139,7 @@ const TableCustom = ({
                       </CheckBoxTd>
                     )}
 
-                    {yo?.map((value3, index3) => {
+                    {filtered?.map((value3, index3) => {
                       let ellipsisOn = undefined;
 
                       ellipsisList &&
@@ -197,7 +193,7 @@ const TableCustom = ({
                       </CheckBoxTd>
                     )}
 
-                    {yo?.map((value3, index3) => {
+                    {filtered?.map((value3, index3) => {
                       let ellipsisOn = undefined;
 
                       ellipsisList &&
@@ -251,6 +247,10 @@ const CheckBoxTd = styled.td`
   width: 4rem;
 `;
 
+const MinWidthCell = styled(Table.HeaderCell)`
+  min-width: 13rem;
+`;
+
 const MyCell = styled(Table.Cell)`
   text-overflow: ellipsis;
   overflow: hidden;
@@ -258,14 +258,14 @@ const MyCell = styled(Table.Cell)`
   white-space: nowrap;
 `;
 
-const DeleteListTableRow = styled(Table.Row)`
-  color: red;
-  text-decoration: line-through;
-`;
-
 const EllipsisCell = styled.div`
   width: ${({length}) => length};
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+`;
+
+const DeleteListTableRow = styled(Table.Row)`
+  color: red;
+  text-decoration: line-through;
 `;
