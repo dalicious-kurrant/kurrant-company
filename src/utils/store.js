@@ -10,3 +10,6 @@ export const userOptionAtom = atomWithReset('');
 export const spotOptionAtom = atomWithReset('');
 export const diningTypeOptionAtom = atomWithReset('');
 export const makersOptionAtom = atomWithReset('');
+
+export const extraStartDateAtom = atomWithReset(days);
+export const extraEndDateAtom = atomWithReset(days);

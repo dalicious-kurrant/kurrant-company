@@ -11,6 +11,7 @@ import LoginPage from '../Pages/LoginPage';
 import MainPage from '../Pages/MainPage';
 import PrivateRoute from './PrivateRoute';
 import OrderDetailPage from '../Pages/orderPage/OrderDetailPage';
+import AdditionalOrder from 'Pages/additionalOrderPage/additionalOrder/AdditionalOrder';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
           <Route path="notice" element={<Notice />} />
           <Route path="order" element={<OrderPage />} />
           <Route path="order/orderDetail/:code" element={<OrderDetailPage />} />
+          <Route path="additionalOrder" element={<AdditionalOrder />} />
           <Route path="company-membership" element={<CompanyMembership />} />
           <Route path="company-info" element={<CompanyInfo />} />
           <Route path="adjustment-management" element={<Calculate />} />

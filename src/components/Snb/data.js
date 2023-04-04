@@ -16,6 +16,7 @@ import {ReactComponent as ActiveService} from '../../assets/activeSnb/service.sv
 import {ReactComponent as ActiveAddOrder} from '../../assets/activeSnb/addOrder.svg';
 import {ReactComponent as ActivePayment} from '../../assets/activeSnb/payment.svg';
 import {ReactComponent as ActiveCorporation} from '../../assets/activeSnb/corporation.svg';
+import AdditionalOrder from 'Pages/additionalOrderPage/additionalOrder/AdditionalOrder';
 
 export const menuData = [
   // {
@@ -41,6 +42,12 @@ export const menuData = [
     path: '/order',
     icon: <Diagram />,
     activeIcon: <ActiveDiagram />,
+  },
+  {
+    name: '추가주문',
+    path: '/additionalOrder',
+    icon: <AddOrder />,
+    activeIcon: <ActiveAddOrder />,
   },
   {
     name: '멤버십/유저 현황',
