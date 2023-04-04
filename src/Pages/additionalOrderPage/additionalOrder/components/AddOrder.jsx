@@ -3,9 +3,13 @@ import {useState} from 'react';
 import {Button, Table} from 'semantic-ui-react';
 import {PageWrapper, TableWrapper} from 'style/common.style';
 import styled from 'styled-components';
-import {FormProvider, useForm} from 'react-hook-form';
+import {Controller, FormProvider, useForm} from 'react-hook-form';
 import {formattedWeekDate, formattedWeekDateZ} from 'utils/dateFormatter';
-import {extraEndDateAtom, extraStartDateAtom} from 'utils/store';
+import {
+  extraEndDateAtom,
+  extraListDataAtom,
+  extraStartDateAtom,
+} from 'utils/store';
 import Input from 'components/input/Input';
 import Select from 'react-select';
 import {useGetExstraOrder, useGetSpotList} from 'hooks/useAdditionalOrder';
@@ -15,6 +19,7 @@ import withCommas from 'utils/withCommas';
 const AddOrder = () => {
   const [startDate, setStartDate] = useAtom(extraStartDateAtom);
   const [endDate, setEndDate] = useAtom(extraEndDateAtom);
+  const [extraListData, setExtraListData] = useAtom(extraListDataAtom);
   const [spotOption, setSpotOption] = useState();
   const [sendData, setSendData] = useState([]);
   const [test, setTest] = useState();
@@ -31,7 +36,7 @@ const AddOrder = () => {
   const form = useForm({
     mode: 'all',
   });
-  const {watch, setValue} = form;
+  const {watch, setValue, control} = form;
   const inputWatch = watch();
 
   const detailSpotArr = spotList?.data?.map(el => {
@@ -40,13 +45,38 @@ const AddOrder = () => {
       label: el.spotName,
     };
   });
-
+  const onSubmit = () => {
+    const reqData = extraListData.filter(
+      extra =>
+        extra.totalPrice &&
+        extra.totalPrice > 0 &&
+        extra.groupId &&
+        extra.spotId &&
+        extra.usage,
+    );
+    console.log(reqData);
+  };
   const extraOrder = (props, countValue) => {
     if (props.usage !== undefined && countValue !== undefined) {
       setSendData(prev => [...prev, props]);
     }
     console.log(sendData);
   };
+  useEffect(() => {
+    let retArray = [];
+    extraList?.data.map(v => {
+      v.dailyFoods.map(daily => {
+        retArray.push({
+          serviceDate: v.serviceDate,
+          diningType: v.diningType,
+          foodId: daily.foodId,
+          price: daily.price,
+        });
+      });
+    });
+
+    setExtraListData(retArray);
+  }, [extraList?.data, setExtraListData]);
 
   useEffect(() => {
     refetch();
@@ -107,7 +137,14 @@ const AddOrder = () => {
       </div>
       <div style={{marginTop: 48}}>
         <div>추가주문 가능 식단</div>
+
         <FormProvider {...form}>
+          <Button
+            content="추가"
+            color="blue"
+            size="large"
+            onClick={form.handleSubmit(onSubmit)}
+          />
           <Table celled striped>
             <Table.Header>
               <Table.Row>
@@ -129,7 +166,6 @@ const AddOrder = () => {
                 </Table.HeaderCell>
                 <Table.HeaderCell textAlign="center">수량</Table.HeaderCell>
                 <Table.HeaderCell textAlign="center">총액</Table.HeaderCell>
-                <Table.HeaderCell textAlign="center"></Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -145,7 +181,8 @@ const AddOrder = () => {
                   });
 
                   const usageValue = inputWatch[v.foodId];
-                  const countValue = inputWatch[`${v.foodId} + count`];
+                  const countValue =
+                    inputWatch[`${v.foodId}${el.serviceDate}count`];
 
                   return (
                     <Table.Row key={v.foodId}>
@@ -171,40 +208,152 @@ const AddOrder = () => {
                         <InnerCell>{v.foodCapacity}개</InnerCell>
                       </Table.Cell>
                       <Table.Cell textAlign="center">
-                        <SelectBox
-                          // ref={groupRef}
-                          options={groupArr}
-                          placeholder="스팟"
-                          // defaultValue={defaultGroup}
-                          onChange={e => {
-                            setSpotOption(e.value);
+                        <Controller
+                          control={control}
+                          name={`${v.foodId}${el.serviceDate}groupId`}
+                          render={({field}) => {
+                            return (
+                              <SelectBox
+                                // {...field}
+                                // value={field.value || ''}
+                                // ref={groupRef}
+                                options={groupArr}
+                                placeholder="스팟"
+                                // defaultValue={defaultGroup}
+                                onChange={e => {
+                                  console.log(e.value);
+                                  setExtraListData(
+                                    extraListData.map(extra => {
+                                      if (
+                                        extra.foodId === v.foodId &&
+                                        el.serviceDate === extra.serviceDate
+                                      ) {
+                                        return {
+                                          ...extra,
+                                          groupId: e.value,
+                                        };
+                                      }
+                                      return extra;
+                                    }),
+                                  );
+                                  setSpotOption(e.value);
+                                  return field.onChange(e.value);
+                                }}
+                              />
+                            );
                           }}
                         />
                       </Table.Cell>
                       <Table.Cell textAlign="center">
-                        <SelectBox
-                          // ref={groupRef}
-                          options={detailSpotArr}
-                          placeholder="상세스팟"
-                          // defaultValue={defaultGroup}
-                          onChange={e => {
-                            setDetailSpotOption(e.value);
+                        <Controller
+                          control={control}
+                          name={`${v.foodId}${el.serviceDate}spotId`}
+                          render={({field}) => {
+                            return (
+                              <SelectBox
+                                // {...field}
+                                // value={field.value || ''}
+                                // ref={groupRef}
+                                options={detailSpotArr}
+                                placeholder="상세스팟"
+                                // defaultValue={defaultGroup}
+                                onChange={e => {
+                                  console.log(e.value);
+                                  setExtraListData(
+                                    extraListData.map(extra => {
+                                      if (
+                                        extra.foodId === v.foodId &&
+                                        el.serviceDate === extra.serviceDate
+                                      ) {
+                                        return {
+                                          ...extra,
+                                          spotId: e.value,
+                                        };
+                                      }
+                                      return extra;
+                                    }),
+                                  );
+                                  setDetailSpotOption(e.value);
+                                  return field.onChange(e.value);
+                                }}
+                              />
+                            );
                           }}
                         />
                       </Table.Cell>
                       <Table.Cell textAlign="center">
                         <InnerCell>
-                          <Input name={`${v.foodId}`} width="150px" />
+                          <Controller
+                            control={control}
+                            name={`${v.foodId}${el.serviceDate}`}
+                            render={({field}) => {
+                              return (
+                                <Input
+                                  {...field}
+                                  value={field.value || ''}
+                                  type="text"
+                                  onChange={e => {
+                                    setExtraListData(
+                                      extraListData.map(extra => {
+                                        if (
+                                          extra.foodId === v.foodId &&
+                                          el.serviceDate === extra.serviceDate
+                                        )
+                                          return {
+                                            ...extra,
+                                            usage: e.target.value,
+                                          };
+                                        return extra;
+                                      }),
+                                    );
+                                    return field.onChange(e.target.value);
+                                  }}
+                                  width="150px"
+                                />
+                              );
+                            }}
+                          />
                         </InnerCell>
                       </Table.Cell>
                       <Table.Cell textAlign="center">
                         <InnerCell>
-                          <Input
-                            name={`${v.foodId} + count`}
-                            rules={{
-                              pattern: {
-                                value: /^[0-9]+$/,
-                              },
+                          <Controller
+                            control={control}
+                            name={`${v.foodId}${el.serviceDate}count`}
+                            render={({field}) => {
+                              return (
+                                <Input
+                                  {...field}
+                                  value={field.value || ''}
+                                  type="number"
+                                  rules={{
+                                    pattern: {
+                                      value: /^[0-9]+$/,
+                                    },
+                                  }}
+                                  onChange={e => {
+                                    setExtraListData(
+                                      extraListData.map(extra => {
+                                        if (
+                                          extra.foodId === v.foodId &&
+                                          el.serviceDate === extra.serviceDate
+                                        )
+                                          return {
+                                            ...extra,
+                                            count: parseInt(e.target.value),
+                                            totalPrice:
+                                              (countValue ?? 0) * v.price,
+                                          };
+                                        return extra;
+                                      }),
+                                    );
+                                    return field.onChange(
+                                      parseInt(e.target.value),
+                                    );
+                                  }}
+                                  width="150px"
+                                />
+                              );
                             }}
                           />
                         </InnerCell>
@@ -216,29 +365,6 @@ const AddOrder = () => {
                             : withCommas((countValue ?? 0) * v.price)}
                           원
                         </InnerCell>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <Button
-                          content="추가"
-                          color="blue"
-                          size="large"
-                          onClick={() => {
-                            extraOrder(
-                              {
-                                serviceDate: el.serviceDate,
-                                diningType: el.diningType,
-                                foodId: v.foodId,
-                                groupId: spotOption,
-                                spotId: detailSpotOption,
-                                price: v.price,
-                                totalPrice: Number(countValue) * v.price,
-                                usage: usageValue,
-                                count: Number(countValue),
-                              },
-                              countValue,
-                            );
-                          }}
-                        />
                       </Table.Cell>
                     </Table.Row>
                   );
