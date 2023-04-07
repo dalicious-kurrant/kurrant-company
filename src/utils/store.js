@@ -14,3 +14,6 @@ export const makersOptionAtom = atomWithReset('');
 export const extraStartDateAtom = atomWithReset(days);
 export const extraEndDateAtom = atomWithReset(days);
 export const extraListDataAtom = atomWithReset();
+
+export const historyStartDateAtom = atomWithReset(days);
+export const historyEndDateAtom = atomWithReset(days);

@@ -11,4 +11,6 @@ export const additionalOrderApis = {
       `orders/extra?startDate=${startDate}&endDate=${endDate}`,
     ),
   spotLoad: async spotId => await instance.get(`groups/${spotId}/spots`),
+  refundExtraOrder: async foodId =>
+    await instance.post('orders/extra/refund', foodId),
 };

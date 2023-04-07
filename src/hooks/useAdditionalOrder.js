@@ -8,7 +8,7 @@ export function useGetExstraOrder(startDate, endDate) {
   });
 }
 
-// 추가 주문한 내역 리스트
+// 히스토리
 export function useGetExtraOrderList(startDate, endDate) {
   return useQuery('orderedList', () => {
     return additionalOrderApis.extraOrderList(startDate, endDate);
@@ -32,11 +32,23 @@ export function useSaveAdditionalOrder() {
 
     {
       onSuccess: () => {
-        //queryClient.invalidateQueries('getCompanyMembershipJSON');
+        queryClient.invalidateQueries('orderedList');
+        queryClient.invalidateQueries('extraFoodList');
       },
       onError: err => {
         console.log(err);
       },
     },
   );
+}
+
+// 추가주문 취소
+export function useRefundExtraOrder() {
+  const queryClient = useQueryClient();
+  return useMutation(foodId => additionalOrderApis.refundExtraOrder(foodId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('orderedList');
+      queryClient.invalidateQueries('extraFoodList');
+    },
+  });
 }

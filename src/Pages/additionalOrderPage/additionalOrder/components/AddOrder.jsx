@@ -12,7 +12,13 @@ import {
 } from 'utils/store';
 import Input from 'components/input/Input';
 import Select from 'react-select';
-import {useGetExstraOrder, useGetSpotList} from 'hooks/useAdditionalOrder';
+import {
+  useGetExstraOrder,
+  useGetExtraOrderList,
+  useGetSpotList,
+  useRefundExtraOrder,
+  useSaveAdditionalOrder,
+} from 'hooks/useAdditionalOrder';
 import {useEffect} from 'react';
 import withCommas from 'utils/withCommas';
 
@@ -26,13 +32,19 @@ const AddOrder = () => {
   const [detailSpotOption, setDetailSpotOption] = useState();
   const {data: extraList, refetch} = useGetExstraOrder(startDate, endDate);
   const {data: spotList, refetch: spotFetch} = useGetSpotList(spotOption);
+  const {data: extraHistory, refetch: historyRefetch} = useGetExtraOrderList(
+    startDate,
+    endDate,
+  );
+  const {mutateAsync: postExtraOrder} = useSaveAdditionalOrder();
+  const {mutateAsync: refundExtraOrder} = useRefundExtraOrder();
   const getStartDate = e => {
     setStartDate(e.target.value);
   };
   const getEndDate = e => {
     setEndDate(e.target.value);
   };
-
+  console.log(extraHistory);
   const form = useForm({
     mode: 'all',
   });
@@ -45,7 +57,7 @@ const AddOrder = () => {
       label: el.spotName,
     };
   });
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const reqData = extraListData.filter(
       extra =>
         extra.totalPrice &&
@@ -54,14 +66,17 @@ const AddOrder = () => {
         extra.spotId &&
         extra.usage,
     );
-    console.log(reqData);
-  };
-  const extraOrder = (props, countValue) => {
-    if (props.usage !== undefined && countValue !== undefined) {
-      setSendData(prev => [...prev, props]);
+    console.log(reqData, '1');
+    if (reqData.length !== 0) {
+      await postExtraOrder(reqData);
+      window.location.reload();
     }
-    console.log(sendData);
   };
+
+  const refundOrder = async id => {
+    await refundExtraOrder({id: id});
+  };
+
   useEffect(() => {
     let retArray = [];
     extraList?.data.map(v => {
@@ -80,7 +95,8 @@ const AddOrder = () => {
 
   useEffect(() => {
     refetch();
-  }, [startDate, endDate, refetch]);
+    historyRefetch();
+  }, [startDate, endDate, refetch, historyRefetch]);
   useEffect(() => {
     spotFetch();
   }, [spotFetch, spotOption]);
@@ -114,35 +130,71 @@ const AddOrder = () => {
               <Table.HeaderCell textAlign="center">단가</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">수량</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">총 금액</Table.HeaderCell>
-              <Table.HeaderCell textAlign="center"></Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">식단 상태</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">주문 상태</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            <Table.Row>
-              <Table.Cell textAlign="center">2023-03-20</Table.Cell>
-              <Table.Cell textAlign="center">2023-03-18 23:00:00</Table.Cell>
-              <Table.Cell textAlign="center">롯데월드</Table.Cell>
-              <Table.Cell textAlign="center">롯데타워 23층</Table.Cell>
-              <Table.Cell textAlign="center">손님</Table.Cell>
-              <Table.Cell textAlign="center">육개장</Table.Cell>
-              <Table.Cell textAlign="center">8000</Table.Cell>
-              <Table.Cell textAlign="center">3</Table.Cell>
-              <Table.Cell textAlign="center">24000</Table.Cell>
-              <Table.Cell textAlign="center">
-                <Button content="취소" color="red" size="large" />
-              </Table.Cell>
-            </Table.Row>
+            {extraHistory?.data?.map((el, idx) => {
+              return (
+                <Table.Row key={idx}>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{el.serviceDate}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{el.createdDateTime}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{el.groupName}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{el.spotName}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{el.usage}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{el.foodName}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{withCommas(el.price)}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{el.count}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{withCommas(el.totalPrice)}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <InnerCell>{el.dailyFoodStatus}</InnerCell>
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    {el.orderStatus === '취소' ? (
+                      <CancelText>취소</CancelText>
+                    ) : el.orderStatus === '결제완료' &&
+                      el.dailyFoodStatus === '판매중' ? (
+                      <Button
+                        content="취소"
+                        color="red"
+                        size="large"
+                        onClick={() => refundOrder(el.orderItemDailyFoodId)}
+                      />
+                    ) : (
+                      el.orderStatus
+                    )}
+                  </Table.Cell>
+                </Table.Row>
+              );
+            })}
           </Table.Body>
         </Table>
       </div>
       <div style={{marginTop: 48}}>
-        <div>추가주문 가능 식단</div>
-
         <FormProvider {...form}>
           <Button
-            content="추가"
+            content="추가 주문"
             color="blue"
-            size="large"
+            size="huge"
             onClick={form.handleSubmit(onSubmit)}
           />
           <Table celled striped>
@@ -205,7 +257,13 @@ const AddOrder = () => {
                         <InnerCell>{withCommas(v.price)}원</InnerCell>
                       </Table.Cell>
                       <Table.Cell textAlign="center">
-                        <InnerCell>{v.foodCapacity}개</InnerCell>
+                        <InnerCell>
+                          {v.dailyFoodStatus === '주문마감' ? (
+                            <CancelText>주문마감</CancelText>
+                          ) : (
+                            v.foodCapacity + '개'
+                          )}
+                        </InnerCell>
                       </Table.Cell>
                       <Table.Cell textAlign="center">
                         <Controller
@@ -217,11 +275,11 @@ const AddOrder = () => {
                                 // {...field}
                                 // value={field.value || ''}
                                 // ref={groupRef}
+
                                 options={groupArr}
                                 placeholder="스팟"
                                 // defaultValue={defaultGroup}
                                 onChange={e => {
-                                  console.log(e.value);
                                   setExtraListData(
                                     extraListData.map(extra => {
                                       if (
@@ -236,7 +294,9 @@ const AddOrder = () => {
                                       return extra;
                                     }),
                                   );
+
                                   setSpotOption(e.value);
+
                                   return field.onChange(e.value);
                                 }}
                               />
@@ -342,7 +402,7 @@ const AddOrder = () => {
                                             ...extra,
                                             count: parseInt(e.target.value),
                                             totalPrice:
-                                              (countValue ?? 0) * v.price,
+                                              e.target.value * v.price,
                                           };
                                         return extra;
                                       }),
@@ -402,4 +462,9 @@ const InnerCell = styled.div`
 const SelectBox = styled(Select)`
   /* width: 200px; */
   margin-top: 4px;
+`;
+
+const CancelText = styled.div`
+  font-weight: 600;
+  color: #dd5257;
 `;

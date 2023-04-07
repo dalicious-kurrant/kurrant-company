@@ -1,17 +1,22 @@
-import {useGetExtraOrderList} from 'hooks/useAdditionalOrder';
+import {
+  useGetExtraOrderList,
+  useRefundExtraOrder,
+} from 'hooks/useAdditionalOrder';
+import {useAtom} from 'jotai';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import {Button, Table} from 'semantic-ui-react';
 import {PageWrapper, TableWrapper} from 'style/common.style';
 import styled from 'styled-components';
 import {formattedWeekDate, formattedWeekDateZ} from 'utils/dateFormatter';
+import {historyEndDateAtom, historyStartDateAtom} from 'utils/store';
+import withCommas from 'utils/withCommas';
 
 const History = () => {
-  const day = new Date();
-  const days = formattedWeekDate(day);
-  const [startDate, setStartDate] = useState(days);
-  const [endDate, setEndDate] = useState(days);
+  const [startDate, setStartDate] = useAtom(historyStartDateAtom);
+  const [endDate, setEndDate] = useAtom(historyEndDateAtom);
   const {data: extraList, refetch} = useGetExtraOrderList(startDate, endDate);
+  const {mutateAsync: refundExtraOrder} = useRefundExtraOrder();
   const getStartDate = e => {
     setStartDate(e.target.value);
   };
@@ -19,7 +24,10 @@ const History = () => {
     setEndDate(e.target.value);
   };
 
-  console.log(extraList);
+  const refundOrder = async id => {
+    await refundExtraOrder({id: id});
+  };
+
   useEffect(() => {
     refetch();
   }, [startDate, endDate, refetch]);
@@ -57,7 +65,12 @@ const History = () => {
                 <Table.HeaderCell textAlign="center">단가</Table.HeaderCell>
                 <Table.HeaderCell textAlign="center">수량</Table.HeaderCell>
                 <Table.HeaderCell textAlign="center">총 금액</Table.HeaderCell>
-                <Table.HeaderCell textAlign="center"></Table.HeaderCell>
+                <Table.HeaderCell textAlign="center">
+                  식단 상태
+                </Table.HeaderCell>
+                <Table.HeaderCell textAlign="center">
+                  주문 상태
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -66,17 +79,36 @@ const History = () => {
                   <Table.Row key={idx}>
                     <Table.Cell textAlign="center">{el.serviceDate}</Table.Cell>
                     <Table.Cell textAlign="center">
-                      2023-03-18 23:00:00
+                      {el.createdDateTime}
                     </Table.Cell>
                     <Table.Cell textAlign="center">{el.groupName}</Table.Cell>
                     <Table.Cell textAlign="center">{el.spotName}</Table.Cell>
                     <Table.Cell textAlign="center">{el.usage}</Table.Cell>
-                    <Table.Cell textAlign="center">육개장</Table.Cell>
-                    <Table.Cell textAlign="center">{el.price}</Table.Cell>
-                    <Table.Cell textAlign="center">{el.count}</Table.Cell>
-                    <Table.Cell textAlign="center">{el.totalPrice}</Table.Cell>
+                    <Table.Cell textAlign="center">{el.foodName}</Table.Cell>
                     <Table.Cell textAlign="center">
-                      <Button content="취소" color="red" size="large" />
+                      {withCommas(el.price)}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">{el.count}</Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {withCommas(el.totalPrice)}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {el.dailyFoodStatus}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {el.orderStatus === '취소' ? (
+                        <CancelText>취소</CancelText>
+                      ) : el.orderStatus === '결제완료' &&
+                        el.dailyFoodStatus === '판매중' ? (
+                        <Button
+                          content="취소"
+                          color="red"
+                          size="large"
+                          onClick={() => refundOrder(el.orderItemDailyFoodId)}
+                        />
+                      ) : (
+                        el.orderStatus
+                      )}
                     </Table.Cell>
                   </Table.Row>
                 );
@@ -104,4 +136,9 @@ const DateInput = styled.input`
 
 const DateSpan = styled.span`
   margin: 0px 4px;
+`;
+
+const CancelText = styled.div`
+  font-weight: 600;
+  color: #dd5257;
 `;
