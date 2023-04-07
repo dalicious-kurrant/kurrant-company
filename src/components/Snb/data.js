@@ -43,12 +43,12 @@ export const menuData = [
     icon: <Diagram />,
     activeIcon: <ActiveDiagram />,
   },
-  {
-    name: '추가주문',
-    path: '/additionalOrder',
-    icon: <AddOrder />,
-    activeIcon: <ActiveAddOrder />,
-  },
+  // {
+  //   name: '추가주문',
+  //   path: '/additionalOrder',
+  //   icon: <AddOrder />,
+  //   activeIcon: <ActiveAddOrder />,
+  // },
   {
     name: '멤버십/유저 현황',
     path: '/user-status',
