@@ -1,6 +1,7 @@
 import {useAtom} from 'jotai';
 import {Button, Table, TableBody, TableHeader} from 'semantic-ui-react';
 import {PageWrapper, TableWrapper} from 'style/common.style';
+import * as XLSX from 'xlsx';
 import styled from 'styled-components';
 import {
   endDateAtom,
@@ -118,6 +119,43 @@ const OrderPage = () => {
     }
   };
 
+  const exportExcel = () => {
+    const excelData = orderList?.data?.orderItemDailyFoods.map(v => {
+      return {
+        날짜: v.serviceDate,
+        그룹이름: v.groupName,
+        스팟이름: v.spotName,
+        유저이름: v.userName,
+        번호: v.phone,
+        식사타입: v.diningType,
+        배송시간: v.deliveryTime,
+        주문상태: v.orderStatus,
+        메이커스이름: v.makers,
+        상품이름: v.foodName,
+        수량: v.count,
+        최종가격: v.price,
+        오더번호: v.orderCode,
+        // orderDateTime: v.orderDateTime,
+        // userEmail: v.userEmail,
+      };
+    });
+    const worksheet2 = XLSX.utils.json_to_sheet(excelData, {
+      cellDates: true,
+      cellStyles: true,
+    });
+
+    const workbook = XLSX.utils.book_new();
+
+    const worksheet = XLSX.utils.json_to_sheet(orderStatistic?.data, {
+      cellDates: true,
+      cellStyles: true,
+    });
+
+    // XLSX.utils.book_append_sheet(workbook, worksheet, '주문 현황');
+    XLSX.utils.book_append_sheet(workbook, worksheet2, '개별 주문 현황');
+    XLSX.writeFile(workbook, '주문 현황.xlsx');
+  };
+
   useEffect(() => {
     refetch();
   }, [startDate, endDate, user, spots, diningTypecode, makersId, refetch]);
@@ -152,6 +190,20 @@ const OrderPage = () => {
             content="필터 초기화"
             icon="redo"
             onClick={onClearSelect}
+            size="big"
+          />
+        </div>
+        <div
+          style={{
+            marginLeft: 10,
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}>
+          <Button
+            color="green"
+            content="엑셀 내보내기"
+            onClick={exportExcel}
             size="big"
           />
         </div>
