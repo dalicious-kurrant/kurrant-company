@@ -24,7 +24,7 @@ const Router = () => {
           <Route path="notice" element={<Notice />} />
           <Route path="order" element={<OrderPage />} />
           <Route path="order/orderDetail/:code" element={<OrderDetailPage />} />
-          <Route path="additionalOrder" element={<AdditionalOrder />} />
+          {/* <Route path="additionalOrder" element={<AdditionalOrder />} /> */}
           <Route path="company-membership" element={<CompanyMembership />} />
           <Route path="company-info" element={<CompanyInfo />} />
           <Route path="adjustment-management" element={<Calculate />} />
