@@ -1,91 +1,93 @@
-import {TableCheckboxStatusAtom, TableDeleteListAtom} from 'common/Table/store';
-import TableCustom from 'common/Table/TableCustom';
-import {useAtom} from 'jotai';
-
-import {useEffect} from 'react';
-import {PageWrapper, TableWrapper} from 'style/common.style';
-
 import styled from 'styled-components';
-
-import {UserStatusDataAtom} from './store';
-import {UserStatusFields, UserStatusFieldsData} from './userStatusData';
-
-import useUserStatusQuery from './useUserStatusQuery';
+import {useDeleteMember, useGetMemberList} from 'hooks/useMember';
+import {Button, Table} from 'semantic-ui-react';
+import {useState} from 'react';
 
 const UserStatus = () => {
-  const [userStatusData, setUserStatusData] = useAtom(UserStatusDataAtom);
+  const {data: memberList} = useGetMemberList();
+  const [checkItems, setCheckItems] = useState([]);
+  const {mutateAsync: deleteMember} = useDeleteMember();
 
-  const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
-
-  const [tableDeleteList, setTableDeleteList] = useAtom(TableDeleteListAtom);
-
-  const {status, isLoading} = useUserStatusQuery(
-    ['getUserStatusJSON'],
-    UserStatusDataAtom,
-  );
-
-  useEffect(() => {
-    return () => {
-      setCheckboxStatus({});
-      setTableDeleteList([]);
-    };
-  }, []);
-
-  let bool1 = userStatusData && userStatusData.length > 0;
-
-  useEffect(() => {
-    if (status === 'error') {
-      console.log(`멤버십 유저현황  데이터 요청 중 에러가 났습니다 `);
+  const allChecked = checked => {
+    if (checked) {
+      const idArray = [];
+      memberList?.data?.forEach(el => {
+        idArray.push(el.id);
+      });
+      setCheckItems(idArray);
+    } else {
+      setCheckItems([]);
     }
-  }, [status]);
+  };
 
-  if (isLoading)
-    return (
-      <PageWrapper>
-        <div>로딩중</div>
-      </PageWrapper>
-    );
+  const singleChecked = (checked, id) => {
+    if (checked) {
+      setCheckItems(prev => [...prev, id]);
+    } else {
+      setCheckItems(checkItems.filter(el => el !== id));
+    }
+  };
 
-
-  // if (status === 'error')
-  //   return (
-  //     <div>
-  //       에러가 났습니다 ㅠㅠ 근데 다시 새로고침해보면 데이터 다시 나올수도
-  //       있어요
-  //     </div>
-  //   );
-
+  const deleteUser = async () => {
+    if (checkItems.length !== 0) {
+      await deleteMember({userIdList: checkItems});
+      alert('삭제 완료했습니다.');
+    }
+  };
 
   return (
     <Container>
       <h1>멤버십/유저 현황</h1>
-      <>
-        <TableWrapper>
-          {status === 'success' && userStatusData.length < 1 && (
-            <div>가입한 유저가 없습니다. </div>
-          )}
-
-          {bool1 ? (
-            <TableCustom
-              fieldsInput={UserStatusFields}
-              dataInput={userStatusData}
-              useCheckbox={false}
-            />
-          ) : (
-            <>
-              <TableCustom
-                fieldsInput={UserStatusFields}
-                dataInput={[]}
-                useCheckbox={false}
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <Button content="삭제" color="red" size="huge" onClick={deleteUser} />
+      </div>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell textAlign="center" width={1}>
+              <input
+                type="checkbox"
+                onChange={e => allChecked(e.target.checked)}
               />
-            </>
-          )}
-        </TableWrapper>
-      </>
+            </Table.HeaderCell>
+            <Table.HeaderCell textAlign="center" width={2}>
+              이름
+            </Table.HeaderCell>
+            <Table.HeaderCell textAlign="center" width={3}>
+              이메일
+            </Table.HeaderCell>
+            <Table.HeaderCell textAlign="center" width={3}>
+              연락처
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {memberList?.data.map((el, idx) => {
+            return (
+              <Table.Row key={el.id}>
+                <Table.Cell textAlign="center">
+                  <input
+                    type="checkbox"
+                    checked={checkItems.includes(el.id) ? true : false}
+                    onChange={e => {
+                      singleChecked(e.target.checked, el.id);
+                    }}
+                  />
+                </Table.Cell>
+                <Table.Cell textAlign="center">{el.name}</Table.Cell>
+                <Table.Cell>{el.email}</Table.Cell>
+                <Table.Cell textAlign="center">{el.phone}</Table.Cell>
+              </Table.Row>
+            );
+          })}
+        </Table.Body>
+      </Table>
     </Container>
   );
 };
 
 export default UserStatus;
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 70%;
+`;
