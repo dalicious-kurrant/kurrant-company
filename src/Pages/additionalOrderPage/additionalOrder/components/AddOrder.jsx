@@ -44,7 +44,7 @@ const AddOrder = () => {
   const getEndDate = e => {
     setEndDate(e.target.value);
   };
-  console.log(extraHistory);
+
   const form = useForm({
     mode: 'all',
   });
@@ -135,66 +135,74 @@ const AddOrder = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {extraHistory?.data?.map((el, idx) => {
-              return (
-                <Table.Row key={idx}>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{el.serviceDate}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{el.createdDateTime}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{el.groupName}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{el.spotName}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{el.usage}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{el.foodName}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{withCommas(el.price)}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{el.count}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{withCommas(el.totalPrice)}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <InnerCell>{el.dailyFoodStatus}</InnerCell>
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    {el.orderStatus === '취소' ? (
-                      <CancelText>취소</CancelText>
-                    ) : el.orderStatus === '결제완료' &&
-                      el.dailyFoodStatus === '판매중' ? (
-                      <Button
-                        content="취소"
-                        color="red"
-                        size="large"
-                        onClick={() => refundOrder(el.orderItemDailyFoodId)}
-                      />
-                    ) : (
-                      el.orderStatus
-                    )}
-                  </Table.Cell>
-                </Table.Row>
-              );
-            })}
+            {extraHistory?.data?.length === 0 ? (
+              <Table.Row>
+                <Table.Cell colSpan={11} textAlign="center">
+                  추가 주문 내역이 없습니다.
+                </Table.Cell>
+              </Table.Row>
+            ) : (
+              extraHistory?.data?.map((el, idx) => {
+                return (
+                  <Table.Row key={idx}>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{el.serviceDate}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{el.createdDateTime}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{el.groupName}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{el.spotName}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{el.usage}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{el.foodName}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{withCommas(el.price)}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{el.count}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{withCommas(el.totalPrice)}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <InnerCell>{el.dailyFoodStatus}</InnerCell>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {el.orderStatus === '취소' ? (
+                        <CancelText>취소</CancelText>
+                      ) : el.orderStatus === '결제완료' &&
+                        el.dailyFoodStatus === '판매중' ? (
+                        <Button
+                          content="취소"
+                          color="red"
+                          size="tiny"
+                          onClick={() => refundOrder(el.orderItemDailyFoodId)}
+                        />
+                      ) : (
+                        el.orderStatus
+                      )}
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              })
+            )}
           </Table.Body>
         </Table>
       </div>
       <div style={{marginTop: 48}}>
         <FormProvider {...form}>
           <Button
-            content="추가 주문"
-            color="blue"
-            size="huge"
+            content="주문 하기"
+            color="green"
+            style={{cursor: 'pointer'}}
             onClick={form.handleSubmit(onSubmit)}
           />
           <Table celled striped>

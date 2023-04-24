@@ -21,13 +21,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 6rem;
+  margin-bottom: 60px;
 `;
 
 const AppIconWrap = styled.div`
-  width: 10rem;
-  height: 10rem;
-  margin-bottom: 2.6rem;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 26px;
 `;
 
 const AppIconImg = styled.img`
@@ -36,13 +36,13 @@ const AppIconImg = styled.img`
 `;
 
 const TitleBoldSpan = styled.span`
-  font-weight: 600;
-  font-size: 2.8rem;
+  font-size: 35px;
   /* border: 1px solid
     ${props => {
     return props.theme.colors.black;
   }}; */
 `;
+
 const TitleMediumSpan = styled.span`
   font-weight: 300;
 `;

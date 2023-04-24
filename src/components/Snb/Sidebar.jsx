@@ -11,6 +11,7 @@ import {ReactComponent as Logout} from '../../assets/icon/logout.svg';
 
 function Sidebar() {
   const pathName = useLocation().pathname;
+  const pathNameChk = pathName.split('/')[1];
 
   const name = localStorage.getItem('name');
   const logoutButton = () => {
@@ -42,6 +43,8 @@ function Sidebar() {
         </UserInfo>
         <ul style={{paddingLeft: 8}}>
           {menuData.map((menu, index) => {
+            const menuPathChk = menu.path.split('/')[1];
+
             return (
               <StyleNavLink
                 to={menu.path}
@@ -49,7 +52,7 @@ function Sidebar() {
                 className={({isActive}) => (isActive ? 'active' : undefined)}>
                 <SidebarItem
                   menu={menu}
-                  isActive={pathName === menu.path ? true : false}
+                  isActive={pathNameChk === menuPathChk ? true : false}
                 />
               </StyleNavLink>
             );

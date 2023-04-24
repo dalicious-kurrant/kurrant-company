@@ -6,7 +6,7 @@ import PDFIcon from '../assets/icon/pdfIcon.svg';
 import {useSpotsAdjustList} from 'hooks/useAdjustment';
 
 const Calculate = () => {
-  const {data: spotsAdjustList} = useSpotsAdjustList();
+  // const {data: spotsAdjustList} = useSpotsAdjustList();
   return (
     <Container>
       <Title>정산 페이지</Title>
@@ -23,7 +23,7 @@ const Calculate = () => {
         </Table.Header>
 
         <Table.Body>
-          {spotsAdjustList?.data?.map(v => {
+          {/* {spotsAdjustList?.data?.map(v => {
             return (
               <Table.Row key={v.id}>
                 <Table.Cell textAlign="center">{v.year}</Table.Cell>
@@ -50,7 +50,7 @@ const Calculate = () => {
                 </Table.Cell>
               </Table.Row>
             );
-          })}
+          })} */}
         </Table.Body>
       </Table>
     </Container>

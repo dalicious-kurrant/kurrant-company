@@ -18,7 +18,7 @@ const SideBar = () => {
 export default SideBar;
 
 const Container = styled.div`
-  width: 30rem;
+  width: 256px;
   height: 100vh;
   overflow-y: auto;
   position: fixed;

@@ -23,13 +23,14 @@ const AdditionalOrder = () => {
   ];
   return (
     <div>
+      <h1>추가 주문</h1>
       <LabelWrap>
         {data.map(item => (
           <Label
             key={item.id}
             content={item.title}
             color={index === item.id ? 'blue' : 'grey'}
-            size="huge"
+            size="big"
             style={{cursor: 'pointer'}}
             onClick={() => setIndex(item.id)}
           />
