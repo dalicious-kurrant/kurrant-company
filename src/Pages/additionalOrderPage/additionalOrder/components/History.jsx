@@ -74,45 +74,55 @@ const History = () => {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {extraList?.data?.map((el, idx) => {
-                return (
-                  <Table.Row key={idx}>
-                    <Table.Cell textAlign="center">{el.serviceDate}</Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {el.createdDateTime}
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">{el.groupName}</Table.Cell>
-                    <Table.Cell textAlign="center">{el.spotName}</Table.Cell>
-                    <Table.Cell textAlign="center">{el.usage}</Table.Cell>
-                    <Table.Cell textAlign="center">{el.foodName}</Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {withCommas(el.price)}
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">{el.count}</Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {withCommas(el.totalPrice)}
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {el.dailyFoodStatus}
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {el.orderStatus === '취소' ? (
-                        <CancelText>취소</CancelText>
-                      ) : el.orderStatus === '결제완료' &&
-                        el.dailyFoodStatus === '판매중' ? (
-                        <Button
-                          content="취소"
-                          color="red"
-                          size="large"
-                          onClick={() => refundOrder(el.orderItemDailyFoodId)}
-                        />
-                      ) : (
-                        el.orderStatus
-                      )}
-                    </Table.Cell>
-                  </Table.Row>
-                );
-              })}
+              {extraList?.data?.length === 0 ? (
+                <Table.Row>
+                  <Table.Cell colSpan={11} textAlign="center">
+                    추가 주문 내역이 없습니다.
+                  </Table.Cell>
+                </Table.Row>
+              ) : (
+                extraList?.data?.map((el, idx) => {
+                  return (
+                    <Table.Row key={idx}>
+                      <Table.Cell textAlign="center">
+                        {el.serviceDate}
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {el.createdDateTime}
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">{el.groupName}</Table.Cell>
+                      <Table.Cell textAlign="center">{el.spotName}</Table.Cell>
+                      <Table.Cell textAlign="center">{el.usage}</Table.Cell>
+                      <Table.Cell textAlign="center">{el.foodName}</Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {withCommas(el.price)}
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">{el.count}</Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {withCommas(el.totalPrice)}
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {el.dailyFoodStatus}
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {el.orderStatus === '취소' ? (
+                          <CancelText>취소</CancelText>
+                        ) : el.orderStatus === '결제완료' &&
+                          el.dailyFoodStatus === '판매중' ? (
+                          <Button
+                            content="취소"
+                            color="red"
+                            size="tiny"
+                            onClick={() => refundOrder(el.orderItemDailyFoodId)}
+                          />
+                        ) : (
+                          el.orderStatus
+                        )}
+                      </Table.Cell>
+                    </Table.Row>
+                  );
+                })
+              )}
             </Table.Body>
           </Table>
         </div>

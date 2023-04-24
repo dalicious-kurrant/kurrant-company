@@ -12,7 +12,8 @@ import MainPage from '../Pages/MainPage';
 import PrivateRoute from './PrivateRoute';
 import OrderDetailPage from '../Pages/orderPage/OrderDetailPage';
 import AdditionalOrder from 'Pages/additionalOrderPage/additionalOrder/AdditionalOrder';
-
+import CompanyCalc from 'Pages/Calculatiton/CompanyCalc';
+import ClientDetail from 'Pages/Calculatiton/components/CalcDetail';
 const Router = () => {
   return (
     <Routes>
@@ -27,7 +28,8 @@ const Router = () => {
           <Route path="additionalOrder" element={<AdditionalOrder />} />
           <Route path="company-membership" element={<CompanyMembership />} />
           <Route path="company-info" element={<CompanyInfo />} />
-          <Route path="adjustment-management" element={<Calculate />} />
+          <Route path="calc" element={<CompanyCalc />} />
+          <Route path="calc/detail" element={<ClientDetail />} />
           <Route path="*" element={<NotYetContents />} />
         </Route>
       </Route>

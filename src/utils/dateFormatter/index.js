@@ -171,24 +171,11 @@ export function formattedDateType(data) {
       break;
   }
 }
-// export function daysLeft(endDate) {
-//   const dayNow = new Date();
 
-//   const summaryNowDay = new Date(
-//     dayNow.getFullYear(),
-//     dayNow.getMonth() + 1,
-//     dayNow.getDate(),
-//   );
-//   const summaryEndDay = new Date(
-//     endDate.getFullYear(),
-//     endDate.getMonth() + 1,
-//     endDate.getDate(),
-//   );
+export function formattedYearMonthDate(data, delimiter = '-') {
+  const dateTime = transDateType(data);
+  const year = dateTime.getFullYear();
+  const month = leftPad(dateTime.getMonth());
 
-//   if (summaryEndDay.getTime() >= summaryNowDay.getTime()) {
-//     const dayLefted = summaryEndDay.getTime() - summaryNowDay.getTime();
-//     return Math.ceil(dayLefted / (1000 * 60 * 60 * 24)) + 1;
-//   } else {
-//     return 0;
-//   }
-// }
+  return `${[year, month].join(delimiter)}`;
+}

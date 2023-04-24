@@ -1,5 +1,5 @@
 import {atomWithReset} from 'jotai/utils';
-import {formattedWeekDate} from './dateFormatter';
+import {formattedWeekDate, formattedYearMonthDate} from './dateFormatter';
 
 const day = new Date();
 const days = formattedWeekDate(day);
@@ -17,3 +17,11 @@ export const extraListDataAtom = atomWithReset();
 
 export const historyStartDateAtom = atomWithReset(days);
 export const historyEndDateAtom = atomWithReset(days);
+
+//정산
+
+export const startMonthAtom = atomWithReset(formattedYearMonthDate(day));
+export const endMonthAtom = atomWithReset(formattedYearMonthDate(day));
+export const selectClientAtom = atomWithReset([]);
+export const selectStatusAtom = atomWithReset();
+export const selectModifyAtom = atomWithReset();

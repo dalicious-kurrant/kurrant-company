@@ -190,7 +190,6 @@ const OrderPage = () => {
             content="필터 초기화"
             icon="redo"
             onClick={onClearSelect}
-            size="big"
           />
         </div>
         <div
@@ -200,12 +199,7 @@ const OrderPage = () => {
             display: 'flex',
             justifyContent: 'flex-end',
           }}>
-          <Button
-            color="green"
-            content="엑셀 내보내기"
-            onClick={exportExcel}
-            size="big"
-          />
+          <Button color="green" content="엑셀 내보내기" onClick={exportExcel} />
         </div>
       </TopWrap>
       <StatisticWrap>
@@ -391,7 +385,7 @@ const OrderPage = () => {
                     {v.orderStatus === '취소' ? (
                       <OrderCancel>{v.orderStatus}</OrderCancel>
                     ) : (
-                      v.orderStatus
+                      <div style={{whiteSpace: 'nowrap'}}>{v.orderStatus}</div>
                     )}
                   </Table.Cell>
                   <Table.Cell>{v.makers}</Table.Cell>

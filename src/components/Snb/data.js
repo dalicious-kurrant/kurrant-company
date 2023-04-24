@@ -55,12 +55,12 @@ export const menuData = [
     icon: <Membership />,
     activeIcon: <ActiveMembership />,
   },
-  {
-    name: '정산 관리',
-    path: '/adjustment-management',
-    icon: <Payment />,
-    activeIcon: <ActivePayment />,
-  },
+  // {
+  //   name: '정산 관리',
+  //   path: '/calc',
+  //   icon: <Payment />,
+  //   activeIcon: <ActivePayment />,
+  // },
   {
     name: '구성원 초대하기',
     path: '/company-membership',
