@@ -1,8 +1,10 @@
+import {useGetSpotList} from 'hooks/useAdditionalOrder';
 import {useAtom} from 'jotai';
 import {useEffect, useState} from 'react';
 import {useFormContext} from 'react-hook-form';
 import {Button, Dropdown} from 'semantic-ui-react';
 import styled from 'styled-components';
+import {formattedYearMonthDate} from 'utils/dateFormatter';
 import {
   endMonthAtom,
   selectClientAtom,
@@ -12,36 +14,48 @@ import {
 } from 'utils/store';
 
 const CompanyFilter = () => {
+  const id = localStorage.getItem('groupId');
+  const day = new Date();
+  const days = formattedYearMonthDate(day);
   const [startMonth, setStartMonth] = useAtom(startMonthAtom);
   const [endMonth, setEndMonth] = useAtom(endMonthAtom);
   const [groupInfoList, setGroupInfoList] = useState([]);
   const [selectClient, setSelectClient] = useAtom(selectClientAtom);
   const [selectStatus, setSelectStatus] = useAtom(selectStatusAtom);
   const [selectModify, setSelectModify] = useAtom(selectModifyAtom);
+  const {data: spotList} = useGetSpotList(id);
   // const {data: makersList} = useMakersList();
 
   const statusData = [
     {key: 0, text: '전체', value: 99},
     {key: 1, text: '정산 신청 완료', value: 0},
-    {key: 2, text: '거래명세서 확정대기', value: 1},
-    {key: 3, text: '추가요청 처리완료', value: 2},
-    {key: 4, text: '거래명세서 확정', value: 3},
-    {key: 5, text: '정산금 입금 완료', value: 4},
+    {key: 2, text: '거래명세서 확정 대기', value: 1},
+    {key: 3, text: '정산금 입금 완료', value: 2},
+    {key: 4, text: '추가 요청 처리 완료', value: 3},
+    {key: 5, text: '거래명세서 확정', value: 4},
   ];
 
   const modifyStatus = [
-    {key: 0, text: '전체', value: 0},
+    {key: 0, text: '전체', value: 99},
     {key: 1, text: '있음', value: true},
     {key: 2, text: '없음', value: false},
   ];
 
-  // useEffect(() => {
-  //   setGroupInfoList(
-  //     makersList?.data.map(v => {
-  //       return {key: v.makersId, text: v.makersName, value: v.makersId};
-  //     }),
-  //   );
-  // }, [makersList]);
+  const resetFilter = () => {
+    setStartMonth(days);
+    setEndMonth(days);
+    setSelectClient([]);
+    setSelectStatus(null);
+    setSelectModify(null);
+  };
+
+  useEffect(() => {
+    setGroupInfoList(
+      spotList?.data.map(v => {
+        return {key: v.spotId, text: v.spotName, value: v.spotId};
+      }),
+    );
+  }, [spotList]);
   return (
     <Wrap>
       <InputBlock>
@@ -56,6 +70,7 @@ const CompanyFilter = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
+          marginRight: 24,
         }}>
         -
       </div>
@@ -110,7 +125,7 @@ const CompanyFilter = () => {
         />
       </InputBlock>
       <InputBlock>
-        <Button content="필터초기화" color="blue" />
+        <Button content="필터초기화" color="blue" onClick={resetFilter} />
       </InputBlock>
     </Wrap>
   );
@@ -136,11 +151,11 @@ const InputBox = styled.input`
 const InputBlock = styled.div`
   min-width: 200px;
   font-size: 14px;
+  margin-right: 24px;
 `;
 
 const Wrap = styled.div`
   display: flex;
-  justify-content: space-between;
 `;
 
 const MonthWrap = styled.div`

@@ -25,7 +25,7 @@ instance.interceptors.response.use(
   async error => {
     const {response} = error;
     console.log(response);
-    if (response.status === 403) {
+    if (response.status === 411) {
       localStorage.removeItem('token');
       alert('로그인이 만료되어 로그아웃 됩니다.');
       window.location.replace('/');

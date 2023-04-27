@@ -3,6 +3,7 @@ import {Table} from 'semantic-ui-react';
 import styled from 'styled-components';
 import ExcelIcon from '../../../assets/icon/excel.svg';
 import PDFIcon from '../../../assets/icon/pdfIcon.svg';
+import withCommas from 'utils/withCommas';
 
 const ClientDetailTable = ({data}) => {
   return (
@@ -35,18 +36,20 @@ const ClientDetailTable = ({data}) => {
               <Table.Cell
                 textAlign="center"
                 style={{borderBottom: '1px solid rgba(34,36,38,.1)'}}>
-                {data?.makers}
+                {data?.corporationName}
               </Table.Cell>
               <Table.Cell
                 textAlign="center"
                 style={{borderBottom: '1px solid rgba(34,36,38,.1)'}}>
-                {data?.status}
+                {withCommas(data?.prepaidPrice)}
               </Table.Cell>
               <Table.Cell
                 textAlign="center"
                 style={{
                   borderBottom: '1px solid rgba(34,36,38,.1)',
-                }}></Table.Cell>
+                }}>
+                {withCommas(data?.price)}
+              </Table.Cell>
             </Table.Row>
           </Table.Body>
           <Table.Header>
@@ -60,10 +63,12 @@ const ClientDetailTable = ({data}) => {
           </Table.Header>
           <Table.Body>
             <Table.Row>
-              <Table.Cell textAlign="center">{data?.depositHolder}</Table.Cell>
-              <Table.Cell textAlign="center">{data?.bankName}</Table.Cell>
-              <Table.Cell textAlign="center">{data?.bankAccount}</Table.Cell>
-              <Table.Cell textAlign="center">{}</Table.Cell>
+              <Table.Cell textAlign="center">{data?.managerName}</Table.Cell>
+              <Table.Cell textAlign="center">{data?.managerName}</Table.Cell>
+              <Table.Cell textAlign="center">{data?.paycheckStatus}</Table.Cell>
+              <Table.Cell textAlign="center">
+                {data?.hasRequest ? '있음' : '없음'}
+              </Table.Cell>
 
               <Table.Cell>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
