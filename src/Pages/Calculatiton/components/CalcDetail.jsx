@@ -6,29 +6,34 @@ import styled from 'styled-components';
 import Invoice from './Invoice';
 import ClientMeal from './ClientMeal';
 import ClientDetailTable from './ClientDetailTable';
+import {useGetInvoiceList} from 'hooks/useAdjustment';
 
 const CalcDetail = () => {
   const location = useLocation();
-  //   const id = location.state.makersId;
-  //   const groupName = location.state.name;
+  const id = location.state.groupId;
+  const groupName = location.state.name;
   const [index, setIndex] = useState(0);
+
+  const {data: invoiceList} = useGetInvoiceList(id);
 
   const tab = [
     {
       id: 0,
       title: '인보이스',
-      component: <Invoice />,
+      component: (
+        <Invoice id={id} groupName={groupName} data={invoiceList?.data} />
+      ),
     },
     {
       id: 1,
       title: '식수내역',
-      component: <ClientMeal />,
+      component: <ClientMeal id={id} />,
     },
   ];
   return (
     <div>
       <h1>정산 관리</h1>
-      <ClientDetailTable />
+      <ClientDetailTable data={invoiceList?.data?.corporationResponse} />
       {tab.map(item => (
         <Button
           key={item.id}

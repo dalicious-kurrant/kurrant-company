@@ -38,9 +38,9 @@ const UserStatus = () => {
   return (
     <Container>
       <h1>멤버십/유저 현황</h1>
-      {/* <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
         <Button content="삭제" color="red" onClick={deleteUser} />
-      </div> */}
+      </div>
       <Table celled>
         <Table.Header>
           <Table.Row>

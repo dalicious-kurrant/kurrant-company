@@ -1,35 +1,39 @@
 import {Button, Header, Table} from 'semantic-ui-react';
 import styled from 'styled-components';
-import withCommas from 'utils/withCommas';
-// import DefaultTable from './DefaultTable';
-// import OrderData from './OrderData';
-import {useEffect, useState} from 'react';
-
-import IssueModal from './IssueModal';
+import {useState} from 'react';
 import logo from '../../../assets/image/logo.png';
 import InvoiceTable from './InvoiceTable';
+import DefaultTable from './DefaultTable';
+import {useCompleteAdjust, useMemoAdjust} from 'hooks/useAdjustment';
 
-const Invoice = ({groupName, id}) => {
-  const [openModal, setOpenModal] = useState(false);
-  const [paycheckAdds, setPayChecks] = useState([]);
-  // const {data: adjustData} = useMakersAdjustListDetail(id);
+const Invoice = ({groupName, id, data}) => {
+  const [text, setText] = useState('');
+  const {mutateAsync: complete} = useCompleteAdjust();
+  const {mutateAsync: addMemo} = useMemoAdjust();
 
-  // const list = adjustData?.data;
-
-  const updateButton = async () => {
-    // const updateData = paycheckAdds?.filter(
-    //   el => !list?.paycheckAdds.includes(el),
-    // );
-    // const data = {
-    //   id: id,
-    //   data: updateData,
-    // };
-    // await updateIssue(data);
+  const completeButton = async () => {
+    // 4: 거래명세서 확정
+    const data = {
+      id: [id],
+      value: 4,
+    };
+    await complete(data);
   };
 
-  // useEffect(() => {
-  //   setPayChecks(list?.paycheckAdds);
-  // }, [list?.paycheckAdds]);
+  const status = data?.corporationResponse?.paycheckStatus;
+
+  const memoButton = async () => {
+    const data = {
+      id: id,
+      memo: text.trim(),
+    };
+
+    if (data.memo.trim() !== '') {
+      await addMemo(data);
+      setText('');
+    }
+  };
+
   return (
     <div>
       <ButtonWrap>
@@ -37,8 +41,9 @@ const Invoice = ({groupName, id}) => {
           content="정산 완료"
           color="blue"
           onClick={() => {
-            updateButton();
+            completeButton();
           }}
+          disabled={status === '정산금 입금 완료'}
         />
       </ButtonWrap>
       <Wrap>
@@ -56,14 +61,14 @@ const Invoice = ({groupName, id}) => {
           </Box>
 
           <Box>
-            {/* <div>{adjustData?.data?.transactionInfoDefault?.yearMonth}</div> */}
+            <div>{data?.transactionInfoDefault?.yearMonth}</div>
           </Box>
         </div>
         <Border style={{marginBottom: 32}} />
         <Title>공급자</Title>
 
-        {/* <DefaultTable data={adjustData?.data?.transactionInfoDefault} /> */}
-        <InvoiceTable />
+        <DefaultTable data={data?.transactionInfoDefault} />
+        <InvoiceTable data={data} />
         <ImageWrap>
           <Statement>
             <Title>위와 같이 명세서 제출합니다.</Title>
@@ -82,7 +87,7 @@ const Invoice = ({groupName, id}) => {
                   paddingTop: 6,
                   paddingBottom: 6,
                 }}>
-                이슈
+                메모
               </Table.HeaderCell>
             </Table.Row>
             <Table.Row>
@@ -96,6 +101,15 @@ const Invoice = ({groupName, id}) => {
                 등록날짜
               </Table.HeaderCell>
               <Table.HeaderCell
+                width={4}
+                textAlign="center"
+                style={{
+                  paddingTop: 6,
+                  paddingBottom: 6,
+                }}>
+                작성자
+              </Table.HeaderCell>
+              <Table.HeaderCell
                 textAlign="center"
                 style={{
                   paddingTop: 6,
@@ -106,28 +120,36 @@ const Invoice = ({groupName, id}) => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            <Table.Row>
-              <Table.Cell textAlign="center">20222222</Table.Cell>
-              <Table.Cell>우동 빠졌음</Table.Cell>
-            </Table.Row>
+            {data?.memoResDtos?.length === 0 ? (
+              <Table.Row>
+                <Table.Cell colSpan={3} textAlign="center">
+                  메모 없음
+                </Table.Cell>
+              </Table.Row>
+            ) : (
+              data?.memoResDtos?.map((el, idx) => {
+                return (
+                  <Table.Row key={idx}>
+                    <Table.Cell textAlign="center">
+                      {el.createdDateTime}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">{el.writer}</Table.Cell>
+                    <Table.Cell>{el.memo}</Table.Cell>
+                  </Table.Row>
+                );
+              })
+            )}
           </Table.Body>
         </Table>
       </Wrap>
       <Wrap>
         <Title style={{marginTop: 24}}> 메모</Title>
-        {/* <div>{list?.paycheckMemo}</div> */}
-        <MemoWrap></MemoWrap>
+
+        <MemoWrap value={text} onChange={e => setText(e.target.value)} />
         <MemoButtonWrap>
-          <Button content="메모작성" color="green" />
+          <Button content="메모작성" color="green" onClick={memoButton} />
         </MemoButtonWrap>
       </Wrap>
-      {openModal && (
-        <IssueModal
-          open={openModal}
-          setOpen={setOpenModal}
-          setModifyData={setPayChecks}
-        />
-      )}
     </div>
   );
 };

@@ -8,64 +8,50 @@ import {Link, useNavigate} from 'react-router-dom';
 import ExcelIcon from '../../assets/icon/excel.svg';
 import PDFIcon from '../../assets/icon/pdfIcon.svg';
 
+import CompanyFilter from './components/CompanyFilter';
 import {
+  endMonthAtom,
   selectClientAtom,
   selectModifyAtom,
   selectStatusAtom,
+  startMonthAtom,
 } from 'utils/store';
 import {useAtom} from 'jotai';
-import CompanyFilter from './components/CompanyFilter';
+import {useGetAdjustList} from 'hooks/useAdjustment';
+import withCommas from 'utils/withCommas';
 
 const CompanyCalc = () => {
   const navigate = useNavigate();
-  const form = useForm();
 
-  const [selectClient] = useAtom(selectClientAtom);
-  const [selectStatus] = useAtom(selectStatusAtom);
-  const [selectModify] = useAtom(selectModifyAtom);
-  console.log(selectModify);
-  const {watch} = form;
+  const [startMonth, setStartMonth] = useAtom(startMonthAtom);
+  const [endMonth, setEndMonth] = useAtom(endMonthAtom);
+  const [selectClient, setSelectClient] = useAtom(selectClientAtom);
+  const [selectStatus, setSelectStatus] = useAtom(selectStatusAtom);
+  const [selectModify, setSelectModify] = useAtom(selectModifyAtom);
 
-  const date = watch('month');
+  const start = startMonth?.split('-')[0] + startMonth?.split('-')[1];
+  const end = endMonth?.split('-')[0] + endMonth?.split('-')[1];
 
-  const year = date && date.split('-')[0];
-  const month = date && date.split('-')[1];
-
-  const yearData = year && `year=${year}`;
-  const monthData = month && `&month=${month}`;
-  const makersId =
-    selectClient.length === 0 ? undefined : `&makersIds=${selectClient}`;
-  const status = `&status=${selectStatus}`;
-  const hasRequest = selectModify === 0 ? '' : `&hasRequest=${selectModify}`;
-
-  const params = {
-    year: yearData ?? '',
-    month: monthData ?? '',
-    makersIds: makersId ?? '',
-    status: status === '&status=undefined' ? '' : status,
-    hasRequest: hasRequest,
-  };
-  console.log(params, 'component');
-
-  const statusData = [
-    {key: 0, text: '정산 신청 완료', value: 0},
-    {key: 1, text: '거래명세서 확정 대기', value: 1},
-    {key: 2, text: '정산금 입금 완료', value: 2},
-  ];
+  const {data: spotsAdjustList, refetch} = useGetAdjustList(
+    start,
+    end,
+    selectClient,
+    selectStatus,
+    selectModify,
+  );
 
   const goToPage = (id, name) => {
-    navigate('/calc/makersCalc/detail', {
+    navigate('/calc/detail', {
       state: {
-        makersId: id,
+        groupId: id,
         name: name,
       },
     });
     // setOrderNumber(code);
   };
-
-  // useEffect(() => {
-  //   refetch();
-  // }, [refetch, yearData, monthData, selectClient, selectStatus, hasRequest]);
+  useEffect(() => {
+    refetch();
+  }, [refetch, startMonth, endMonth, selectClient, selectStatus, selectModify]);
   return (
     <Wrap>
       <div style={{marginBottom: 24}}>
@@ -88,64 +74,45 @@ const CompanyCalc = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {/* {makersAdjustList?.data?.map(v => {
-            console.log(v);
+          {spotsAdjustList?.data?.map(v => {
             return (
               <Table.Row key={v.id} style={{cursor: 'pointer'}}>
                 <Table.Cell
                   textAlign="center"
-                  onClick={() => goToPage(v.id, v.makersName)}>
+                  onClick={() => goToPage(v.id, v.corporationName)}>
                   {v?.year}
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  onClick={() => goToPage(v.id, v.makersName)}>
+                  onClick={() => goToPage(v.id, v.corporationName)}>
                   {v?.month}
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  onClick={() => goToPage(v.id, v.makersName)}>
-                  {v?.makersName}
-                </Table.Cell>
-                <Table.Cell
-                  onClick={() => goToPage(v.id, v.makersName)}></Table.Cell>
-                <Table.Cell
-                  textAlign="center"
-                  onClick={() => goToPage(v.id, v.makersName)}>
-                  {v.accountHolder}
+                  onClick={() => goToPage(v.id, v.corporationName)}>
+                  {v?.corporationName}
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  onClick={() => goToPage(v.id, v.makersName)}>
-                  {v.nameOfBank}
+                  onClick={() => goToPage(v.id, v.corporationName)}>
+                  {withCommas(v.prepaidPrice)}
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  onClick={() => goToPage(v.id, v.makersName)}>
-                  {v.accountNumber}
-                </Table.Cell>
-                <Table.Cell>
-                  <InputBlock>
-                    <Dropdown
-                      placeholder="상태"
-                      fluid
-                      selection
-                      search
-                      options={statusData}
-                      value={adjustReverseStatusFomatted(v.paycheckStatus)}
-                      onChange={async (e, data) => {
-                        console.log(data.value);
-                        await updateStatus({
-                          id: data.value,
-                          status: [v.id],
-                        });
-                      }}
-                    />
-                  </InputBlock>
+                  onClick={() => goToPage(v.id, v.corporationName)}>
+                  {withCommas(v.price)}
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  style={{maxWidth: 130}}></Table.Cell>
+                  onClick={() => goToPage(v.id, v.corporationName)}>
+                  {v.paycheckStatus}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  onClick={() => goToPage(v.id, v.corporationName)}>
+                  {v.hasRequest ? '있음' : '없음'}
+                </Table.Cell>
+
                 <Table.Cell textAlign="center">
                   {v.excelFile ? (
                     <Link to={v.excelFile}>
@@ -166,7 +133,7 @@ const CompanyCalc = () => {
                 </Table.Cell>
               </Table.Row>
             );
-          })} */}
+          })}
         </Table.Body>
       </Table>
     </Wrap>
@@ -187,5 +154,5 @@ const InputBlock = styled.div`
 `;
 
 const Wrap = styled.div`
-  width: 80%;
+  width: 90%;
 `;
