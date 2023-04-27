@@ -11,7 +11,7 @@ const Login = () => {
 
   const [input, setInput] = useState(initialInput);
   const [clickReady, setClickReady] = useState(false);
-
+  const validation = input.code !== '' && input.password !== '';
   const handleChange = e => {
     e.preventDefault();
     const {id, value} = e.target;
@@ -54,6 +54,8 @@ const Login = () => {
         localStorage.setItem('token', accessToken);
         localStorage.setItem('code', input['code']);
         localStorage.setItem('name', res.data.name);
+        localStorage.setItem('groupId', res.data.groupId);
+
         window.confirm(`로그인 성공!`);
         window.location.replace('/company-info');
 
@@ -88,7 +90,9 @@ const Login = () => {
         placeholder="비밀번호를 입력하세요"
         value={input['password']}
       />
-      <LoginButton clickReady={clickReady}>로그인</LoginButton>
+      <LoginButton clickReady={clickReady} disabled={!validation}>
+        로그인
+      </LoginButton>
     </Form>
   );
 };
@@ -96,7 +100,7 @@ const Login = () => {
 export default Login;
 
 const Form = styled.form`
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -105,27 +109,59 @@ const Form = styled.form`
 
 const Title = styled.span`
   font-weight: 600;
-  font-size: 2.3rem;
-  margin-bottom: 2rem;
+  font-size: 22px;
+  margin-bottom: 20px;
 `;
 
+// const Input = styled.input`
+//   width: 90%;
+//   background-color: ${props => props.theme.colors.white};
+//   height: 5rem;
+//   padding: 0 1.8rem;
+//   font-size: 1.6rem;
+//   border: 1px solid ${props => props.theme.colors.borderGrey};
+//   border-radius: 1.2rem;
+//   margin-bottom: 1.2rem;
+// `;
 const Input = styled.input`
   width: 90%;
   background-color: ${props => props.theme.colors.white};
-  height: 5rem;
-  padding: 0 1.8rem;
-  font-size: 1.6rem;
-  border: 1px solid ${props => props.theme.colors.borderGrey};
-  border-radius: 1.2rem;
-  margin-bottom: 1.2rem;
+  height: 56px;
+  padding: 0 18px;
+  font-size: 16px;
+  border: 0.5px solid #c8c8d2;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  outline: none;
+
+  ::placeholder {
+    color: #c8c8d2;
+  }
 `;
+
+// const LoginButton = styled.button`
+//   width: 90%;
+//   height: 5rem;
+//   border-radius: 1.2rem;
+//   color: black;
+//   opacity: ${({clickReady}) => {
+//     return clickReady ? 1 : 0.35;
+//   }};
+// `;
 
 const LoginButton = styled.button`
   width: 90%;
-  height: 5rem;
-  border-radius: 1.2rem;
-  color: black;
-  opacity: ${({clickReady}) => {
-    return clickReady ? 1 : 0.35;
-  }};
+  height: 56px;
+  border-radius: 8px;
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${({disabled}) => !disabled && 'white'};
+  background: ${({theme, disabled}) =>
+    disabled
+      ? '#F3F3F3'
+      : 'linear-gradient(270deg, #0A0AA4 0%, #3D00E6 57.86%, #5A1EFF 100%)'};
+  border: none;
+  font-weight: 600;
 `;

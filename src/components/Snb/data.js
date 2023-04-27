@@ -18,6 +18,8 @@ import {ReactComponent as ActivePayment} from '../../assets/activeSnb/payment.sv
 import {ReactComponent as ActiveCorporation} from '../../assets/activeSnb/corporation.svg';
 import AdditionalOrder from 'Pages/additionalOrderPage/additionalOrder/AdditionalOrder';
 
+const code = localStorage.getItem('code');
+console.log(code);
 export const menuData = [
   // {
   //   name: '대시보드',
@@ -43,28 +45,30 @@ export const menuData = [
     icon: <Diagram />,
     activeIcon: <ActiveDiagram />,
   },
-  // {
-  //   name: '추가주문',
-  //   path: '/additionalOrder',
-  //   icon: <AddOrder />,
-  //   activeIcon: <ActiveAddOrder />,
-  // },
+
   {
     name: '멤버십/유저 현황',
     path: '/user-status',
     icon: <Membership />,
     activeIcon: <ActiveMembership />,
   },
-  {
-    name: '정산 관리',
-    path: '/adjustment-management',
-    icon: <Payment />,
-    activeIcon: <ActivePayment />,
-  },
+
+  // {
+  //   name: '정산 관리',
+  //   path: '/calc',
+  //   icon: <Payment />,
+  //   activeIcon: <ActivePayment />,
+  // },
   {
     name: '구성원 초대하기',
     path: '/company-membership',
     icon: <Corporation />,
     activeIcon: <ActiveCorporation />,
+  },
+  code === 'aaaaaa' && {
+    name: '추가주문',
+    path: '/additionalOrder',
+    icon: <AddOrder />,
+    activeIcon: <ActiveAddOrder />,
   },
 ];
