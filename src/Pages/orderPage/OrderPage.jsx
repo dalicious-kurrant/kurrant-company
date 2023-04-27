@@ -223,32 +223,46 @@ const OrderPage = () => {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {orderStatistic?.data?.map((el, i) => {
-                return (
-                  <Table.Row key={i}>
-                    <Table.Cell textAlign="center">{el.serviceDate}</Table.Cell>
-                    <Table.Cell textAlign="center">{el.userCount}명</Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {el.buyingUserCount}
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">{el.foodCount}</Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {el.orderRate}% ({el.orderUserCount + '/' + el.userCount})
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {el.cancelRate}% ({' '}
-                      {el.orderUserCount -
-                        el.buyingUserCount +
-                        '/' +
-                        el.orderUserCount}
-                      )
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      {withCommas(el.totalPrice === 0 ? '0' : el.totalPrice)}원
-                    </Table.Cell>
-                  </Table.Row>
-                );
-              })}
+              {orderStatistic?.data?.length === 0 ? (
+                <Table.Row>
+                  <Table.Cell colSpan={7} textAlign="center">
+                    주문 없음
+                  </Table.Cell>
+                </Table.Row>
+              ) : (
+                orderStatistic?.data?.map((el, i) => {
+                  return (
+                    <Table.Row key={i}>
+                      <Table.Cell textAlign="center">
+                        {el.serviceDate}
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {el.userCount}명
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {el.buyingUserCount}
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">{el.foodCount}</Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {el.orderRate}% (
+                        {el.orderUserCount + '/' + el.userCount})
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {el.cancelRate}% ({' '}
+                        {el.orderUserCount -
+                          el.buyingUserCount +
+                          '/' +
+                          el.orderUserCount}
+                        )
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {withCommas(el.totalPrice === 0 ? '0' : el.totalPrice)}
+                        원
+                      </Table.Cell>
+                    </Table.Row>
+                  );
+                })
+              )}
             </Table.Body>
           </Table>
         </TableWrapper>
@@ -369,35 +383,45 @@ const OrderPage = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {orderList?.data?.orderItemDailyFoods?.map((v, idx) => {
-              return (
-                <TableRow
-                  onClick={() => goToPage(v.orderCode)}
-                  key={v.orderCode + idx}>
-                  <Table.Cell textAlign="center">{v.serviceDate}</Table.Cell>
-                  <Table.Cell textAlign="center">{v.groupName}</Table.Cell>
-                  <Table.Cell textAlign="center">{v.spotName}</Table.Cell>
-                  <Table.Cell textAlign="center">{v.userName}</Table.Cell>
-                  <Table.Cell textAlign="center">{v.phone}</Table.Cell>
-                  <Table.Cell textAlign="center">{v.diningType}</Table.Cell>
-                  <Table.Cell textAlign="center">{v.deliveryTime}</Table.Cell>
-                  <Table.Cell textAlign="center">
-                    {v.orderStatus === '취소' ? (
-                      <OrderCancel>{v.orderStatus}</OrderCancel>
-                    ) : (
-                      <div style={{whiteSpace: 'nowrap'}}>{v.orderStatus}</div>
-                    )}
-                  </Table.Cell>
-                  <Table.Cell>{v.makers}</Table.Cell>
-                  <Table.Cell>{v.foodName}</Table.Cell>
-                  <Table.Cell textAlign="center">{v.count}</Table.Cell>
-                  <Table.Cell textAlign="right">
-                    {withCommas(v.price)}원
-                  </Table.Cell>
-                  <Table.Cell>{v.orderCode}</Table.Cell>
-                </TableRow>
-              );
-            })}
+            {orderList?.data?.orderItemDailyFoods?.length === 0 ? (
+              <TableRow>
+                <Table.Cell colSpan={12} textAlign="center">
+                  주문 없음
+                </Table.Cell>
+              </TableRow>
+            ) : (
+              orderList?.data?.orderItemDailyFoods?.map((v, idx) => {
+                return (
+                  <TableRow
+                    onClick={() => goToPage(v.orderCode)}
+                    key={v.orderCode + idx}>
+                    <Table.Cell textAlign="center">{v.serviceDate}</Table.Cell>
+                    <Table.Cell textAlign="center">{v.groupName}</Table.Cell>
+                    <Table.Cell textAlign="center">{v.spotName}</Table.Cell>
+                    <Table.Cell textAlign="center">{v.userName}</Table.Cell>
+                    <Table.Cell textAlign="center">{v.phone}</Table.Cell>
+                    <Table.Cell textAlign="center">{v.diningType}</Table.Cell>
+                    <Table.Cell textAlign="center">{v.deliveryTime}</Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {v.orderStatus === '취소' ? (
+                        <OrderCancel>{v.orderStatus}</OrderCancel>
+                      ) : (
+                        <div style={{whiteSpace: 'nowrap'}}>
+                          {v.orderStatus}
+                        </div>
+                      )}
+                    </Table.Cell>
+                    <Table.Cell>{v.makers}</Table.Cell>
+                    <Table.Cell>{v.foodName}</Table.Cell>
+                    <Table.Cell textAlign="center">{v.count}</Table.Cell>
+                    <Table.Cell textAlign="right">
+                      {withCommas(v.price)}원
+                    </Table.Cell>
+                    <Table.Cell>{v.orderCode}</Table.Cell>
+                  </TableRow>
+                );
+              })
+            )}
           </Table.Body>
         </Table>
       </TableWrapper>
