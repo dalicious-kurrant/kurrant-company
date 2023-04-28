@@ -5,6 +5,7 @@ import logo from '../../../assets/image/logo.png';
 import InvoiceTable from './InvoiceTable';
 import DefaultTable from './DefaultTable';
 import {useCompleteAdjust, useMemoAdjust} from 'hooks/useAdjustment';
+import {adjustReverseStatusFomatted} from 'utils/statusFormatter';
 
 const Invoice = ({groupName, id, data}) => {
   const [text, setText] = useState('');
@@ -14,13 +15,14 @@ const Invoice = ({groupName, id, data}) => {
   const completeButton = async () => {
     // 4: 거래명세서 확정
     const data = {
-      id: [id],
-      value: 4,
+      id: id,
     };
     await complete(data);
   };
 
-  const status = data?.corporationResponse?.paycheckStatus;
+  const status = adjustReverseStatusFomatted(
+    data?.corporationResponse?.paycheckStatus,
+  );
 
   const memoButton = async () => {
     const data = {
@@ -43,7 +45,7 @@ const Invoice = ({groupName, id, data}) => {
           onClick={() => {
             completeButton();
           }}
-          disabled={status === '정산금 입금 완료'}
+          disabled={status === 2 || status === 4}
         />
       </ButtonWrap>
       <Wrap>
