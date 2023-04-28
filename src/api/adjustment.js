@@ -21,8 +21,7 @@ export const adjustApis = {
     ),
   getInvoiceList: async id => await instance.get(`paycheck/${id}/invoice`),
   getMealList: async id => await instance.get(`paycheck/${id}/orders`),
-  completeAdjust: async data =>
-    await instance.put(`paycheck/corporations/status/${data.value}`, data.id),
+  completeAdjust: async id => await instance.put(`paycheck/complete`, id),
   memoAdjust: async data =>
     await instance.put(`paycheck/${data.id}/memo`, {memo: data.memo}),
 };
