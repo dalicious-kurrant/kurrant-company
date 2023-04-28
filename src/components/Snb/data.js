@@ -45,7 +45,7 @@ export const menuData = [
     icon: <Diagram />,
     activeIcon: <ActiveDiagram />,
   },
-
+  // 정호님 테스트 끝나고 메뉴 순서 바꿔야 함 . 주문추가 -> 정산 관리
   {
     name: '멤버십/유저 현황',
     path: '/user-status',
@@ -65,7 +65,7 @@ export const menuData = [
     icon: <Corporation />,
     activeIcon: <ActiveCorporation />,
   },
-  code === 'aaaaaa' && {
+  code === 'AAAAAA' && {
     name: '추가주문',
     path: '/additionalOrder',
     icon: <AddOrder />,

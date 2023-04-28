@@ -33,7 +33,7 @@ export function useGetInvoiceList(id) {
 
 export function useCompleteAdjust() {
   const queryClient = useQueryClient();
-  return useMutation(data => adjustApis.completeAdjust(data), {
+  return useMutation(id => adjustApis.completeAdjust(id), {
     onSuccess: () => {
       queryClient.invalidateQueries('invoiceData');
     },
