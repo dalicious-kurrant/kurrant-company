@@ -146,10 +146,12 @@ const InvoiceTable = ({data}) => {
       </Table>
       <TotalPriceWrap>
         <div>
-          <Box>
-            <Title>선금 총액</Title>
-            <div>{withCommas(data?.prepaidTotalPrice)}</div>
-          </Box>
+          {data?.prepaidPaycheck !== null && (
+            <Box>
+              <Title>선금 총액</Title>
+              <div>{withCommas(data?.prepaidTotalPrice)}</div>
+            </Box>
+          )}
           <Box>
             <Title>실비 총액</Title>
             <div>{withCommas(data?.totalPrice)}</div>

@@ -149,17 +149,12 @@ const InputBox = styled.input`
 `;
 
 const InputBlock = styled.div`
-  min-width: 200px;
+  min-width: 160px;
   font-size: 14px;
   margin-right: 24px;
 `;
 
 const Wrap = styled.div`
   display: flex;
-`;
-
-const MonthWrap = styled.div`
-  display: flex;
-
-  width: 400px;
+  justify-content: space-between;
 `;
