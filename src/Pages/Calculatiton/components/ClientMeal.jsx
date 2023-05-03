@@ -68,7 +68,7 @@ const ClientMeal = ({id}) => {
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <TableCell textAlign="center">총액(VAT 포함)</TableCell>
+            <TableCell textAlign="center">총액(VAT 별도)</TableCell>
             <Table.Cell textAlign="center">
               {withCommas(information?.totalPrice)}
             </Table.Cell>
