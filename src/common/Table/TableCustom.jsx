@@ -209,16 +209,16 @@ const TableCustom = ({
                             <EllipsisCell
                               length={ellipsisOn.length}
                               align="left">
-                              {handleFalsyValueToHyphen(
+                              <div style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{handleFalsyValueToHyphen(
                                 Object.values(value3)[0],
-                              )}
+                              )}</div>
                             </EllipsisCell>
                           </Table.Cell>
                         );
                       } else {
                         return (
                           <MyCell align="left" key={index3}>
-                            {handleFalsyValueToHyphen(Object.values(value3)[0])}
+                            <p style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{(Object.values(value3)[0].replace(" "," 공백포함됨")|| '-')}</p>
                           </MyCell>
                         );
                       }
