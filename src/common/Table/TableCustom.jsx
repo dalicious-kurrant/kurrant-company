@@ -218,7 +218,9 @@ const TableCustom = ({
                       } else {
                         return (
                           <MyCell align="left" key={index3}>
-                            <p style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{(Object.values(value3)[0].replace(" "," 공백포함됨")|| '-')}</p>
+                            <p style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{(handleFalsyValueToHyphen(
+                                Object.values(value3)[0],
+                              ).replace(" "," 공백포함됨"))}</p>
                           </MyCell>
                         );
                       }
