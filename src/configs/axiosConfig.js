@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwtUtils from 'utils/jwtUtill';
 
 const token = localStorage.getItem('token');
 
@@ -14,6 +15,9 @@ const setToken = config => {
   return config;
 };
 
+  // const login = true;
+
+
 if (token) {
   instance.interceptors.request.use(setToken);
 }
@@ -26,9 +30,12 @@ instance.interceptors.response.use(
     const {response} = error;
     console.log(response);
     if (response.status === 411 || response.status === 403) {
-      localStorage.removeItem('token');
-      alert('로그인이 만료되어 로그아웃 됩니다.');
-      window.location.replace('/');
+      const isAuth = jwtUtils.isAuth(token)
+      if (!isAuth) {
+          localStorage.removeItem('token');
+          alert('로그인이 만료되어 로그아웃 됩니다.');
+          window.location.replace('/');
+      }
     }
     return Promise.reject(error);
   },

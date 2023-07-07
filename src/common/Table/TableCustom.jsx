@@ -216,11 +216,19 @@ const TableCustom = ({
                           </Table.Cell>
                         );
                       } else {
+                        if(Object.keys(value3)[0] ==="email")
+                          return (
+                            <MyCell align="left" key={index3}>
+                              <p style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{(handleFalsyValueToHyphen(
+                                  Object.values(value3)[0],
+                                ).replace(" "," 공백포함됨"))}</p>
+                            </MyCell>
+                          );
                         return (
                           <MyCell align="left" key={index3}>
                             <p style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{(handleFalsyValueToHyphen(
                                 Object.values(value3)[0],
-                              ).replace(" "," 공백포함됨"))}</p>
+                              ))}</p>
                           </MyCell>
                         );
                       }
