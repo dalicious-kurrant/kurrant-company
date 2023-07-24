@@ -53,6 +53,9 @@ const UserStatus = () => {
             <Table.HeaderCell textAlign="center" width={2}>
               이름
             </Table.HeaderCell>
+            <Table.HeaderCell textAlign="center" width={2}>
+              닉네임
+            </Table.HeaderCell>
             <Table.HeaderCell textAlign="center" width={3}>
               이메일
             </Table.HeaderCell>
@@ -75,6 +78,7 @@ const UserStatus = () => {
                   />
                 </Table.Cell>
                 <Table.Cell textAlign="center">{el.name}</Table.Cell>
+                <Table.Cell textAlign="center">{el.nickname}</Table.Cell>
                 <Table.Cell>{el.email}</Table.Cell>
                 <Table.Cell textAlign="center">{el.phone}</Table.Cell>
               </Table.Row>
