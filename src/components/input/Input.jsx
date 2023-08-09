@@ -76,7 +76,7 @@ const Input = forwardRef(
           return (
             <Wrapper {...style}>
               {/* label */}
-              <LabelContainer>{label}</LabelContainer>
+              {label && <LabelContainer>{label}</LabelContainer>}
               {/* TextInput */}
               <ControlContainer
                 isEditable={isEditable}
