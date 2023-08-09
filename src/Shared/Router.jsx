@@ -1,7 +1,7 @@
 import CompanyInfo from 'components/Contents/CompanyInfo/CompanyInfo';
 import CompanyMembership from 'components/Contents/CompanyMembership/CompanyMembership';
 import Contents from 'components/Contents/Contents';
-import Notice from 'components/Contents/Notice/Notice';
+import Notice from '../Pages/Notice/Notice';
 import NotYetContents from 'components/Contents/NotYetContents/NotYetContents';
 import UserStatus from 'components/Contents/UserStatus/UserStatus';
 import Calculate from '../Pages/Calculate';
@@ -14,6 +14,7 @@ import OrderDetailPage from '../Pages/orderPage/OrderDetailPage';
 import AdditionalOrder from 'Pages/additionalOrderPage/additionalOrder/AdditionalOrder';
 import CompanyCalc from 'Pages/Calculatiton/CompanyCalc';
 import ClientDetail from 'Pages/Calculatiton/components/CalcDetail';
+import NoticeDetail from 'Pages/Notice/NoticeDetail';
 const Router = () => {
   return (
     <Routes>
@@ -31,6 +32,7 @@ const Router = () => {
           <Route path="calc" element={<CompanyCalc />} />
           <Route path="calc/detail" element={<ClientDetail />} />
           <Route path="*" element={<NotYetContents />} />
+          <Route path="/Notice/Detail" element={<NoticeDetail />} />
         </Route>
       </Route>
     </Routes>
