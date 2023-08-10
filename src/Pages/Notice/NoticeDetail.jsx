@@ -18,7 +18,7 @@ const NoticeDetail = () => {
   return (
     <Wrap>
       <h1>공지사항</h1>
-
+      <Border />
       <TitleWrap>
         <TypeBox>{boardTypeFormatted(data.boardType)}</TypeBox>
         <Title>{data.title}</Title>
@@ -37,10 +37,7 @@ const NoticeDetail = () => {
 };
 
 export default NoticeDetail;
-const Wrap = styled.div`
-  margin-top: 100px;
-  margin-left: 24px;
-`;
+const Wrap = styled.div``;
 
 const TypeBox = styled.div`
   border: 0.5px solid #151523;
@@ -102,4 +99,8 @@ const Button = styled.div`
   margin-top: 24px;
   background-color: white;
   cursor: pointer;
+`;
+export const Border = styled.div`
+  height: 1px;
+  background-color: #33334a80;
 `;
