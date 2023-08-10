@@ -8,17 +8,18 @@ import Filter from './Filter';
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {boardTypeFormatted} from 'utils/boardTypeFormatter';
+import styled from 'styled-components';
+import {Border} from './NoticeDetail';
 
 const Notice = () => {
   const navigate = useNavigate();
   const [page, setPage] = useAtom(noticePageAtom);
   const [touch, setTouch] = useState(99);
-  const [totalPage, setTotalPage] = useState();
+  const [totalPage, setTotalPage] = useState(0);
   const {data: noticeList, refetch} = useNoticeLoad(page, touch);
-  console.log(touch);
 
   const goToDetailage = el => {
-    navigate('/Notice/Detail', {state: el});
+    navigate('/notice/detail', {state: el});
   };
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const Notice = () => {
   return (
     <div>
       <h1>공지사항</h1>
+      <Border />
       <Filter touch={touch} setTouch={setTouch}></Filter>
       <Table size={'small'} celled>
         <Table.Header>
@@ -69,7 +71,7 @@ const Notice = () => {
           )}
         </Table.Body>
       </Table>
-      <div>
+      <PaginationWrap>
         <Pagination
           ellipsisItem={null}
           defaultActivePage={page}
@@ -79,9 +81,15 @@ const Notice = () => {
             setPage(data.activePage);
           }}
         />
-      </div>
+      </PaginationWrap>
     </div>
   );
 };
 
 export default Notice;
+
+const PaginationWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+`;
