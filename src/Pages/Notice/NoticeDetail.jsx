@@ -37,7 +37,9 @@ const NoticeDetail = () => {
 };
 
 export default NoticeDetail;
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  width: 80%;
+`;
 
 const TypeBox = styled.div`
   border: 0.5px solid #151523;
