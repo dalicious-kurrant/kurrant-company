@@ -3,7 +3,6 @@ import CompanyMembership from 'components/Contents/CompanyMembership/CompanyMemb
 import Contents from 'components/Contents/Contents';
 import Notice from '../Pages/Notice/Notice';
 import NotYetContents from 'components/Contents/NotYetContents/NotYetContents';
-import UserStatus from 'components/Contents/UserStatus/UserStatus';
 import Calculate from '../Pages/Calculate';
 import OrderPage from '../Pages/orderPage/OrderPage';
 import {Route, Routes} from 'react-router-dom';
@@ -15,6 +14,7 @@ import AdditionalOrder from 'Pages/additionalOrderPage/additionalOrder/Additiona
 import CompanyCalc from 'Pages/Calculatiton/CompanyCalc';
 import ClientDetail from 'Pages/Calculatiton/components/CalcDetail';
 import NoticeDetail from 'Pages/Notice/NoticeDetail';
+import MemberInfo from 'Pages/Member/member';
 const Router = () => {
   return (
     <Routes>
@@ -22,7 +22,6 @@ const Router = () => {
       <Route path="/" element={<PrivateRoute />}>
         <Route path="" element={<MainPage />}>
           <Route path="" element={<NotYetContents />} />
-          <Route path="user-status" element={<UserStatus />} />
           <Route path="notice" element={<Notice />} />
           <Route path="order" element={<OrderPage />} />
           <Route path="order/orderDetail/:code" element={<OrderDetailPage />} />
@@ -32,7 +31,9 @@ const Router = () => {
           <Route path="calc" element={<CompanyCalc />} />
           <Route path="calc/detail" element={<ClientDetail />} />
           <Route path="*" element={<NotYetContents />} />
-          <Route path="/notice/detail" element={<NoticeDetail />} />
+          <Route path="/Notice/Detail" element={<NoticeDetail />} />
+          <Route path="Memberinfo" element={<MemberInfo />} /
+
         </Route>
       </Route>
     </Routes>
