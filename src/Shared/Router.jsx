@@ -32,7 +32,8 @@ const Router = () => {
           <Route path="calc/detail" element={<ClientDetail />} />
           <Route path="*" element={<NotYetContents />} />
           <Route path="/Notice/Detail" element={<NoticeDetail />} />
-          <Route path="Memberinfo" element={<MemberInfo />} />
+          <Route path="Memberinfo" element={<MemberInfo />} /
+
         </Route>
       </Route>
     </Routes>

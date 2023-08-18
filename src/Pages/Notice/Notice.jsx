@@ -8,17 +8,18 @@ import Filter from './Filter';
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {boardTypeFormatted} from 'utils/boardTypeFormatter';
+import styled from 'styled-components';
+import {Border} from './NoticeDetail';
 
 const Notice = () => {
   const navigate = useNavigate();
   const [page, setPage] = useAtom(noticePageAtom);
   const [touch, setTouch] = useState(99);
-  const [totalPage, setTotalPage] = useState();
+  const [totalPage, setTotalPage] = useState(0);
   const {data: noticeList, refetch} = useNoticeLoad(page, touch);
-  console.log(touch);
 
   const goToDetailage = el => {
-    navigate('/Notice/Detail', {state: el});
+    navigate('/notice/detail', {state: el});
   };
 
   useEffect(() => {
@@ -32,12 +33,14 @@ const Notice = () => {
   }, [noticeList?.data]);
 
   return (
-    <div>
+    <Wrap>
       <h1>공지사항</h1>
+      <Border />
       <Filter touch={touch} setTouch={setTouch}></Filter>
       <Table size={'small'} celled>
         <Table.Header>
           <Table.Row textAlign="center">
+            <Table.HeaderCell>번호</Table.HeaderCell>
             <Table.HeaderCell>카테고리</Table.HeaderCell>
             <Table.HeaderCell>제목</Table.HeaderCell>
             <Table.HeaderCell>날짜</Table.HeaderCell>
@@ -45,13 +48,14 @@ const Notice = () => {
         </Table.Header>
         <Table.Body>
           {noticeList?.data?.items?.length !== 0 ? (
-            noticeList?.data?.items?.map(el => {
+            noticeList?.data?.items?.map((el, i) => {
               return (
                 <Table.Row
                   textAlign="center"
                   key={el.id}
                   onClick={() => goToDetailage(el)}
                   style={{cursor: 'pointer'}}>
+                  <Table.Cell width={1}>{i + 1}</Table.Cell>
                   <Table.Cell width={1}>
                     {boardTypeFormatted(el.boardType)}
                   </Table.Cell>
@@ -62,14 +66,14 @@ const Notice = () => {
             })
           ) : (
             <Table.Row>
-              <Table.Cell></Table.Cell>
-              <Table.Cell textAlign="center">공지사항이 없습니다.</Table.Cell>
-              <Table.Cell></Table.Cell>
+              <Table.Cell textAlign="center" colSpan={4}>
+                공지사항이 없습니다.
+              </Table.Cell>
             </Table.Row>
           )}
         </Table.Body>
       </Table>
-      <div>
+      <PaginationWrap>
         <Pagination
           ellipsisItem={null}
           defaultActivePage={page}
@@ -79,9 +83,19 @@ const Notice = () => {
             setPage(data.activePage);
           }}
         />
-      </div>
-    </div>
+      </PaginationWrap>
+    </Wrap>
   );
 };
 
 export default Notice;
+
+const PaginationWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+`;
+
+const Wrap = styled.div`
+  width: 80%;
+`;
