@@ -47,8 +47,8 @@ export const menuData = [
   },
   // 정호님 테스트 끝나고 메뉴 순서 바꿔야 함 . 주문추가 -> 정산 관리
   {
-    name: '멤버십/유저 현황',
-    path: '/user-status',
+    name: '멤버 정보',
+    path: '/Memberinfo',
     icon: <Membership />,
     activeIcon: <ActiveMembership />,
   },

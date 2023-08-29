@@ -1,7 +1,11 @@
 import instance from 'configs/axiosConfig';
 
-export const memberApis = {
-  loadMemberList: async groupCode =>
-    await instance.get(`client/members?code=${groupCode}`),
-  deleteMember: async data => await instance.patch('client/members', data),
+export const userapi = {
+  getUserList: async (page, touch) =>
+    await instance.get(`client/members?code=B1272K`, {}),
+  deleteCheckedMember: async data =>
+    await instance.patch('client/members', data),
+  changeMemoPost: async data => {
+    return await instance.post('client/members/memo', data);
+  },
 };

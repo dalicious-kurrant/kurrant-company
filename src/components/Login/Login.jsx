@@ -31,21 +31,6 @@ const Login = () => {
     e.preventDefault();
     if (!clickReady) return;
 
-    // if (true) {
-    //   const response = await axios.post(
-    //     `http://3.35.197.186:8886/v1/auth/login`,
-
-    //     {
-    //       code: 'AAAAAA',
-    //       password: '12345678',
-    //     },
-    //   );
-    //   console.log(response);
-
-    //   navigate('/main');
-    // } else {
-    // }
-
     try {
       const res = await instance.post('auth/login', input);
       console.log(res);
@@ -57,10 +42,9 @@ const Login = () => {
         localStorage.setItem('groupId', res.data.groupId);
 
         //window.confirm(`로그인 성공!`);
-        window.location.replace('/company-info');
+        window.location.replace('/notice');
 
         setInput(initialInput);
-        // window.location.reload();
       }
     } catch (err) {
       window.confirm(`로그인 실패, 그룹 인증코드와 비번을 확인하세요`);

@@ -32,3 +32,25 @@ export function useDeleteMember() {
     },
   });
 }
+
+// 매니저 이름 변경
+export function useManagerNameSetting() {
+  const queryClient = useQueryClient();
+  return useMutation(data => corporationApis.nameSetting(data), {
+    onSuccess: res => {
+      queryClient.invalidateQueries('corporationInfoList');
+      //return window.location.reload();
+    },
+  });
+}
+
+// 매니저 전화번호 변경
+export function useManagerPhoneSetting() {
+  const queryClient = useQueryClient();
+  return useMutation(data => corporationApis.phoneSetting(data), {
+    onSuccess: res => {
+      queryClient.invalidateQueries('corporationInfoList');
+      //return window.location.reload();
+    },
+  });
+}
