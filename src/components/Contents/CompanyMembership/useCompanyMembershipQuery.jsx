@@ -32,21 +32,13 @@ const useCompanyMembershipQuery = (
   const {data, status, isLoading} = useQuery(
     uniqueQueryKey,
 
-    token
-      ? async ({queryKey}) => {
-          const response = await instance.get(
-            `client/members/waiting?code=${getToken}`,
-          );
+    async ({queryKey}) => {
+      const response = await instance.get(
+        `client/members/waiting?code=${getToken}`,
+      );
 
-          return response.data;
-        }
-      : async ({queryKey}) => {
-          const response = await axios.get(
-            `client/members/waiting?code=${getToken}`,
-          );
-
-          return response.data;
-        },
+      return response.data;
+    },
     {
       enabled: true,
       retry: 1,

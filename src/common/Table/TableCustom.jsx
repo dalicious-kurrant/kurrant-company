@@ -16,8 +16,8 @@ import {handleFalsyValueToHyphen} from 'utils/valueHandlingLogics';
 // import putId from './'
 
 const TableCustom = ({
-  fieldsInput,
-  dataInput,
+  fieldsInput: fields,
+  dataInput: data,
   useFilterList,
   isMemo = false,
   handleChange,
@@ -31,13 +31,13 @@ const TableCustom = ({
   const [checkboxStatus, setCheckboxStatus] = useAtom(TableCheckboxStatusAtom);
 
   useEffect(() => {
-    setKeyOfTableFieldsInput(Object.keys(fieldsInput));
-  }, [fieldsInput]);
+    setKeyOfTableFieldsInput(Object.keys(fields));
+  }, [fields]);
 
   useEffect(() => {
-    if (dataInput && dataInput.length < 1) return;
+    if (data && data.length < 1) return;
     const object1 = {parent: false};
-    const yo1 = [...dataInput].map(value => {
+    const yo1 = [...data].map(value => {
       return value.id;
     });
 
@@ -48,7 +48,7 @@ const TableCustom = ({
     setCheckboxStatus({
       ...object1,
     });
-  }, [dataInput]);
+  }, [data]);
 
   const onCheckCheckbox = value => {
     if (value === 'parent') {
@@ -70,8 +70,8 @@ const TableCustom = ({
     }
   };
   useEffect(() => {
-    console.log(dataInput);
-  }, [dataInput]);
+    console.log(data);
+  }, [data]);
 
   return (
     <>
@@ -95,7 +95,7 @@ const TableCustom = ({
               keyOfTableFieldsInput?.map((val, index) => {
                 return (
                   <MinWidthCell align="left" key={index}>
-                    {fieldsInput[val]}
+                    {fields[val]}
                   </MinWidthCell>
                 );
               })}
@@ -108,8 +108,8 @@ const TableCustom = ({
         </Table.Header>
 
         <Table.Body>
-          {dataInput &&
-            dataInput.map((value1, index1) => {
+          {data &&
+            data.map((value1, index1) => {
               // 필드에 없는 값들은 걸러내기
 
               let filtered = [];
@@ -209,26 +209,47 @@ const TableCustom = ({
                             <EllipsisCell
                               length={ellipsisOn.length}
                               align="left">
-                              <div style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{handleFalsyValueToHyphen(
-                                Object.values(value3)[0],
-                              )}</div>
+                              <div
+                                style={{
+                                  backgroundColor: '#EFF2FE',
+                                  display: 'flex',
+                                  width: 'min-content',
+                                }}>
+                                {handleFalsyValueToHyphen(
+                                  Object.values(value3)[0],
+                                )}
+                              </div>
                             </EllipsisCell>
                           </Table.Cell>
                         );
                       } else {
-                        if(Object.keys(value3)[0] ==="email")
+                        if (Object.keys(value3)[0] === 'email')
                           return (
                             <MyCell align="left" key={index3}>
-                              <p style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{(handleFalsyValueToHyphen(
+                              <p
+                                style={{
+                                  backgroundColor: '#EFF2FE',
+                                  display: 'flex',
+                                  width: 'min-content',
+                                }}>
+                                {handleFalsyValueToHyphen(
                                   Object.values(value3)[0],
-                                ).replace(" "," 공백포함됨"))}</p>
+                                ).replace(' ', ' 공백포함됨')}
+                              </p>
                             </MyCell>
                           );
                         return (
                           <MyCell align="left" key={index3}>
-                            <p style={{backgroundColor:'#EFF2FE',display:'flex',width:'min-content'}}>{(handleFalsyValueToHyphen(
+                            <p
+                              style={{
+                                backgroundColor: '#EFF2FE',
+                                display: 'flex',
+                                width: 'min-content',
+                              }}>
+                              {handleFalsyValueToHyphen(
                                 Object.values(value3)[0],
-                              ))}</p>
+                              )}
+                            </p>
                           </MyCell>
                         );
                       }

@@ -61,8 +61,6 @@ export const clickButtonBundle = (
   setShowRegister,
   deleteMutate,
 ) => {
-  numberOfTrues({...checkboxStatus});
-
   if (buttonStatus === 'register') {
     setDataToEdit(makeInitialInput(fieldsToOpen));
     setRegisterStatus(buttonStatus);
@@ -75,7 +73,9 @@ export const clickButtonBundle = (
     } else if (numberOfTrues({...checkboxStatus}) !== 1) {
       window.confirm("체크박스가 '하나만' 선택되어 있는지 확인해주세요 ");
     } else if (numberOfTrues({...checkboxStatus}) === 1) {
-      setDataToEdit(checkedValue(checkboxStatus, data));
+      const {parent, ...rest} = {...checkboxStatus};
+
+      setDataToEdit(checkedValue(rest, data));
       setRegisterStatus(buttonStatus);
       setShowRegister(true);
     }

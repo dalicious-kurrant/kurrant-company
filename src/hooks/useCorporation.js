@@ -10,11 +10,13 @@ export function useGetCorporationInfo() {
 export function useSaveExelCorporation() {
   const queryClient = useQueryClient();
   return useMutation(
-    data => registerCorporationApis.registerCorporation(data),
+    data => {
+      return registerCorporationApis.registerCorporation(data);
+    },
 
     {
       onSuccess: () => {
-        //queryClient.invalidateQueries('getCompanyMembershipJSON');
+        // queryClient.invalidateQueries(['getCompanyMembershipJSON']);
         return window.location.reload();
       },
       onError: err => {
